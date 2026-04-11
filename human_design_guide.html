@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Design — Cẩm Nang Toàn Diện Cho Người Mới</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0E0D;
+  --surface: #1A1918;
+  --surface-2: #242220;
+  --surface-3: #2E2C29;
+  --text: #E8E2D8;
+  --text-muted: #9B9488;
+  --accent-gold: #D4A853;
+  --accent-gold-dim: #A07D3A;
+  --accent-red: #C75B4A;
+  --accent-green: #5BA876;
+  --accent-blue: #5B8EC7;
+  --accent-yellow: #D4C053;
+  --accent-purple: #8B6DC7;
+  --accent-orange: #D48A53;
+  --accent-teal: #4AA8A0;
+  --generator: #C75B4A;
+  --manifesting-gen: #D48A53;
+  --manifestor: #D4A853;
+  --projector: #5B8EC7;
+  --reflector: #5BA876;
+  --border: #3A3733;
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 17px;
+}
+
+::selection { background: var(--accent-gold); color: var(--bg); }
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(15,14,13,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100; padding: 0 40px;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; font-size: 18px;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+}
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  color: var(--text-muted); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--accent-gold); }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(212,168,83,0.08) 0%, transparent 70%),
+              radial-gradient(ellipse 400px 300px at 30% 60%, rgba(199,91,74,0.05) 0%, transparent 70%),
+              radial-gradient(ellipse 400px 300px at 70% 60%, rgba(91,142,199,0.05) 0%, transparent 70%);
+}
+.hero-content { position: relative; max-width: 800px; }
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-gold-dim); margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 900; line-height: 1.1;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent-gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p {
+  font-size: 19px; color: var(--text-muted);
+  max-width: 600px; margin: 0 auto 40px;
+  line-height: 1.8;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 14px 36px;
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  text-decoration: none;
+  font-weight: 600; font-size: 15px;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  border-radius: 6px;
+}
+.hero-cta:hover {
+  background: var(--accent-gold);
+  color: var(--bg);
+}
+
+/* ===== MAIN CONTENT ===== */
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* Section styling */
+.section { margin-bottom: 100px; }
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-gold-dim); margin-bottom: 16px;
+}
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800; margin-bottom: 24px;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700;
+  margin: 40px 0 16px;
+  color: var(--text);
+}
+
+.section h4 {
+  font-size: 18px; font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--accent-gold);
+}
+
+.section p {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-size: 17px;
+}
+
+.lead {
+  font-size: 20px !important;
+  color: var(--text) !important;
+  line-height: 1.8;
+  border-left: 3px solid var(--accent-gold);
+  padding-left: 24px;
+  margin: 24px 0 32px;
+}
+
+/* ===== CARDS ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.card:hover {
+  border-color: var(--accent-gold-dim);
+  transform: translateY(-2px);
+}
+.card-icon {
+  width: 48px; height: 48px;
+  margin-bottom: 16px;
+}
+.card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+.card p { font-size: 15px; margin-bottom: 0; }
+
+/* ===== CENTER DIAGRAMS ===== */
+.center-diagram {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin: 32px 0;
+}
+
+.center-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.center-visual { text-align: center; }
+
+.center-info h4 {
+  color: var(--accent-gold);
+  margin-top: 0;
+}
+
+/* ===== TYPE CARDS ===== */
+.type-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 32px 0;
+}
+.type-header {
+  padding: 32px 40px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.type-badge {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 800; font-size: 20px;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+.type-header h3 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+}
+.type-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.type-body { padding: 32px 40px; }
+.type-body h4 { color: var(--accent-gold); margin-top: 24px; }
+.type-body h4:first-child { margin-top: 0; }
+
+.type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 16px 0;
+}
+
+.type-trait {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 20px;
+}
+.type-trait strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+.type-trait span {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* ===== STRATEGY TABLE ===== */
+.strategy-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+}
+.strategy-table th {
+  text-align: left;
+  padding: 14px 20px;
+  background: var(--surface-2);
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--border);
+}
+.strategy-table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+.strategy-table tr:hover td { background: var(--surface); }
+
+/* ===== EXAMPLE BOX ===== */
+.example-box {
+  background: var(--surface-2);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.example-box .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--accent-gold); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.example-box p { margin-bottom: 8px; }
+.example-box p:last-child { margin-bottom: 0; }
+
+/* ===== TIPS BOX ===== */
+.tip-box {
+  background: linear-gradient(135deg, rgba(91,168,160,0.08), rgba(91,142,199,0.08));
+  border: 1px solid rgba(91,168,160,0.2);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.tip-box .icon { font-size: 20px; margin-bottom: 8px; }
+.tip-box strong { color: var(--accent-teal); }
+
+.warning-box {
+  background: linear-gradient(135deg, rgba(199,91,74,0.08), rgba(212,168,83,0.08));
+  border: 1px solid rgba(199,91,74,0.2);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.warning-box strong { color: var(--accent-red); }
+
+/* ===== SVG DIAGRAM STYLES ===== */
+.diagram-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin: 32px 0;
+  text-align: center;
+  overflow-x: auto;
+}
+.diagram-container svg { max-width: 100%; height: auto; }
+.diagram-caption {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 16px;
+  font-style: italic;
+}
+
+/* ===== COMPARISON ===== */
+.compare-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+.compare-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.compare-col.defined { border-color: var(--accent-gold-dim); }
+.compare-col.undefined { border-color: var(--accent-blue); }
+.compare-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.compare-col.defined .compare-label { color: var(--accent-gold); }
+.compare-col.undefined .compare-label { color: var(--accent-blue); }
+
+/* ===== TIMELINE ===== */
+.timeline { margin: 32px 0; }
+.timeline-item {
+  display: flex; gap: 24px;
+  padding-bottom: 32px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 19px; top: 44px; bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-dot {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--bg);
+  font-weight: 700; font-size: 16px;
+  flex-shrink: 0;
+}
+.timeline-content h4 { margin-top: 0; color: var(--text); }
+
+/* ===== OTHER METHODS ===== */
+.method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  align-items: start;
+  transition: border-color 0.3s;
+}
+.method-card:hover { border-color: var(--accent-gold-dim); }
+.method-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 900;
+  color: var(--accent-gold-dim);
+  line-height: 1;
+}
+.method-content h4 { margin-top: 0; color: var(--text); font-size: 20px; }
+.method-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--surface-2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 80px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .content { padding: 0 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .center-grid, .type-grid, .compare-row { grid-template-columns: 1fr; }
+  .method-card { grid-template-columns: 1fr; }
+  .method-num { font-size: 32px; }
+  .type-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ===== ACCENT COLORS FOR TYPES ===== */
+.type-generator .type-badge { background: var(--generator); }
+.type-generator .type-header h3 { color: var(--generator); }
+.type-mg .type-badge { background: var(--manifesting-gen); }
+.type-mg .type-header h3 { color: var(--manifesting-gen); }
+.type-manifestor .type-badge { background: var(--manifestor); }
+.type-manifestor .type-header h3 { color: var(--manifestor); }
+.type-projector .type-badge { background: var(--projector); }
+.type-projector .type-header h3 { color: var(--projector); }
+.type-reflector .type-badge { background: var(--reflector); }
+.type-reflector .type-header h3 { color: var(--reflector); }
+
+/* Scroll margin for anchor links */
+[id] { scroll-margin-top: 80px; }
+
+/* HR divider */
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 80px 0;
+}
+
+/* Inline badge */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.badge-gen { background: rgba(199,91,74,0.15); color: var(--generator); }
+.badge-mg { background: rgba(212,138,83,0.15); color: var(--manifesting-gen); }
+.badge-man { background: rgba(212,168,83,0.15); color: var(--manifestor); }
+.badge-pro { background: rgba(91,142,199,0.15); color: var(--projector); }
+.badge-ref { background: rgba(91,168,118,0.15); color: var(--reflector); }
+
+/* TOC */
+.toc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin: 40px 0;
+}
+.toc h3 {
+  font-family: 'Playfair Display', serif;
+  margin: 0 0 20px;
+  font-size: 20px;
+}
+.toc-list {
+  list-style: none;
+  counter-reset: toc;
+}
+.toc-list li {
+  counter-increment: toc;
+  margin-bottom: 10px;
+}
+.toc-list li a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 15px;
+  display: flex; align-items: center; gap: 12px;
+  transition: color 0.3s;
+}
+.toc-list li a:hover { color: var(--accent-gold); }
+.toc-list li a::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent-gold-dim);
+  width: 28px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">HUMAN DESIGN</div>
+    <div class="nav-links">
+      <a href="#foundations">Nền Tảng</a>
+      <a href="#centers">9 Trung Tâm</a>
+      <a href="#types">5 Loại Năng Lượng</a>
+      <a href="#leadership">Lãnh Đạo & Giao Tiếp</a>
+      <a href="#beyond">Phương Pháp Bổ Trợ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Cẩm Nang Toàn Diện • Dành Cho Người Mới Bắt Đầu</div>
+    <h1>Human Design</h1>
+    <p>Hiểu bản thân. Hiểu đồng đội. Dẫn dắt hiệu quả. Một hệ thống kết hợp Chiêm tinh, Kinh Dịch, Luân xa và Kabbalah giúp bạn giải mã cơ chế vận hành độc nhất của mỗi người.</p>
+    <a href="#foundations" class="hero-cta">Bắt Đầu Khám Phá →</a>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h3>Mục Lục</h3>
+  <ol class="toc-list">
+    <li><a href="#foundations">Human Design Là Gì? — Nền tảng cơ bản</a></li>
+    <li><a href="#bodygraph">BodyGraph — Bản Đồ Cơ Thể</a></li>
+    <li><a href="#centers">9 Trung Tâm Năng Lượng — Các khối hình trong biểu đồ</a></li>
+    <li><a href="#defined">Màu Sắc — Xác Định vs Không Xác Định</a></li>
+    <li><a href="#types">5 Loại Năng Lượng (Energy Types)</a></li>
+    <li><a href="#leadership">★ Mục Trung Tâm: Lãnh Đạo & Giao Tiếp Theo Từng Loại</a></li>
+    <li><a href="#scenarios">Tình Huống Thực Tế Tại Nơi Làm Việc</a></li>
+    <li><a href="#beyond">Các Phương Pháp Bổ Trợ Nên Tìm Hiểu</a></li>
+  </ol>
+</div>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 1: FOUNDATIONS ==================== -->
+<section class="section" id="foundations">
+  <div class="section-label">Phần 01</div>
+  <h2>Human Design Là Gì?</h2>
+
+  <p class="lead">Human Design là một hệ thống tổng hợp được tạo ra bởi Ra Uru Hu (Robert Allan Krakower) vào năm 1987. Hệ thống này kết hợp 4 nền tảng cổ xưa để tạo ra một "bản đồ" chi tiết về cách mỗi người vận hành — từ cách ra quyết định, cách tương tác xã hội, đến nguồn năng lượng bên trong.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <svg class="card-icon" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#D4A853" stroke-width="2"/><circle cx="24" cy="24" r="3" fill="#D4A853"/><line x1="24" y1="4" x2="24" y2="10" stroke="#D4A853" stroke-width="2"/><line x1="24" y1="38" x2="24" y2="44" stroke="#D4A853" stroke-width="2"/><line x1="4" y1="24" x2="10" y2="24" stroke="#D4A853" stroke-width="2"/><line x1="38" y1="24" x2="44" y2="24" stroke="#D4A853" stroke-width="2"/></svg>
+      <h4>Chiêm Tinh Học (Astrology)</h4>
+      <p>Vị trí các hành tinh tại thời điểm bạn sinh ra ảnh hưởng đến đặc điểm tính cách. HD sử dụng cả vị trí lúc sinh và 88 ngày trước khi sinh.</p>
+    </div>
+    <div class="card">
+      <svg class="card-icon" viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" fill="none" stroke="#C75B4A" stroke-width="2"/><line x1="8" y1="24" x2="40" y2="24" stroke="#C75B4A" stroke-width="1.5"/><line x1="24" y1="8" x2="24" y2="40" stroke="#C75B4A" stroke-width="1.5"/><line x1="8" y1="16" x2="40" y2="16" stroke="#C75B4A" stroke-width="0.8" opacity="0.5"/><line x1="8" y1="32" x2="40" y2="32" stroke="#C75B4A" stroke-width="0.8" opacity="0.5"/></svg>
+      <h4>Kinh Dịch (I Ching)</h4>
+      <p>64 quẻ Dịch tương ứng với 64 Cổng (Gates) trong biểu đồ HD. Mỗi quẻ mang một năng lượng và bài học riêng.</p>
+    </div>
+    <div class="card">
+      <svg class="card-icon" viewBox="0 0 48 48"><ellipse cx="24" cy="24" rx="8" ry="12" fill="none" stroke="#5BA876" stroke-width="2"/><circle cx="24" cy="14" r="3" fill="#5BA876"/><circle cx="24" cy="20" r="3" fill="#5B8EC7"/><circle cx="24" cy="26" r="3" fill="#D4C053"/><circle cx="24" cy="32" r="3" fill="#C75B4A"/></svg>
+      <h4>Hệ Thống Luân Xa (Chakra)</h4>
+      <p>Hindu có 7 luân xa, HD mở rộng thành 9 Trung tâm năng lượng — mỗi trung tâm quản lý một khía cạnh khác nhau của cuộc sống.</p>
+    </div>
+    <div class="card">
+      <svg class="card-icon" viewBox="0 0 48 48"><circle cx="24" cy="10" r="4" fill="none" stroke="#8B6DC7" stroke-width="2"/><circle cx="14" cy="22" r="4" fill="none" stroke="#8B6DC7" stroke-width="2"/><circle cx="34" cy="22" r="4" fill="none" stroke="#8B6DC7" stroke-width="2"/><circle cx="24" cy="38" r="4" fill="none" stroke="#8B6DC7" stroke-width="2"/><line x1="24" y1="14" x2="14" y2="18" stroke="#8B6DC7" stroke-width="1.5"/><line x1="24" y1="14" x2="34" y2="18" stroke="#8B6DC7" stroke-width="1.5"/><line x1="14" y1="26" x2="24" y2="34" stroke="#8B6DC7" stroke-width="1.5"/><line x1="34" y1="26" x2="24" y2="34" stroke="#8B6DC7" stroke-width="1.5"/></svg>
+      <h4>Kabbalah (Cây Sự Sống)</h4>
+      <p>Hệ thống huyền bí Do Thái cung cấp cấu trúc "cây" kết nối 9 trung tâm qua 36 kênh, tạo nên bản đồ dòng năng lượng.</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="icon">💡</div>
+    <p><strong>Để tạo bản đồ HD của bạn:</strong> Truy cập các trang web như <em>jovianarchive.com</em>, <em>mybodygraph.com</em>, hoặc <em>geneticmatrix.com</em>. Bạn cần nhập chính xác: ngày sinh, giờ sinh, và nơi sinh. Giờ sinh càng chính xác, biểu đồ càng đáng tin cậy.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 2: BODYGRAPH ==================== -->
+<section class="section" id="bodygraph">
+  <div class="section-label">Phần 02</div>
+  <h2>BodyGraph — Bản Đồ Cơ Thể</h2>
+
+  <p>BodyGraph là biểu đồ trung tâm của Human Design — giống như "bản thiết kế" cá nhân của bạn. Nó bao gồm 3 thành phần chính:</p>
+
+  <!-- SVG BodyGraph Diagram -->
+  <div class="diagram-container">
+    <svg viewBox="0 0 700 620" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+      <!-- Head - Triangle pointing up -->
+      <polygon points="350,30 310,90 390,90" fill="none" stroke="#D4A853" stroke-width="2.5"/>
+      <text x="350" y="70" text-anchor="middle" fill="#D4A853" font-size="12" font-family="Source Sans 3">Đầu</text>
+
+      <!-- Ajna - Triangle pointing down -->
+      <polygon points="350,110 310,110 350,170 390,110" fill="none" stroke="#5B8EC7" stroke-width="2.5"/>
+      <text x="350" y="145" text-anchor="middle" fill="#5B8EC7" font-size="12" font-family="Source Sans 3">Ajna</text>
+
+      <!-- Throat - Square -->
+      <rect x="320" y="190" width="60" height="50" fill="none" stroke="#C75B4A" stroke-width="2.5" rx="4"/>
+      <text x="350" y="220" text-anchor="middle" fill="#C75B4A" font-size="12" font-family="Source Sans 3">Cổ họng</text>
+
+      <!-- G / Identity - Diamond -->
+      <polygon points="350,270 320,300 350,330 380,300" fill="none" stroke="#D4C053" stroke-width="2.5"/>
+      <text x="350" y="305" text-anchor="middle" fill="#D4C053" font-size="11" font-family="Source Sans 3">Bản ngã</text>
+
+      <!-- Heart/Will - Small Triangle -->
+      <polygon points="430,290 410,320 450,320" fill="none" stroke="#C75B4A" stroke-width="2.5"/>
+      <text x="430" y="315" text-anchor="middle" fill="#C75B4A" font-size="10" font-family="Source Sans 3">Ý chí</text>
+
+      <!-- Spleen - Triangle left -->
+      <polygon points="250,370 230,420 270,420" fill="none" stroke="#5BA876" stroke-width="2.5"/>
+      <text x="250" y="410" text-anchor="middle" fill="#5BA876" font-size="10" font-family="Source Sans 3">Lá lách</text>
+
+      <!-- Sacral - Square -->
+      <rect x="320" y="370" width="60" height="50" fill="none" stroke="#C75B4A" stroke-width="2.5" rx="4"/>
+      <text x="350" y="400" text-anchor="middle" fill="#C75B4A" font-size="11" font-family="Source Sans 3">Sacral</text>
+
+      <!-- Solar Plexus - Triangle right -->
+      <polygon points="450,370 430,420 470,420" fill="none" stroke="#D48A53" stroke-width="2.5"/>
+      <text x="450" y="410" text-anchor="middle" fill="#D48A53" font-size="10" font-family="Source Sans 3">Cảm xúc</text>
+
+      <!-- Root - Square bottom -->
+      <rect x="320" y="480" width="60" height="50" fill="none" stroke="#8B6DC7" stroke-width="2.5" rx="4"/>
+      <text x="350" y="510" text-anchor="middle" fill="#8B6DC7" font-size="11" font-family="Source Sans 3">Gốc rễ</text>
+
+      <!-- Channels / Lines connecting centers -->
+      <line x1="350" y1="90" x2="350" y2="110" stroke="#3A3733" stroke-width="2"/>
+      <line x1="350" y1="170" x2="350" y2="190" stroke="#3A3733" stroke-width="2"/>
+      <line x1="350" y1="240" x2="350" y2="270" stroke="#3A3733" stroke-width="2"/>
+      <line x1="350" y1="330" x2="350" y2="370" stroke="#3A3733" stroke-width="2"/>
+      <line x1="350" y1="420" x2="350" y2="480" stroke="#3A3733" stroke-width="2"/>
+      <line x1="320" y1="300" x2="270" y2="380" stroke="#3A3733" stroke-width="2"/>
+      <line x1="380" y1="300" x2="430" y2="380" stroke="#3A3733" stroke-width="2"/>
+      <line x1="410" y1="310" x2="380" y2="300" stroke="#3A3733" stroke-width="2"/>
+      <line x1="380" y1="215" x2="410" y2="290" stroke="#3A3733" stroke-width="2"/>
+      <line x1="320" y1="215" x2="260" y2="375" stroke="#3A3733" stroke-width="2"/>
+
+      <!-- Labels -->
+      <text x="550" y="60" fill="#9B9488" font-size="13" font-family="Source Sans 3">← 9 Trung Tâm (hình khối)</text>
+      <text x="550" y="85" fill="#9B9488" font-size="13" font-family="Source Sans 3">← Có màu = Xác Định</text>
+      <text x="550" y="110" fill="#9B9488" font-size="13" font-family="Source Sans 3">← Trắng = Không Xác Định</text>
+
+      <text x="145" y="300" fill="#9B9488" font-size="13" font-family="Source Sans 3" text-anchor="end">36 Kênh →</text>
+      <text x="145" y="325" fill="#9B9488" font-size="13" font-family="Source Sans 3" text-anchor="end">(đường nối)</text>
+
+      <text x="550" y="395" fill="#9B9488" font-size="13" font-family="Source Sans 3">← 64 Cổng (Gates)</text>
+      <text x="550" y="420" fill="#9B9488" font-size="13" font-family="Source Sans 3">← (số trên đường nối)</text>
+
+      <!-- Small gate numbers example -->
+      <text x="345" y="262" fill="#5B8EC7" font-size="9" font-family="JetBrains Mono">31</text>
+      <text x="345" y="364" fill="#D4C053" font-size="9" font-family="JetBrains Mono">5</text>
+    </svg>
+    <div class="diagram-caption">Sơ đồ BodyGraph đơn giản hóa — cho thấy cấu trúc 9 Trung tâm, các Kênh và Cổng</div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>🔷 9 Trung Tâm (Centers)</h4>
+      <p>Là các hình khối trên biểu đồ (tam giác, hình vuông, hình thoi). Mỗi trung tâm quản lý một chức năng cụ thể: tư duy, giao tiếp, cảm xúc, bản năng sinh tồn, v.v.</p>
+    </div>
+    <div class="card">
+      <h4>🔗 36 Kênh (Channels)</h4>
+      <p>Là các đường nối giữa hai trung tâm. Khi một kênh "được kích hoạt" (có màu), nó tạo ra một dòng năng lượng liên tục và ổn định giữa hai trung tâm đó.</p>
+    </div>
+    <div class="card">
+      <h4>🔢 64 Cổng (Gates)</h4>
+      <p>Là các "cửa" nằm ở hai đầu mỗi kênh, được đánh số từ 1-64 tương ứng với 64 quẻ Kinh Dịch. Mỗi cổng mang một chủ đề năng lượng riêng.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 3: 9 CENTERS ==================== -->
+<section class="section" id="centers">
+  <div class="section-label">Phần 03</div>
+  <h2>9 Trung Tâm Năng Lượng</h2>
+
+  <p class="lead">Mỗi trung tâm là một "bộ xử lý" riêng biệt trong cơ thể năng lượng của bạn. Hiểu được chức năng của từng trung tâm giúp bạn nhanh chóng nhận ra cách một người vận hành.</p>
+
+  <!-- CENTER 1: Head -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="100,15 60,100 140,100" fill="rgba(212,168,83,0.15)" stroke="#D4A853" stroke-width="2.5"/>
+          <text x="100" y="75" text-anchor="middle" fill="#D4A853" font-size="16" font-weight="600" font-family="Playfair Display">Đầu</text>
+          <text x="100" y="130" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">▲ Tam giác hướng lên</text>
+          <text x="100" y="150" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Vị trí: trên cùng</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>1. Trung Tâm Đầu (Head Center)</h4>
+        <p><strong>Chức năng:</strong> Cảm hứng, áp lực tinh thần, câu hỏi "tại sao?"</p>
+        <p><strong>Khi Xác Định (có màu):</strong> Luôn có nguồn cảm hứng riêng, tự đặt câu hỏi và tìm kiếm ý nghĩa. Không phụ thuộc vào sự kích thích bên ngoài.</p>
+        <p><strong>Khi Không Xác Định (trắng):</strong> Dễ bị ảnh hưởng bởi áp lực suy nghĩ từ người khác. Hay cảm thấy cần phải trả lời mọi câu hỏi.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 2: Ajna -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="60,25 140,25 100,110" fill="rgba(91,142,199,0.15)" stroke="#5B8EC7" stroke-width="2.5"/>
+          <text x="100" y="72" text-anchor="middle" fill="#5B8EC7" font-size="16" font-weight="600" font-family="Playfair Display">Ajna</text>
+          <text x="100" y="130" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">▼ Tam giác hướng xuống</text>
+          <text x="100" y="150" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Vị trí: dưới Đầu</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>2. Trung Tâm Ajna (Tâm Trí)</h4>
+        <p><strong>Chức năng:</strong> Xử lý thông tin, phân tích, khái niệm hóa, hình thành ý kiến.</p>
+        <p><strong>Khi Xác Định:</strong> Có lối suy nghĩ nhất quán, cách xử lý thông tin ổn định. Thường rất "chắc chắn" về quan điểm.</p>
+        <p><strong>Khi Không Xác Định:</strong> Tư duy linh hoạt, có thể nhìn vấn đề từ nhiều góc độ. Nhưng đôi khi thiếu tự tin vào ý kiến riêng.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 3: Throat -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <rect x="55" y="25" width="90" height="70" rx="6" fill="rgba(199,91,74,0.15)" stroke="#C75B4A" stroke-width="2.5"/>
+          <text x="100" y="68" text-anchor="middle" fill="#C75B4A" font-size="15" font-weight="600" font-family="Playfair Display">Cổ Họng</text>
+          <text x="100" y="125" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">□ Hình vuông</text>
+          <text x="100" y="145" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Trung tâm biểu đạt</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>3. Trung Tâm Cổ Họng (Throat Center)</h4>
+        <p><strong>Chức năng:</strong> Giao tiếp, biểu đạt, hiện thực hóa (biến ý tưởng thành hiện thực thông qua lời nói và hành động).</p>
+        <p><strong>Đây là trung tâm quan trọng nhất</strong> vì mọi năng lượng trong biểu đồ đều cần đi qua Cổ Họng để được biểu đạt ra thế giới bên ngoài.</p>
+        <p><strong>Khi Xác Định:</strong> Có khả năng giao tiếp mạnh mẽ, dễ dàng diễn đạt. Giọng nói có sức ảnh hưởng.</p>
+        <p><strong>Khi Không Xác Định:</strong> Cần chờ được mời để nói. Đôi khi nói quá nhiều hoặc không đúng lúc.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 4: G/Identity -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="100,20 55,70 100,120 145,70" fill="rgba(212,192,83,0.15)" stroke="#D4C053" stroke-width="2.5"/>
+          <text x="100" y="75" text-anchor="middle" fill="#D4C053" font-size="14" font-weight="600" font-family="Playfair Display">Bản Ngã</text>
+          <text x="100" y="140" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">◇ Hình thoi — Trung tâm biểu đồ</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>4. Trung Tâm G / Bản Ngã (Self/Identity)</h4>
+        <p><strong>Chức năng:</strong> Bản sắc, hướng đi trong cuộc sống, tình yêu, la bàn nội tâm.</p>
+        <p><strong>Khi Xác Định:</strong> Có cảm giác vững chắc về "tôi là ai", ít bị dao động bởi môi trường. Biết rõ mình đang đi đâu.</p>
+        <p><strong>Khi Không Xác Định:</strong> Bản sắc linh hoạt, dễ thay đổi theo môi trường xung quanh. Cần đặt mình vào đúng nơi, đúng người.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 5: Heart/Will -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="100,25 70,90 130,90" fill="rgba(199,91,74,0.12)" stroke="#C75B4A" stroke-width="2.5"/>
+          <text x="100" y="72" text-anchor="middle" fill="#C75B4A" font-size="14" font-weight="600" font-family="Playfair Display">Ý Chí</text>
+          <text x="100" y="120" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">▲ Tam giác nhỏ</text>
+          <text x="100" y="140" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Bên phải biểu đồ</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>5. Trung Tâm Ý Chí (Heart/Will/Ego)</h4>
+        <p><strong>Chức năng:</strong> Ý chí, lòng tự trọng, giá trị bản thân, khả năng cam kết và thực hiện lời hứa.</p>
+        <p><strong>Khi Xác Định:</strong> (~30% dân số) Có ý chí mạnh mẽ, giữ được lời hứa, cạnh tranh tốt. Nhưng cần nghỉ ngơi xen kẽ — ý chí hoạt động theo chu kỳ.</p>
+        <p><strong>Khi Không Xác Định:</strong> (~70% dân số) Không nên ép bản thân cam kết quá mức. Giá trị bản thân không nên gắn với thành tựu hay lời hứa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 6: Spleen -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="100,25 60,110 140,110" fill="rgba(91,168,118,0.15)" stroke="#5BA876" stroke-width="2.5"/>
+          <text x="100" y="82" text-anchor="middle" fill="#5BA876" font-size="14" font-weight="600" font-family="Playfair Display">Lá Lách</text>
+          <text x="100" y="135" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Bên trái biểu đồ</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>6. Trung Tâm Lá Lách (Spleen Center)</h4>
+        <p><strong>Chức năng:</strong> Trực giác, bản năng sinh tồn, hệ miễn dịch, nhận biết an toàn/nguy hiểm.</p>
+        <p><strong>Khi Xác Định:</strong> Trực giác mạnh, nhận biết "cảm giác đúng/sai" nhanh chóng. Phản ứng bản năng tốt.</p>
+        <p><strong>Khi Không Xác Định:</strong> Có thể bám víu vào những thứ không tốt cho mình vì sợ mất đi cảm giác an toàn.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 7: Solar Plexus -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <polygon points="100,25 60,110 140,110" fill="rgba(212,138,83,0.15)" stroke="#D48A53" stroke-width="2.5"/>
+          <text x="100" y="75" text-anchor="middle" fill="#D48A53" font-size="13" font-weight="600" font-family="Playfair Display">Cảm Xúc</text>
+          <text x="100" y="135" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Bên phải biểu đồ</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>7. Trung Tâm Đám Rối Thần Kinh Mặt Trời (Solar Plexus)</h4>
+        <p><strong>Chức năng:</strong> Cảm xúc, cảm giác, tâm trạng, ham muốn. Đây là trung tâm mạnh nhất trong việc ra quyết định.</p>
+        <p><strong>Khi Xác Định:</strong> (~50% dân số) Cảm xúc lên xuống theo "sóng". Cần chờ sóng cảm xúc lắng xuống trước khi quyết định — "không có sự rõ ràng tuyệt đối, chỉ có sự rõ ràng đủ".</p>
+        <p><strong>Khi Không Xác Định:</strong> Dễ hấp thụ và khuếch đại cảm xúc của người khác. Cần học cách phân biệt cảm xúc nào là của mình.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 8: Sacral -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <rect x="50" y="25" width="100" height="80" rx="6" fill="rgba(199,91,74,0.2)" stroke="#C75B4A" stroke-width="2.5"/>
+          <text x="100" y="72" text-anchor="middle" fill="#C75B4A" font-size="15" font-weight="600" font-family="Playfair Display">Sacral</text>
+          <text x="100" y="130" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">□ Hình vuông lớn</text>
+          <text x="100" y="150" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">"Động cơ" năng lượng</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>8. Trung Tâm Sacral (Nguồn Năng Lượng Sống)</h4>
+        <p><strong>Chức năng:</strong> Năng lượng sống, sức sống, khả năng làm việc bền bỉ, tình dục, sáng tạo.</p>
+        <p><strong>Đây là trung tâm phân biệt quan trọng nhất</strong> — nó quyết định bạn thuộc nhóm "Năng lượng" hay "Phi năng lượng".</p>
+        <p><strong>Khi Xác Định:</strong> Bạn là Generator hoặc Manifesting Generator. Có nguồn năng lượng dồi dào, bền bỉ. Hoạt động theo kiểu "uh-huh" (có) hoặc "uhn-uhn" (không).</p>
+        <p><strong>Khi Không Xác Định:</strong> Bạn là Manifestor, Projector hoặc Reflector. Không có nguồn năng lượng tự sinh — cần quản lý năng lượng thông minh.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER 9: Root -->
+  <div class="center-diagram">
+    <div class="center-grid">
+      <div class="center-visual">
+        <svg viewBox="0 0 200 160" width="180">
+          <rect x="50" y="25" width="100" height="80" rx="6" fill="rgba(139,109,199,0.15)" stroke="#8B6DC7" stroke-width="2.5"/>
+          <text x="100" y="72" text-anchor="middle" fill="#8B6DC7" font-size="15" font-weight="600" font-family="Playfair Display">Gốc Rễ</text>
+          <text x="100" y="130" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">□ Hình vuông — dưới cùng</text>
+          <text x="100" y="150" text-anchor="middle" fill="#9B9488" font-size="12" font-family="Source Sans 3">Áp lực & động lực</text>
+        </svg>
+      </div>
+      <div class="center-info">
+        <h4>9. Trung Tâm Gốc Rễ (Root Center)</h4>
+        <p><strong>Chức năng:</strong> Áp lực, adrenaline, stress, động lực hành động, kích thích.</p>
+        <p><strong>Khi Xác Định:</strong> Có khả năng xử lý stress tốt, hoạt động hiệu quả dưới áp lực. Cảm giác áp lực ổn định.</p>
+        <p><strong>Khi Không Xác Định:</strong> Dễ bị cuốn vào áp lực của người khác. Có xu hướng vội vã muốn "xong việc" để giảm áp lực.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 4: DEFINED/UNDEFINED ==================== -->
+<section class="section" id="defined">
+  <div class="section-label">Phần 04</div>
+  <h2>Màu Sắc: Xác Định vs Không Xác Định</h2>
+
+  <p class="lead">Trong biểu đồ BodyGraph, mỗi trung tâm sẽ ở một trong hai trạng thái: có màu (Defined) hoặc trắng (Undefined/Open). Đây là chìa khóa để hiểu bản thân và người khác.</p>
+
+  <div class="compare-row">
+    <div class="compare-col defined">
+      <div class="compare-label">● Xác Định (Defined) — Có Màu</div>
+      <h4 style="color:var(--accent-gold); margin-top:8px;">Năng lượng CỐ ĐỊNH</h4>
+      <p>Đây là phần "bạn" thật sự. Năng lượng này ổn định, nhất quán, không thay đổi theo hoàn cảnh.</p>
+      <p><strong>Ví dụ:</strong> Nếu trung tâm Cảm xúc có màu → bạn LUÔN trải qua sóng cảm xúc lên xuống, bất kể ai ở bên cạnh.</p>
+      <p><strong>Nhận biết:</strong> "Tôi luôn cảm thấy/làm điều này, dù ở đâu, với ai."</p>
+    </div>
+    <div class="compare-col undefined">
+      <div class="compare-label">○ Không Xác Định (Undefined) — Trắng</div>
+      <h4 style="color:var(--accent-blue); margin-top:8px;">Năng lượng LINH HOẠT</h4>
+      <p>Đây là phần bạn "tiếp nhận" từ môi trường. Bạn hấp thụ và khuếch đại năng lượng của người khác.</p>
+      <p><strong>Ví dụ:</strong> Nếu trung tâm Cảm xúc trắng → bạn sẽ cảm nhận và khuếch đại cảm xúc của những người xung quanh.</p>
+      <p><strong>Nhận biết:</strong> "Tôi cảm thấy khác nhau tùy thuộc vào ai ở bên cạnh tôi."</p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Ví Dụ Thực Tế</div>
+    <p><strong>Tình huống:</strong> Bạn đang ngồi trong cuộc họp. Sếp đang rất căng thẳng và tức giận.</p>
+    <p><strong>Nếu bạn có Trung tâm Cảm xúc Xác Định:</strong> Bạn nhận ra sếp đang tức, nhưng cảm xúc bên trong bạn vẫn ổn định theo "sóng" riêng của bạn. Bạn không bị cuốn theo.</p>
+    <p><strong>Nếu bạn có Trung tâm Cảm xúc Không Xác Định:</strong> Bạn bỗng dưng cảm thấy cực kỳ tức giận — thậm chí mạnh hơn cả sếp — mà không hiểu tại sao. Đây là do bạn đang "khuếch đại" cảm xúc của sếp.</p>
+  </div>
+
+  <div class="tip-box">
+    <p><strong>Cách nhận biết Trung tâm Xác Định hay Không:</strong></p>
+    <p>1️⃣ Nhìn vào biểu đồ BodyGraph của bạn: Trung tâm có màu = Xác Định, trắng = Không Xác Định.</p>
+    <p>2️⃣ Nếu chưa có biểu đồ, hãy tự hỏi: "Phản ứng/cảm giác này có LUÔN nhất quán bất kể tôi ở đâu?" → Có = Xác Định. "Nó thay đổi tùy người tôi ở bên cạnh?" → Có = Không Xác Định.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 5: 5 TYPES ==================== -->
+<section class="section" id="types">
+  <div class="section-label">Phần 05</div>
+  <h2>5 Loại Năng Lượng (Energy Types)</h2>
+
+  <p class="lead">Đây là thông tin QUAN TRỌNG NHẤT trong Human Design. Loại năng lượng xác định chiến lược sống cơ bản, cách bạn tương tác với thế giới, và điều bạn cần để sống đúng với bản chất.</p>
+
+  <!-- TYPE 1: GENERATOR -->
+  <div class="type-card type-generator">
+    <div class="type-header">
+      <div class="type-badge">G</div>
+      <div>
+        <h3>Generator — Người Tạo Năng Lượng</h3>
+        <div class="type-subtitle">~37% dân số thế giới • Sacral Xác Định • Không có kênh Động Cơ → Cổ Họng</div>
+      </div>
+    </div>
+    <div class="type-body">
+      <h4>Đặc điểm nhận biết</h4>
+      <div class="type-grid">
+        <div class="type-trait">
+          <strong>Năng lượng</strong>
+          <span>Dồi dào, bền bỉ. Có thể làm việc nhiều giờ liên tục khi yêu thích công việc. Đi ngủ mệt mỏi = tốt.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Chiến lược</strong>
+          <span><em>Chờ phản hồi (Wait to Respond)</em> — Không khởi xướng, mà chờ cuộc sống đưa ra "câu hỏi" để Sacral phản hồi.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Phản hồi Sacral</strong>
+          <span>Tiếng "uh-huh" (có, hào hứng) hoặc "uhn-uhn" (không, từ chối) từ bụng. Đây là la bàn đáng tin cậy nhất.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Cảm giác "Sai"</strong>
+          <span>Sự thất vọng (Frustration) — Khi cố khởi xướng thay vì chờ phản hồi, hoặc bị ép làm điều không thỏa mãn.</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Ví dụ nhận biết Generator</div>
+        <p><strong>Người nhân viên A</strong> luôn là người cuối cùng rời văn phòng. Khi làm project yêu thích, anh ấy có thể code suốt 10 tiếng không mệt. Nhưng khi bị giao task không hứng thú, anh hay thở dài, tỏ vẻ chán nản và hiệu suất giảm rõ rệt.</p>
+        <p>→ A rất có thể là <span class="badge badge-gen">Generator</span>. Sự "thở dài" chính là biểu hiện của Frustration — dấu hiệu Sacral đang nói "không".</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE 2: MANIFESTING GENERATOR -->
+  <div class="type-card type-mg">
+    <div class="type-header">
+      <div class="type-badge">MG</div>
+      <div>
+        <h3>Manifesting Generator — Người Tạo Đa Năng</h3>
+        <div class="type-subtitle">~33% dân số • Sacral Xác Định + có kênh Động Cơ → Cổ Họng</div>
+      </div>
+    </div>
+    <div class="type-body">
+      <h4>Đặc điểm nhận biết</h4>
+      <div class="type-grid">
+        <div class="type-trait">
+          <strong>Năng lượng</strong>
+          <span>Cực kỳ dồi dào, đa tác vụ. Làm nhiều việc cùng lúc, bỏ qua bước, tìm đường tắt. Nhanh nhất trong 5 loại.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Chiến lược</strong>
+          <span><em>Chờ phản hồi, sau đó thông báo</em> — Giống Generator nhưng khi Sacral nói "có", MG còn cần thông báo cho người liên quan trước khi hành động.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Đặc trưng</strong>
+          <span>Hay "nhảy" giữa các dự án. Bắt đầu nhiều thứ rồi bỏ dở — KHÔNG SAO, đó là cơ chế tự nhiên của MG.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Cảm giác "Sai"</strong>
+          <span>Thất vọng + Tức giận (Frustration + Anger) — khi bị hạn chế hoặc bắt phải làm theo quy trình cứng nhắc.</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Ví dụ nhận biết MG</div>
+        <p><strong>Nhân viên B</strong> luôn muốn vừa làm design, vừa code, vừa viết content. Cô ấy nổi tiếng bỏ qua các bước trong quy trình — nhưng kết quả vẫn tốt. Đồng nghiệp hay phàn nàn cô ấy "không theo rules", nhưng tốc độ thì không ai theo kịp.</p>
+        <p>→ B có dấu hiệu rõ ràng của <span class="badge badge-mg">Manifesting Generator</span>. Ép cô ấy theo quy trình cứng nhắc sẽ giết chết năng lượng của cô.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE 3: MANIFESTOR -->
+  <div class="type-card type-manifestor">
+    <div class="type-header">
+      <div class="type-badge">M</div>
+      <div>
+        <h3>Manifestor — Người Khởi Xướng</h3>
+        <div class="type-subtitle">~8% dân số • Sacral KHÔNG Xác Định • Có kênh Động Cơ → Cổ Họng</div>
+      </div>
+    </div>
+    <div class="type-body">
+      <h4>Đặc điểm nhận biết</h4>
+      <div class="type-grid">
+        <div class="type-trait">
+          <strong>Năng lượng</strong>
+          <span>Bùng nổ theo đợt, không bền bỉ. Có thể bắt đầu một điều gì đó phi thường — rồi cần nghỉ. Không phải "máy chạy liên tục".</span>
+        </div>
+        <div class="type-trait">
+          <strong>Chiến lược</strong>
+          <span><em>Thông báo trước khi hành động (Inform)</em> — Không cần xin phép. Chỉ cần nói cho những người bị ảnh hưởng biết.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Aura</strong>
+          <span>Đóng và đẩy. Manifestor có năng lượng "khiến người khác tránh đường". Có thể gây ra cảm giác sợ hãi hoặc kính nể.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Cảm giác "Sai"</strong>
+          <span>Tức giận (Anger) — khi bị kiểm soát, bị yêu cầu xin phép, hoặc bị ngăn cản khởi xướng.</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Ví dụ nhận biết Manifestor</div>
+        <p><strong>Nhân viên C</strong> là người luôn có ý tưởng mới và bắt tay thực hiện ngay mà không hỏi ai. Đồng nghiệp thường bị "bất ngờ" bởi hành động của C. Khi bị yêu cầu phải xin phép trước, C tỏ ra rất khó chịu và mất động lực.</p>
+        <p>→ C có đặc điểm của <span class="badge badge-man">Manifestor</span>. Yêu cầu C "xin phép" sẽ giết chết tinh thần. Thay vào đó, hãy yêu cầu C "thông báo".</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE 4: PROJECTOR -->
+  <div class="type-card type-projector">
+    <div class="type-header">
+      <div class="type-badge">P</div>
+      <div>
+        <h3>Projector — Người Dẫn Đường</h3>
+        <div class="type-subtitle">~20% dân số • Sacral KHÔNG Xác Định • KHÔNG có kênh Động Cơ → Cổ Họng</div>
+      </div>
+    </div>
+    <div class="type-body">
+      <h4>Đặc điểm nhận biết</h4>
+      <div class="type-grid">
+        <div class="type-trait">
+          <strong>Năng lượng</strong>
+          <span>Không có nguồn năng lượng tự sinh. Bù lại, có khả năng "đọc" và hiểu người khác sâu sắc — nhìn thấy hệ thống.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Chiến lược</strong>
+          <span><em>Chờ được mời (Wait for the Invitation)</em> — Lời khuyên chỉ có giá trị khi được mời. Đóng góp không được mời → bị từ chối.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Tài năng</strong>
+          <span>Quản lý, hướng dẫn, tư vấn. Nhìn thấy tài năng của người khác và biết cách phát huy nó. Sinh ra để DẪN DẮT, không phải để LÀM.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Cảm giác "Sai"</strong>
+          <span>Đắng cay (Bitterness) — khi không được công nhận, không được mời, hoặc cố gắng chứng minh bản thân bằng cách làm việc quá sức.</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Ví dụ nhận biết Projector</div>
+        <p><strong>Nhân viên D</strong> luôn có những phân tích rất sắc sảo. Nhưng khi D chủ động đề xuất ý kiến mà không được hỏi, mọi người thường phớt lờ hoặc phản bác. Ngược lại, khi sếp hỏi ý kiến D, mọi người lại gật đầu tán thưởng — CÙNG MỘT Ý KIẾN.</p>
+        <p>→ D là <span class="badge badge-pro">Projector</span> điển hình. Giá trị của D tăng gấp bội khi được "mời" đóng góp.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPE 5: REFLECTOR -->
+  <div class="type-card type-reflector">
+    <div class="type-header">
+      <div class="type-badge">R</div>
+      <div>
+        <h3>Reflector — Người Phản Chiếu</h3>
+        <div class="type-subtitle">~1% dân số • TẤT CẢ 9 Trung tâm KHÔNG Xác Định (trắng)</div>
+      </div>
+    </div>
+    <div class="type-body">
+      <h4>Đặc điểm nhận biết</h4>
+      <div class="type-grid">
+        <div class="type-trait">
+          <strong>Năng lượng</strong>
+          <span>Hoàn toàn "mở". Phản chiếu và khuếch đại năng lượng của môi trường xung quanh. Thay đổi theo chu kỳ mặt trăng (28 ngày).</span>
+        </div>
+        <div class="type-trait">
+          <strong>Chiến lược</strong>
+          <span><em>Chờ một chu kỳ mặt trăng (29 ngày)</em> — Với quyết định lớn, cần trải qua đủ 28 ngày để cảm nhận mọi khía cạnh.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Tài năng</strong>
+          <span>Là "tấm gương" của cộng đồng. Phản ánh sức khỏe/bệnh tật của môi trường. Cực kỳ nhạy cảm với không gian làm việc.</span>
+        </div>
+        <div class="type-trait">
+          <strong>Cảm giác "Sai"</strong>
+          <span>Thất vọng (Disappointment) — khi ở sai môi trường hoặc bị ép phải hành động nhanh.</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="label">Ví dụ nhận biết Reflector</div>
+        <p><strong>Nhân viên E</strong> là người "kỳ lạ" nhất team. Có ngày E cực kỳ năng động, ngày khác E lại trầm lặng như người khác hẳn. E rất nhạy cảm với không khí văn phòng — khi team vui, E vui gấp đôi; khi team căng thẳng, E là người mệt mỏi nhất.</p>
+        <p>→ E có đặc điểm của <span class="badge badge-ref">Reflector</span>. E chính là "nhiệt kế" phản ánh sức khỏe của cả team bạn.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick comparison -->
+  <h3>So Sánh Nhanh</h3>
+  <div style="overflow-x:auto;">
+  <table class="strategy-table">
+    <thead>
+      <tr>
+        <th>Loại</th>
+        <th>% Dân Số</th>
+        <th>Sacral</th>
+        <th>Chiến Lược</th>
+        <th>Cảm Giác "Sai"</th>
+        <th>Vai Trò Tự Nhiên</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-gen">Generator</span></td>
+        <td>~37%</td>
+        <td>● Xác Định</td>
+        <td>Chờ phản hồi</td>
+        <td>Thất vọng</td>
+        <td>Người xây dựng</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-mg">Mani. Gen.</span></td>
+        <td>~33%</td>
+        <td>● Xác Định</td>
+        <td>Phản hồi + Thông báo</td>
+        <td>Thất vọng + Tức giận</td>
+        <td>Người đa năng</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-man">Manifestor</span></td>
+        <td>~8%</td>
+        <td>○ Không</td>
+        <td>Thông báo trước</td>
+        <td>Tức giận</td>
+        <td>Người khởi xướng</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-pro">Projector</span></td>
+        <td>~20%</td>
+        <td>○ Không</td>
+        <td>Chờ được mời</td>
+        <td>Đắng cay</td>
+        <td>Người hướng dẫn</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-ref">Reflector</span></td>
+        <td>~1%</td>
+        <td>○ Không</td>
+        <td>Chờ 29 ngày</td>
+        <td>Thất vọng</td>
+        <td>Tấm gương</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 6: LEADERSHIP (CORE) ==================== -->
+<section class="section" id="leadership">
+  <div class="section-label">★ Mục Trung Tâm</div>
+  <h2>Lãnh Đạo & Giao Tiếp Theo Từng Loại HD</h2>
+
+  <p class="lead">Phần này dành riêng cho bạn — một Team Leader. Mỗi loại HD cần được tiếp cận theo cách riêng. Khi bạn hiểu cơ chế vận hành của từng thành viên, bạn không cần "ép", mà họ sẽ TỰ NGUYỆN đi theo bạn.</p>
+
+  <div class="warning-box">
+    <p><strong>Nguyên tắc vàng:</strong> Đừng quản lý mọi người giống nhau. Công bằng ≠ Giống nhau. Công bằng = Cho mỗi người ĐÚNG THỨ HỌ CẦN để phát huy tốt nhất.</p>
+  </div>
+
+  <!-- GENERATOR LEADERSHIP -->
+  <h3 style="color:var(--generator);">1. Lãnh Đạo Generator</h3>
+
+  <h4>Cách nhận biết khi gặp</h4>
+  <p>Generator thường là người "workhorse" trong team. Họ có năng lượng bền bỉ, sẵn sàng làm việc nhiều giờ. Nhưng bạn sẽ nhận thấy: khi họ làm điều yêu thích, mắt họ sáng lên; khi bị ép làm điều không thích, họ thở dài, chậm lại, hay làm qua loa.</p>
+
+  <h4>Phương pháp giao tiếp chinh phục</h4>
+  <div class="type-grid">
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Đặt câu hỏi Có/Không thay vì ra lệnh. "Em có hứng thú với project X không?" thay vì "Em làm project X đi."</span>
+    </div>
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Cho họ phản hồi Sacral: Đưa ra options rồi để họ "cảm" — quan sát ngôn ngữ cơ thể: họ ngả người về phía trước = có, ngả ra sau = không.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Giao task mà không hỏi. Generator bị ép sẽ tạo ra công việc thiếu năng lượng — kết quả tầm thường, và họ sẽ frustrate.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Yêu cầu họ khởi xướng ý tưởng mới. Generator phát huy tốt nhất khi PHẢN HỒI với cái đã có sẵn, không phải tạo từ con số 0.</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Kịch bản thực tế: Giao Task</div>
+    <p><strong>Sai:</strong> "Anh giao em project redesign website. Deadline thứ 6 nhé."</p>
+    <p><strong>Đúng:</strong> "Team mình đang có hai hướng: redesign website hoặc optimize performance. Em cảm thấy hứng thú với cái nào hơn? Em thấy thế nào?"</p>
+    <p><em>→ Bằng cách này, bạn kích hoạt Sacral response. Generator sẽ cho bạn câu trả lời chân thật nhất từ "bụng" — và khi Sacral nói "có", họ sẽ làm việc với 200% năng lượng.</em></p>
+  </div>
+
+  <!-- MG LEADERSHIP -->
+  <h3 style="color:var(--manifesting-gen);">2. Lãnh Đạo Manifesting Generator</h3>
+
+  <h4>Cách nhận biết khi gặp</h4>
+  <p>MG là người nhanh nhất, năng động nhất trong team. Họ thường làm nhiều việc cùng lúc, hay bỏ qua các bước "thừa", và đôi khi nhảy từ project này sang project khác. Đừng nhầm đây là thiếu tập trung — đây là cách họ hoạt động tự nhiên.</p>
+
+  <h4>Phương pháp giao tiếp chinh phục</h4>
+  <div class="type-grid">
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Cho phép đa tác vụ. MG cần được phép chạy 2-3 projects song song. Đây là cách họ giữ năng lượng cao.</span>
+    </div>
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Cho không gian bỏ qua bước. Kiểm tra kết quả cuối, đừng micro-manage quy trình. MG có "đường tắt" thiên tài.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Ép theo quy trình cứng nhắc step-by-step. MG sẽ chống đối hoặc mất năng lượng hoàn toàn.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Phán xét khi họ bỏ dở project. Thay vào đó hỏi: "Em thấy project này thế nào?" để Sacral phản hồi có nên tiếp tục không.</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Kịch bản thực tế: MG bỏ dở project</div>
+    <p><strong>Sai:</strong> "Sao em cứ bỏ ngang hoài? Em cần tập trung vào một thứ thôi!"</p>
+    <p><strong>Đúng:</strong> "Anh thấy em đã chuyển focus. Em có thể chia sẻ em đang cảm thấy gì về project cũ không? Nếu Sacral em không còn hào hứng, chúng ta sẽ tìm người phù hợp hơn để tiếp quản."</p>
+    <p><em>→ Bạn vừa tôn trọng cơ chế tự nhiên, vừa đảm bảo project không bị bỏ rơi.</em></p>
+  </div>
+
+  <!-- MANIFESTOR LEADERSHIP -->
+  <h3 style="color:var(--manifestor);">3. Lãnh Đạo Manifestor</h3>
+
+  <h4>Cách nhận biết khi gặp</h4>
+  <p>Manifestor là người "bất ngờ" nhất trong team. Họ hành động đột ngột, có aura mạnh mẽ (có thể gây cảm giác đe dọa), và ghét bị kiểm soát. Nếu bạn có nhân viên hay tự ý làm việc mà không báo trước — khả năng cao đó là Manifestor.</p>
+
+  <h4>Phương pháp giao tiếp chinh phục</h4>
+  <div class="type-grid">
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Trao quyền tự chủ. "Em có toàn quyền quyết định cách làm. Chỉ cần thông báo team trước khi bắt đầu nhé."</span>
+    </div>
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Xây dựng thói quen "thông báo" thay vì "xin phép". Hãy frame nó thành: "Anh muốn biết để support em tốt hơn."</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Yêu cầu xin phép hoặc đợi phê duyệt. Manifestor sẽ coi đây là sự kiểm soát và nổi giận hoặc âm thầm chống đối.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Kỳ vọng làm việc bền bỉ 8 tiếng/ngày. Manifestor hoạt động theo "sóng" — bùng nổ rồi cần nghỉ. Cho phép linh hoạt.</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Kịch bản thực tế: Manifestor hành động không báo trước</div>
+    <p><strong>Sai:</strong> "Lần sau phải xin phép anh trước khi làm bất cứ gì!"</p>
+    <p><strong>Đúng:</strong> "Em ơi, ý tưởng rất hay! Anh chỉ cần em gửi một message ngắn trước khi bắt đầu — không phải để xin phép, mà để anh support và đảm bảo không ai bị bất ngờ. Deal?"</p>
+    <p><em>→ "Deal?" cuối câu trao quyền cho Manifestor đồng ý — họ cảm thấy được tôn trọng, không bị kiểm soát.</em></p>
+  </div>
+
+  <!-- PROJECTOR LEADERSHIP -->
+  <h3 style="color:var(--projector);">4. Lãnh Đạo Projector</h3>
+
+  <h4>Cách nhận biết khi gặp</h4>
+  <p>Projector là người thường "quan sát" nhiều hơn "làm". Họ có cái nhìn sắc sảo, thường chỉ ra những vấn đề mà không ai nhận ra. Nhưng bạn sẽ nhận thấy: khi họ chủ động đóng góp ý kiến mà không được hỏi, mọi người hay phớt lờ. Khi họ được mời ý kiến, phân tích của họ khiến cả phòng im lặng — vì quá chính xác.</p>
+
+  <h4>Phương pháp giao tiếp chinh phục</h4>
+  <div class="type-grid">
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>MỜI họ đóng góp ý kiến một cách công khai: "D ơi, anh rất muốn nghe góc nhìn của em về vấn đề này." Lời mời = Phép thuật.</span>
+    </div>
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Ghi nhận kiến thức chuyên sâu. Projector cần được CÔNG NHẬN. Một câu "Phân tích của em rất sâu sắc" có giá trị gấp 10 lần bonus.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Kỳ vọng năng suất bằng Generator. Projector không có Sacral — làm 5-6 tiếng tập trung là giới hạn. Chất lượng > Số lượng.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Phớt lờ ý kiến của họ khi họ chủ động đưa ra. Dù Projector "nên" chờ mời, nếu họ đang chia sẻ, hãy lắng nghe — đó là dấu hiệu họ đang rất quan tâm.</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Kịch bản thực tế: Trong cuộc họp</div>
+    <p><strong>Sai:</strong> Họp mà không hỏi ý kiến Projector → họ im lặng → bạn nghĩ họ không có gì đóng góp.</p>
+    <p><strong>Đúng:</strong> "Trước khi quyết định, anh muốn nghe ý kiến của D. Em đã quan sát team hoạt động mấy tuần qua — em thấy chúng ta nên cải thiện điều gì?"</p>
+    <p><em>→ Câu này có 3 yếu tố vàng: (1) Lời mời rõ ràng, (2) Công nhận khả năng quan sát, (3) Trao quyền chia sẻ. Projector sẽ cho bạn insight mà không ai khác có thể.</em></p>
+  </div>
+
+  <!-- REFLECTOR LEADERSHIP -->
+  <h3 style="color:var(--reflector);">5. Lãnh Đạo Reflector</h3>
+
+  <h4>Cách nhận biết khi gặp</h4>
+  <p>Reflector cực kỳ hiếm (~1%). Họ là người "thay đổi" liên tục — có ngày rất hòa đồng, ngày khác lại thu mình. Họ phản ánh tình trạng của team: nếu Reflector vui = team đang khỏe; nếu Reflector mệt mỏi/chán nản = team có vấn đề.</p>
+
+  <h4>Phương pháp giao tiếp chinh phục</h4>
+  <div class="type-grid">
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Cho thời gian quyết định. Với quyết định lớn, cho phép Reflector suy nghĩ ít nhất vài ngày. Đừng ép trả lời ngay.</span>
+    </div>
+    <div class="type-trait">
+      <strong>✅ NÊN LÀM</strong>
+      <span>Hỏi: "Em cảm thấy không khí team mình thế nào?" Sử dụng Reflector như "barometer" — câu trả lời của họ phản ánh sức khỏe team.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Ép tốc độ hoặc deadline gấp. Reflector cần thời gian để xử lý — áp lực thời gian khiến họ đưa ra quyết định sai.</span>
+    </div>
+    <div class="type-trait">
+      <strong>❌ KHÔNG NÊN</strong>
+      <span>Đánh giá dựa trên "ngày xấu". Reflector thay đổi theo chu kỳ — đánh giá công bằng cần nhìn trong khoảng thời gian dài hơn.</span>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="label">Kịch bản thực tế: Sử dụng Reflector để đánh giá team</div>
+    <p><strong>Cách dùng:</strong> Mỗi tháng, hãy ngồi riêng với Reflector và hỏi: "Trong tháng vừa rồi, em cảm nhận team mình thế nào? Có điều gì khiến em không thoải mái?"</p>
+    <p><em>→ Reflector sẽ cho bạn cái nhìn TRUNG THỰC nhất về tình trạng team — bởi vì họ đang "phản chiếu" chính xác năng lượng mà mọi người đang tạo ra.</em></p>
+  </div>
+
+  <!-- MASTER STRATEGY TABLE -->
+  <h3>Bảng Chiến Lược Tổng Hợp Cho Team Leader</h3>
+  <div style="overflow-x:auto;">
+  <table class="strategy-table">
+    <thead>
+      <tr>
+        <th style="width:15%;">Loại HD</th>
+        <th style="width:22%;">Câu Nên Nói</th>
+        <th style="width:22%;">Câu KHÔNG Nên Nói</th>
+        <th style="width:18%;">Cách Giao Task</th>
+        <th style="width:23%;">Cách Tạo Động Lực</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-gen">Generator</span></td>
+        <td>"Em thấy thế nào về...?"<br>"Em có hứng thú không?"</td>
+        <td>"Em phải làm cái này."<br>"Tự nghĩ ý tưởng đi."</td>
+        <td>Đưa options → để Sacral phản hồi</td>
+        <td>Cho làm điều yêu thích. Khen sự bền bỉ.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-mg">Mani. Gen.</span></td>
+        <td>"Em có thể chạy cả hai."<br>"Chia sẻ cách em tiếp cận nhé."</td>
+        <td>"Tập trung 1 thứ thôi!"<br>"Phải theo step này."</td>
+        <td>Giao mục tiêu + tự do cách thực hiện</td>
+        <td>Cho đa tác vụ. Khen tốc độ và sáng tạo.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-man">Manifestor</span></td>
+        <td>"Em toàn quyền quyết định."<br>"Chỉ cần thông báo nhé."</td>
+        <td>"Xin phép trước!"<br>"Chờ duyệt đã."</td>
+        <td>Giao nhiệm vụ khởi xướng. Trao quyền tự chủ.</td>
+        <td>Tự do + Tôn trọng. Không kiểm soát.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-pro">Projector</span></td>
+        <td>"Anh muốn nghe ý kiến em."<br>"Em phân tích rất sâu sắc."</td>
+        <td>"Sao em không làm nhiều hơn?"<br>"Ý kiến em chưa hợp lý."</td>
+        <td>MỜI đóng góp. Giao vai trò tư vấn/hướng dẫn.</td>
+        <td>Công nhận + Lời mời. Cho nghỉ ngơi đủ.</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-ref">Reflector</span></td>
+        <td>"Em cần thời gian, cứ từ từ."<br>"Team mình thế nào rồi?"</td>
+        <td>"Trả lời ngay đi!"<br>"Sao hôm nay em khác thế?"</td>
+        <td>Cho thời gian. Hỏi feedback về team.</td>
+        <td>Môi trường lành mạnh. Thời gian = quà.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 7: SCENARIOS ==================== -->
+<section class="section" id="scenarios">
+  <div class="section-label">Phần 07</div>
+  <h2>Tình Huống Thực Tế Tại Nơi Làm Việc</h2>
+
+  <h3>Tình huống 1: Xây dựng team project mới</h3>
+  <div class="example-box">
+    <div class="label">Áp dụng HD</div>
+    <p><strong>Bước 1:</strong> <span class="badge badge-man">Manifestor</span> khởi xướng ý tưởng, định hướng ban đầu → Yêu cầu thông báo cho team.</p>
+    <p><strong>Bước 2:</strong> <span class="badge badge-gen">Generator</span> + <span class="badge badge-mg">Mani. Gen.</span> xây dựng và thực thi → Hỏi Sacral: "Phần nào em muốn đảm nhận?"</p>
+    <p><strong>Bước 3:</strong> <span class="badge badge-pro">Projector</span> giám sát, tối ưu hóa, và hướng dẫn team → MỜI ý kiến: "Em thấy team nên điều chỉnh gì?"</p>
+    <p><strong>Bước 4:</strong> <span class="badge badge-ref">Reflector</span> phản hồi sức khỏe tổng thể → Hỏi: "Em cảm thấy năng lượng project thế nào?"</p>
+  </div>
+
+  <h3>Tình huống 2: Giải quyết xung đột giữa hai thành viên</h3>
+  <div class="example-box">
+    <div class="label">Áp dụng HD</div>
+    <p><strong>Generator vs Manifestor:</strong> Generator frustrate vì Manifestor không thông báo → Giải pháp: Thiết lập quy trình "thông báo nhanh" (1 tin nhắn Slack trước khi bắt đầu). Giải thích cho Generator: "Anh ấy không cố ý bỏ qua em, đó là cách hoạt động tự nhiên."</p>
+    <p><strong>Projector vs MG:</strong> Projector bitter vì MG phớt lờ lời khuyên → Giải pháp: Tạo cơ chế "review" chính thức nơi Projector được MỜI đánh giá. MG sẽ tôn trọng hơn khi ý kiến Projector đến trong bối cảnh "được mời".</p>
+  </div>
+
+  <h3>Tình huống 3: Đánh giá hiệu suất (Performance Review)</h3>
+  <div class="example-box">
+    <div class="label">Áp dụng HD</div>
+    <p><strong>Generator/MG:</strong> Đánh giá dựa trên sự thỏa mãn (Satisfaction). "Em có thỏa mãn với công việc hiện tại không?" Nếu không → có thể đang làm sai project.</p>
+    <p><strong>Manifestor:</strong> Đánh giá dựa trên sự bình yên (Peace). "Em có cảm thấy bình yên trong công việc?" Nếu tức giận → có thể đang bị kiểm soát quá mức.</p>
+    <p><strong>Projector:</strong> Đánh giá dựa trên sự thành công (Success). "Em có cảm thấy được công nhận?" Nếu bitter → cần tạo thêm cơ hội để họ được mời đóng góp.</p>
+    <p><strong>Reflector:</strong> Đánh giá dựa trên sự ngạc nhiên/bất ngờ (Surprise). "Điều gì khiến em bất ngờ trong tháng qua?" Phản ánh môi trường.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ==================== SECTION 8: BEYOND ==================== -->
+<section class="section" id="beyond">
+  <div class="section-label">Phần 08</div>
+  <h2>Các Phương Pháp Bổ Trợ Nên Tìm Hiểu</h2>
+
+  <p class="lead">Human Design rất mạnh trong việc hiểu "cơ chế vận hành" cố định. Nhưng để trở thành leader xuất sắc, bạn cần kết hợp thêm các công cụ khác — mỗi công cụ bổ sung một góc nhìn mà HD chưa bao phủ.</p>
+
+  <!-- Method 1: DISC -->
+  <div class="method-card">
+    <div class="method-num">01</div>
+    <div class="method-content">
+      <div class="method-tag">Phong cách hành vi</div>
+      <h4>DISC Assessment</h4>
+      <p><strong>Tại sao cần học:</strong> Trong khi HD cho bạn biết "cơ chế năng lượng" (cố định suốt đời), DISC cho bạn biết "phong cách hành vi" trong công việc — Dominance (Quyết đoán), Influence (Ảnh hưởng), Steadiness (Ổn định), Conscientiousness (Cẩn thận).</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Một Generator có thể có phong cách D (quyết đoán) hoặc S (ổn định) — cùng loại HD nhưng cách giao tiếp rất khác. DISC giúp bạn tinh chỉnh cách giao tiếp cụ thể hơn HD.</p>
+      <p><strong>Ứng dụng:</strong> Giao tiếp hàng ngày, email, cuộc họp. Nhanh chóng điều chỉnh giọng điệu phù hợp với phong cách từng người.</p>
+      <p><strong>Thời gian học:</strong> 2-4 giờ đọc + 1 bài test cho mỗi thành viên.</p>
+    </div>
+  </div>
+
+  <!-- Method 2: MBTI/16 Personalities -->
+  <div class="method-card">
+    <div class="method-num">02</div>
+    <div class="method-content">
+      <div class="method-tag">Tính cách & nhận thức</div>
+      <h4>MBTI / 16 Personalities</h4>
+      <p><strong>Tại sao cần học:</strong> MBTI phân loại cách con người tiếp nhận thông tin (Sensing vs Intuition) và ra quyết định (Thinking vs Feeling). HD cho biết "chiến lược tối ưu" nhưng không đi sâu vào cách xử lý thông tin.</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Một Projector có thể là INTJ (chiến lược gia logic) hoặc ENFP (người truyền cảm hứng). Cùng cần "được mời", nhưng INTJ muốn được mời qua data, ENFP muốn được mời qua cảm xúc. MBTI giúp bạn biết nên mời kiểu gì.</p>
+      <p><strong>Thời gian học:</strong> 4-8 giờ cơ bản. Test miễn phí tại 16personalities.com.</p>
+    </div>
+  </div>
+
+  <!-- Method 3: Enneagram -->
+  <div class="method-card">
+    <div class="method-num">03</div>
+    <div class="method-content">
+      <div class="method-tag">Động lực sâu & nỗi sợ</div>
+      <h4>Enneagram (Cửu Hình)</h4>
+      <p><strong>Tại sao cần học:</strong> Enneagram đi sâu vào ĐỘNG LỰC CỐT LÕI và NỖI SỢ SÂU THẲM nhất. HD cho biết "cơ chế", Enneagram cho biết "tại sao" — tại sao người này phản ứng mạnh với lời phê bình (Type 1, Type 4), tại sao người kia luôn muốn giúp đỡ (Type 2).</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Khi bạn biết một Generator là Enneagram Type 3 (Người thành đạt), bạn hiểu Sacral của họ bật "uh-huh" mạnh nhất khi project liên quan đến thành tựu và công nhận. Đây là cách "hack" lời mời phù hợp.</p>
+      <p><strong>Thời gian học:</strong> 8-15 giờ. Đi sâu hơn DISC và MBTI nhưng cũng hữu ích hơn cho coaching.</p>
+    </div>
+  </div>
+
+  <!-- Method 4: NLP -->
+  <div class="method-card">
+    <div class="method-num">04</div>
+    <div class="method-content">
+      <div class="method-tag">Kỹ thuật giao tiếp</div>
+      <h4>NLP — Lập Trình Ngôn Ngữ Tư Duy</h4>
+      <p><strong>Tại sao cần học:</strong> HD cho bạn biết CẦN nói gì, NLP cho bạn biết NÓI NHƯ THẾ NÀO. NLP cung cấp kỹ thuật cụ thể: rapport (tạo kết nối), anchoring (neo cảm xúc), reframing (đổi góc nhìn), mirroring (phản chiếu).</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Khi bạn mời Projector đóng góp ý kiến, NLP giúp bạn "mời" đúng cách: giọng điệu, tốc độ nói, ngôn ngữ cơ thể, cách đặt câu hỏi mở/đóng. Kết hợp HD strategy + NLP technique = hiệu quả gấp bội.</p>
+      <p><strong>Thời gian học:</strong> 20-40 giờ cho cơ bản. Cần thực hành nhiều.</p>
+    </div>
+  </div>
+
+  <!-- Method 5: Emotional Intelligence -->
+  <div class="method-card">
+    <div class="method-num">05</div>
+    <div class="method-content">
+      <div class="method-tag">Nền tảng cốt lõi</div>
+      <h4>EQ — Trí Tuệ Cảm Xúc</h4>
+      <p><strong>Tại sao cần học:</strong> Đây là NỀN TẢNG của tất cả. HD giúp bạn nhận biết loại năng lượng, nhưng EQ giúp bạn THỰC SỰ đồng cảm và phản ứng phù hợp trong thời gian thực. Không có EQ, mọi kiến thức HD đều thành lý thuyết suông.</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Khi biết nhân viên Manifestor đang anger (dấu hiệu "sai"), bạn cần EQ để: (1) Nhận ra tín hiệu phi ngôn ngữ sớm, (2) Kiểm soát phản ứng bản thân, (3) Phản hồi với sự đồng cảm. EQ là "cơ bắp" để thực hành HD.</p>
+      <p><strong>Sách gợi ý:</strong> "Emotional Intelligence 2.0" (Travis Bradberry) — ngắn gọn, thực hành cao.</p>
+      <p><strong>Thời gian học:</strong> Liên tục, suốt đời. Nhưng 10-20 giờ đọc + thực hành sẽ cho bạn nền tảng vững.</p>
+    </div>
+  </div>
+
+  <!-- Method 6: Situational Leadership -->
+  <div class="method-card">
+    <div class="method-num">06</div>
+    <div class="method-content">
+      <div class="method-tag">Phong cách lãnh đạo</div>
+      <h4>Situational Leadership (Lãnh đạo Tình huống)</h4>
+      <p><strong>Tại sao cần học:</strong> Mô hình của Hersey & Blanchard chia lãnh đạo thành 4 phong cách: Directing (Chỉ đạo), Coaching (Huấn luyện), Supporting (Hỗ trợ), Delegating (Ủy quyền) — tùy thuộc vào mức độ trưởng thành của nhân viên.</p>
+      <p><strong>Bổ trợ HD thế nào:</strong> Một Projector mới vào team cần phong cách Coaching (hướng dẫn kỹ + động viên), trong khi Projector kỳ cựu cần Delegating (ủy quyền hoàn toàn). HD cho biết "loại người", Situational Leadership cho biết "giai đoạn phát triển" → kết hợp = quản lý 4 chiều.</p>
+      <p><strong>Thời gian học:</strong> 4-8 giờ. Dễ học, dễ áp dụng ngay.</p>
+    </div>
+  </div>
+
+  <!-- Summary diagram of methods -->
+  <h3>Sơ Đồ Kết Hợp Các Phương Pháp</h3>
+  <div class="diagram-container">
+    <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" style="max-width:650px;">
+      <!-- Center circle -->
+      <circle cx="350" cy="200" r="70" fill="rgba(212,168,83,0.15)" stroke="#D4A853" stroke-width="2.5"/>
+      <text x="350" y="190" text-anchor="middle" fill="#D4A853" font-size="14" font-weight="700" font-family="Playfair Display">HUMAN</text>
+      <text x="350" y="210" text-anchor="middle" fill="#D4A853" font-size="14" font-weight="700" font-family="Playfair Display">DESIGN</text>
+      <text x="350" y="230" text-anchor="middle" fill="#9B9488" font-size="10" font-family="Source Sans 3">Cơ chế năng lượng</text>
+
+      <!-- DISC -->
+      <circle cx="170" cy="100" r="50" fill="rgba(199,91,74,0.1)" stroke="#C75B4A" stroke-width="1.5"/>
+      <text x="170" y="98" text-anchor="middle" fill="#C75B4A" font-size="13" font-weight="600" font-family="Source Sans 3">DISC</text>
+      <text x="170" y="115" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Phong cách hành vi</text>
+      <line x1="210" y1="130" x2="290" y2="170" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- MBTI -->
+      <circle cx="530" cy="100" r="50" fill="rgba(91,142,199,0.1)" stroke="#5B8EC7" stroke-width="1.5"/>
+      <text x="530" y="98" text-anchor="middle" fill="#5B8EC7" font-size="13" font-weight="600" font-family="Source Sans 3">MBTI</text>
+      <text x="530" y="115" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Nhận thức & ra QĐ</text>
+      <line x1="490" y1="130" x2="410" y2="170" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- Enneagram -->
+      <circle cx="140" cy="280" r="50" fill="rgba(139,109,199,0.1)" stroke="#8B6DC7" stroke-width="1.5"/>
+      <text x="140" y="275" text-anchor="middle" fill="#8B6DC7" font-size="11" font-weight="600" font-family="Source Sans 3">Enneagram</text>
+      <text x="140" y="292" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Động lực & nỗi sợ</text>
+      <line x1="185" y1="260" x2="290" y2="220" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- NLP -->
+      <circle cx="560" cy="280" r="50" fill="rgba(91,168,160,0.1)" stroke="#4AA8A0" stroke-width="1.5"/>
+      <text x="560" y="278" text-anchor="middle" fill="#4AA8A0" font-size="13" font-weight="600" font-family="Source Sans 3">NLP</text>
+      <text x="560" y="295" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Kỹ thuật giao tiếp</text>
+      <line x1="515" y1="260" x2="410" y2="220" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- EQ -->
+      <circle cx="270" cy="360" r="45" fill="rgba(212,192,83,0.1)" stroke="#D4C053" stroke-width="1.5"/>
+      <text x="270" y="358" text-anchor="middle" fill="#D4C053" font-size="13" font-weight="600" font-family="Source Sans 3">EQ</text>
+      <text x="270" y="375" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Trí tuệ cảm xúc</text>
+      <line x1="300" y1="330" x2="330" y2="270" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+
+      <!-- Situational -->
+      <circle cx="430" cy="360" r="45" fill="rgba(212,138,83,0.1)" stroke="#D48A53" stroke-width="1.5"/>
+      <text x="430" y="352" text-anchor="middle" fill="#D48A53" font-size="10" font-weight="600" font-family="Source Sans 3">Situational</text>
+      <text x="430" y="367" text-anchor="middle" fill="#D48A53" font-size="10" font-weight="600" font-family="Source Sans 3">Leadership</text>
+      <text x="430" y="384" text-anchor="middle" fill="#9B9488" font-size="9" font-family="Source Sans 3">Phong cách lãnh đạo</text>
+      <line x1="400" y1="330" x2="370" y2="270" stroke="#3A3733" stroke-width="1" stroke-dasharray="4"/>
+    </svg>
+    <div class="diagram-caption">Human Design là trung tâm — 6 phương pháp bổ trợ bao quanh, mỗi phương pháp lấp đầy một "lỗ hổng" mà HD chưa bao phủ</div>
+  </div>
+
+  <div class="tip-box">
+    <p><strong>Thứ tự học được đề xuất:</strong></p>
+    <p>1️⃣ <strong>Human Design</strong> (bạn đang ở đây!) → Nền tảng hiểu "loại người"</p>
+    <p>2️⃣ <strong>EQ</strong> → Xây dựng "cơ bắp" cảm xúc để thực hành mọi thứ</p>
+    <p>3️⃣ <strong>DISC</strong> → Nhanh, dễ áp dụng ngay trong giao tiếp hàng ngày</p>
+    <p>4️⃣ <strong>Situational Leadership</strong> → Biết cách điều chỉnh phong cách theo từng người</p>
+    <p>5️⃣ <strong>Enneagram</strong> → Đi sâu vào động lực — cho coaching 1:1</p>
+    <p>6️⃣ <strong>MBTI</strong> → Hiểu cách xử lý thông tin — cho team building</p>
+    <p>7️⃣ <strong>NLP</strong> → Kỹ thuật giao tiếp nâng cao — khi đã vững nền tảng</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FINAL NOTES -->
+<section class="section">
+  <div class="section-label">Lời Kết</div>
+  <h2>Bắt Đầu Từ Đâu?</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">1</div>
+      <div class="timeline-content">
+        <h4>Tạo biểu đồ HD cho bản thân</h4>
+        <p style="color:var(--text-muted);">Truy cập mybodygraph.com hoặc geneticmatrix.com. Nhập đúng ngày, giờ, nơi sinh. Tải về biểu đồ và đọc lại tài liệu này để hiểu loại năng lượng, các trung tâm xác định/không xác định.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">2</div>
+      <div class="timeline-content">
+        <h4>Xác định loại HD của từng thành viên team</h4>
+        <p style="color:var(--text-muted);">Yêu cầu mỗi người tạo biểu đồ (cần giờ sinh chính xác). Hoặc quan sát hành vi dựa trên các dấu hiệu đã liệt kê ở trên để đoán sơ bộ.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">3</div>
+      <div class="timeline-content">
+        <h4>Áp dụng chiến lược giao tiếp phù hợp</h4>
+        <p style="color:var(--text-muted);">Bắt đầu với một thay đổi nhỏ: thay đổi CÁCH bạn giao task cho từng loại người. Quan sát phản ứng và điều chỉnh.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">4</div>
+      <div class="timeline-content">
+        <h4>Mở rộng sang các phương pháp bổ trợ</h4>
+        <p style="color:var(--text-muted);">Khi đã quen với HD, bắt đầu học thêm EQ và DISC — hai phương pháp "nhanh nhất" để cải thiện giao tiếp hàng ngày.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <p><strong>Lưu ý quan trọng:</strong> Human Design là công cụ HIỂU BIẾT, không phải công cụ PHÁN XÉT. Đừng bao giờ dùng loại HD để giới hạn ai đó ("Em là Projector nên không thể làm được" — SAI). Mỗi loại đều có sức mạnh riêng, và mục tiêu của bạn là giúp mỗi người PHÁT HUY sức mạnh đó.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p style="font-family:'Playfair Display',serif; font-size:18px; color:var(--accent-gold); margin-bottom:12px;">Human Design Guide</p>
+  <p>Cẩm nang dành cho Team Leader • Tài liệu nội bộ</p>
+  <p style="margin-top:8px; font-size:12px;">Được tạo bằng AI • Tham khảo thêm: jovianarchive.com, mybodygraph.com</p>
+</footer>
+
+</body>
+</html>
