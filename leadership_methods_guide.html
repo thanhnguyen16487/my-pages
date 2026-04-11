@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6 Phương Pháp Bổ Trợ Cho Team Leader — Tài Liệu Học Chi Tiết</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF7F2;
+  --bg-warm: #F4EFE7;
+  --bg-card: #FFFFFF;
+  --surface: #EDE8DF;
+  --surface-2: #E3DDD3;
+  --text: #2C2520;
+  --text-body: #4A4239;
+  --text-muted: #8A7E72;
+  --border: #DDD6CB;
+  --border-light: #EAE4DA;
+  --disc-d: #C0392B;
+  --disc-i: #E67E22;
+  --disc-s: #27AE60;
+  --disc-c: #2980B9;
+  --mbti-analyst: #8E44AD;
+  --mbti-diplomat: #27AE60;
+  --mbti-sentinel: #2980B9;
+  --mbti-explorer: #E67E22;
+  --enn-body: #C0392B;
+  --enn-heart: #27AE60;
+  --enn-head: #2980B9;
+  --nlp: #16A085;
+  --eq: #D4A017;
+  --sl: #8E44AD;
+  --accent: #B8860B;
+  --accent-light: #D4A853;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(44,37,32,0.06);
+  --shadow-lg: 0 8px 32px rgba(44,37,32,0.1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-body);
+  line-height: 1.78;
+  font-size: 16px;
+}
+::selection { background: var(--accent-light); color: #fff; }
+.header {
+  background: var(--text);
+  color: var(--bg);
+  padding: 60px 40px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px);
+}
+.header-inner { position: relative; max-width: 800px; margin: 0 auto; }
+.header-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent-light); margin-bottom: 16px;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 700; line-height: 1.15;
+  margin-bottom: 16px;
+  color: #fff;
+}
+.header p {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  max-width: 600px; margin: 0 auto;
+  line-height: 1.7;
+}
+.tab-nav-wrapper {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(44,37,32,0.04);
+}
+.tab-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 16px 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+.tab-btn .tab-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  background: var(--surface);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+.tab-btn.active .tab-num {
+  background: var(--accent);
+  color: #fff;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.panel-content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+.panel-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.panel-content h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+.panel-content h3:first-of-type { border-top: none; }
+.panel-content h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 28px 0 10px;
+}
+.panel-content p { margin-bottom: 14px; }
+.subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+.lead-box {
+  background: var(--bg-warm);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0 32px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.8;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 24px 0; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.card h4 { margin-top: 0; }
+.card p:last-child { margin-bottom: 0; }
+.card-accent { border-top: 4px solid var(--accent); }
+.card-d { border-top: 4px solid var(--disc-d); }
+.card-d h4 { color: var(--disc-d); }
+.card-i { border-top: 4px solid var(--disc-i); }
+.card-i h4 { color: var(--disc-i); }
+.card-s { border-top: 4px solid var(--disc-s); }
+.card-s h4 { color: var(--disc-s); }
+.card-c { border-top: 4px solid var(--disc-c); }
+.card-c h4 { color: var(--disc-c); }
+.scenario {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 24px 0;
+  box-shadow: var(--shadow);
+}
+.scenario-header {
+  background: var(--text);
+  color: #fff;
+  padding: 14px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: flex; align-items: center; gap: 10px;
+}
+.scenario-header .icon { font-size: 16px; }
+.scenario-body { padding: 24px; }
+.scenario-body p { margin-bottom: 10px; }
+.scenario-body p:last-child { margin-bottom: 0; }
+.dialogue { margin: 20px 0; font-size: 15px; }
+.dialogue-line {
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  max-width: 88%;
+}
+.dialogue-line.wrong {
+  background: #FDECEA;
+  border-left: 3px solid #C0392B;
+}
+.dialogue-line.right {
+  background: #E8F5E9;
+  border-left: 3px solid #27AE60;
+}
+.dialogue-line .label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.dialogue-line.wrong .label { color: #C0392B; }
+.dialogue-line.right .label { color: #27AE60; }
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.badge-d { background: rgba(192,57,43,0.1); color: var(--disc-d); }
+.badge-i { background: rgba(230,126,34,0.1); color: var(--disc-i); }
+.badge-s { background: rgba(39,174,96,0.1); color: var(--disc-s); }
+.badge-c { background: rgba(41,128,185,0.1); color: var(--disc-c); }
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.tbl th {
+  background: var(--text);
+  color: #fff;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.tbl td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  color: var(--text-body);
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: var(--bg-warm); }
+.tip {
+  background: #E8F5E9;
+  border-left: 4px solid #27AE60;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.tip strong { color: #1B7A3E; }
+.warning {
+  background: #FFF3E0;
+  border-left: 4px solid #E67E22;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 18px 22px;
+  margin: 20px 0;
+}
+.warning strong { color: #BF6516; }
+.key-point {
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.key-point strong { color: var(--accent); }
+.steps { margin: 20px 0; }
+.step {
+  display: flex; gap: 16px; margin-bottom: 20px;
+}
+.step-num {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+}
+.step-content h4 { margin-top: 2px; }
+.step-content p { font-size: 15px; }
+.matrix-wrap { overflow-x: auto; margin: 24px 0; }
+.matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-width: 600px;
+}
+.matrix-cell {
+  padding: 24px;
+  border: 1px solid var(--border-light);
+}
+.matrix-cell h4 { margin-top: 0; }
+.divider { border: none; height: 1px; background: var(--border); margin: 40px 0; }
+@media (max-width: 768px) {
+  .panel-content { padding: 32px 20px 60px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .matrix { min-width: auto; grid-template-columns: 1fr; }
+  .header { padding: 40px 20px 36px; }
+  .tab-btn { padding: 14px 16px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-tag">Tài Liệu Học Chuyên Sâu &bull; Dành Cho Team Leader</div>
+    <h1>6 Phương Pháp Bổ Trợ Leadership</h1>
+    <p>DISC &middot; MBTI &middot; Enneagram &middot; NLP &middot; EQ &middot; Situational Leadership &mdash; Từ lý thuyết đến thực hành, kèm ví dụ minh họa chi tiết.</p>
+  </div>
+</header>
+
+<div class="tab-nav-wrapper">
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="disc"><span class="tab-num">01</span> DISC</button>
+    <button class="tab-btn" data-tab="mbti"><span class="tab-num">02</span> MBTI</button>
+    <button class="tab-btn" data-tab="enneagram"><span class="tab-num">03</span> Enneagram</button>
+    <button class="tab-btn" data-tab="nlp"><span class="tab-num">04</span> NLP</button>
+    <button class="tab-btn" data-tab="eq"><span class="tab-num">05</span> EQ</button>
+    <button class="tab-btn" data-tab="sl"><span class="tab-num">06</span> Situational Leadership</button>
+  </nav>
+</div>
+
+<!-- ====== TAB 1: DISC ====== -->
+<div class="tab-panel active" id="panel-disc">
+<div class="panel-content">
+  <h2>DISC &mdash; Phân Tích Phong Cách Hành Vi</h2>
+  <p class="subtitle">Hiểu 4 phong cách hành vi cốt lõi để điều chỉnh giao tiếp tức thì với mọi người trong team.</p>
+
+  <div class="lead-box">
+    <strong>DISC là gì?</strong> Là mô hình phân loại hành vi do William Moulton Marston phát triển. DISC chia hành vi con người thành 4 nhóm chính dựa trên hai trục: (1) Hướng ngoại vs Hướng nội, và (2) Tập trung vào Con người vs Tập trung vào Nhiệm vụ. Không loại nào tốt hơn loại nào &mdash; mỗi người là sự pha trộn của cả 4, nhưng thường có 1-2 loại chi phối.
+  </div>
+
+  <h3>4 Phong Cách DISC Chi Tiết</h3>
+  <div class="grid-2">
+    <div class="card card-d">
+      <h4>D &mdash; Dominance (Quyết Đoán)</h4>
+      <p><strong>Từ khóa:</strong> Kết quả, kiểm soát, tốc độ, thách thức</p>
+      <p><strong>Nhận biết nhanh:</strong> Nói thẳng, ngắn gọn. Ghét vòng vo. Muốn biết "bottom line" trước. Hay ngắt lời. Ra quyết định nhanh.</p>
+      <p><strong>Nỗi sợ:</strong> Mất kiểm soát, bị lợi dụng</p>
+      <p><strong>Động lực:</strong> Quyền lực, thành tựu, thử thách mới</p>
+      <p><strong>Điểm mạnh:</strong> Quyết đoán, lãnh đạo tự nhiên, chịu áp lực tốt</p>
+      <p><strong>Điểm yếu:</strong> Thiếu kiên nhẫn, có thể lạnh lùng, bỏ qua cảm xúc người khác</p>
+    </div>
+    <div class="card card-i">
+      <h4>I &mdash; Influence (Ảnh Hưởng)</h4>
+      <p><strong>Từ khóa:</strong> Quan hệ, nhiệt tình, sáng tạo, vui vẻ</p>
+      <p><strong>Nhận biết nhanh:</strong> Nói nhiều, hào hứng. Hay kể chuyện. Thích được chú ý. Cười nhiều. Hay lạc đề vì quá hào hứng.</p>
+      <p><strong>Nỗi sợ:</strong> Bị từ chối, mất kết nối xã hội</p>
+      <p><strong>Động lực:</strong> Sự công nhận, tương tác, sự vui vẻ</p>
+      <p><strong>Điểm mạnh:</strong> Truyền cảm hứng, thuyết phục, tạo không khí</p>
+      <p><strong>Điểm yếu:</strong> Thiếu chi tiết, khó tập trung lâu, hứa nhiều hơn làm</p>
+    </div>
+    <div class="card card-s">
+      <h4>S &mdash; Steadiness (Ổn Định)</h4>
+      <p><strong>Từ khóa:</strong> Hài hòa, kiên nhẫn, đáng tin cậy, trung thành</p>
+      <p><strong>Nhận biết nhanh:</strong> Nói chậm, nhẹ nhàng. Lắng nghe nhiều. Ít xung đột. Hay đồng ý để giữ hòa khí. Không thích thay đổi đột ngột.</p>
+      <p><strong>Nỗi sợ:</strong> Mất ổn định, xung đột, thay đổi bất ngờ</p>
+      <p><strong>Động lực:</strong> Sự an toàn, hợp tác, được đánh giá cao</p>
+      <p><strong>Điểm mạnh:</strong> Đáng tin, team player, kiên nhẫn, ổn định</p>
+      <p><strong>Điểm yếu:</strong> Ngại nói "không", tránh xung đột, chống đối thay đổi thầm lặng</p>
+    </div>
+    <div class="card card-c">
+      <h4>C &mdash; Conscientiousness (Cẩn Thận)</h4>
+      <p><strong>Từ khóa:</strong> Chính xác, chi tiết, quy trình, chất lượng</p>
+      <p><strong>Nhận biết nhanh:</strong> Hỏi nhiều câu hỏi chi tiết. Email dài, kỹ lưỡng. Cần thời gian phân tích. Ghét sai sót. Thích data và bằng chứng.</p>
+      <p><strong>Nỗi sợ:</strong> Bị phê bình về chất lượng, thiếu dữ liệu</p>
+      <p><strong>Động lực:</strong> Sự chính xác, chất lượng, làm đúng quy trình</p>
+      <p><strong>Điểm mạnh:</strong> Cẩn thận, phân tích tốt, chất lượng cao</p>
+      <p><strong>Điểm yếu:</strong> Chậm quyết định, over-analyze, khó linh hoạt</p>
+    </div>
+  </div>
+
+  <h3>Cách Nhận Biết Nhanh Trong 5 Phút</h3>
+  <div class="key-point">
+    <p><strong>Quy tắc 2 câu hỏi:</strong></p>
+    <p>&#10122; Người này <strong>nhanh</strong> hay <strong>chậm</strong> khi nói/quyết định? &rarr; Nhanh = D hoặc I &middot; Chậm = S hoặc C</p>
+    <p>&#10123; Người này tập trung vào <strong>nhiệm vụ</strong> hay <strong>con người</strong>? &rarr; Nhiệm vụ = D hoặc C &middot; Con người = I hoặc S</p>
+    <p>&rarr; Nhanh + Nhiệm vụ = <span class="badge badge-d">D</span> &middot; Nhanh + Con người = <span class="badge badge-i">I</span> &middot; Chậm + Con người = <span class="badge badge-s">S</span> &middot; Chậm + Nhiệm vụ = <span class="badge badge-c">C</span></p>
+  </div>
+
+  <h3>Ma Trận DISC</h3>
+  <div class="matrix-wrap">
+    <div class="matrix">
+      <div class="matrix-cell" style="background:rgba(192,57,43,0.05);">
+        <h4 style="color:var(--disc-d);">D &mdash; Quyết Đoán</h4>
+        <p><strong>Tốc độ:</strong> Nhanh &middot; <strong>Focus:</strong> Nhiệm vụ</p>
+        <p>Nói: "Kết quả là gì? Tóm gọn đi."</p>
+        <p>Email: 2-3 câu, không chào hỏi dài.</p>
+      </div>
+      <div class="matrix-cell" style="background:rgba(230,126,34,0.05);">
+        <h4 style="color:var(--disc-i);">I &mdash; Ảnh Hưởng</h4>
+        <p><strong>Tốc độ:</strong> Nhanh &middot; <strong>Focus:</strong> Con người</p>
+        <p>Nói: "Nghe hay quá! Kể thêm đi!"</p>
+        <p>Email: Có emoji, kể chuyện, nhiệt tình.</p>
+      </div>
+      <div class="matrix-cell" style="background:rgba(41,128,185,0.05);">
+        <h4 style="color:var(--disc-c);">C &mdash; Cẩn Thận</h4>
+        <p><strong>Tốc độ:</strong> Chậm &middot; <strong>Focus:</strong> Nhiệm vụ</p>
+        <p>Nói: "Data ở đâu? Có case study chưa?"</p>
+        <p>Email: Dài, chi tiết, đính kèm file.</p>
+      </div>
+      <div class="matrix-cell" style="background:rgba(39,174,96,0.05);">
+        <h4 style="color:var(--disc-s);">S &mdash; Ổn Định</h4>
+        <p><strong>Tốc độ:</strong> Chậm &middot; <strong>Focus:</strong> Con người</p>
+        <p>Nói: "Mọi người nghĩ sao? Mình giúp gì?"</p>
+        <p>Email: Lịch sự, ấm áp, hỏi thăm trước.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Chiến Lược Giao Tiếp Với Từng Loại</h3>
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128308;</span> Giao Tiếp Với D &mdash; Quyết Đoán</div>
+    <div class="scenario-body">
+      <p><strong>Nguyên tắc vàng:</strong> Nhanh, gọn, tập trung vào kết quả.</p>
+      <div class="dialogue">
+        <div class="dialogue-line wrong"><div class="label">&#10007; Sai</div>"Anh ơi, em muốn chia sẻ một chút về dự án. Tuần rồi em đã research khá nhiều, gặp một số vấn đề..."</div>
+        <div class="dialogue-line right"><div class="label">&#10003; Đúng</div>"Anh, 3 điểm chính: (1) Revenue tăng 15%, (2) Cần thêm 2 dev, (3) Deadline khả thi. Anh approve?"</div>
+      </div>
+      <p><strong>Mẹo:</strong> Cho D options kèm recommendation. "Có 3 hướng: A, B, C. Em đề xuất B vì [lý do ngắn]. Anh chọn hướng nào?"</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128992;</span> Giao Tiếp Với I &mdash; Ảnh Hưởng</div>
+    <div class="scenario-body">
+      <p><strong>Nguyên tắc vàng:</strong> Năng lượng, nhiệt tình, big picture hấp dẫn.</p>
+      <div class="dialogue">
+        <div class="dialogue-line wrong"><div class="label">&#10007; Sai</div>"Đây là bảng số liệu 47 cột. Em phân tích từng cell."</div>
+        <div class="dialogue-line right"><div class="label">&#10003; Đúng</div>"Em ơi, project CỰC HAY! Mình là team đầu tiên thử! Em lead phần sáng tạo nhé?"</div>
+      </div>
+      <p><strong>Mẹo:</strong> Khen công khai. Trong cuộc họp: "Ý tưởng này từ [tên I] &mdash; rất sáng tạo!" I sẽ trung thành 1000%.</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128994;</span> Giao Tiếp Với S &mdash; Ổn Định</div>
+    <div class="scenario-body">
+      <p><strong>Nguyên tắc vàng:</strong> Nhẹ nhàng, ổn định, cho thời gian, hỏi riêng tư.</p>
+      <div class="dialogue">
+        <div class="dialogue-line wrong"><div class="label">&#10007; Sai</div>"Từ mai mọi thứ thay đổi hết! Quy trình mới, tool mới. Bắt đầu ngay!"</div>
+        <div class="dialogue-line right"><div class="label">&#10003; Đúng</div>"Anh đang nghĩ thay đổi nhỏ. Trước khi quyết, muốn nghe ý kiến em riêng."</div>
+      </div>
+      <p><strong>Mẹo:</strong> S ngại nói "không" trước mặt mọi người. Muốn feedback thật &rarr; hỏi RIÊNG 1:1. S sợ thay đổi đột ngột &rarr; thông báo trước.</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128309;</span> Giao Tiếp Với C &mdash; Cẩn Thận</div>
+    <div class="scenario-body">
+      <p><strong>Nguyên tắc vàng:</strong> Chi tiết, có data, cho thời gian phân tích.</p>
+      <div class="dialogue">
+        <div class="dialogue-line wrong"><div class="label">&#10007; Sai</div>"Trust me, plan này được! Cứ làm đi, sai thì sửa."</div>
+        <div class="dialogue-line right"><div class="label">&#10003; Đúng</div>"Em xem file đính kèm &mdash; data 3 quý, benchmark đối thủ, risk assessment. Review rồi gửi feedback trước thứ 4 nhé?"</div>
+      </div>
+      <p><strong>Mẹo:</strong> ĐỪNG nói "Trust me" với C &mdash; cách nhanh nhất mất lòng tin. C cần BẰNG CHỨNG. Cho thời gian: "Không cần trả lời ngay."</p>
+    </div>
+  </div>
+
+  <h3>Kết Hợp DISC + Human Design</h3>
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#9889;</span> Ví dụ kết hợp thực tế</div>
+    <div class="scenario-body">
+      <p><strong>Nhân viên A:</strong> <span class="badge badge-d">D cao</span> + <strong>Generator</strong> (HD)</p>
+      <p>HD: "Hỏi Sacral Có/Không" + DISC: "Ngắn gọn, kết quả"</p>
+      <p><strong>Kết hợp:</strong> "Project mới, revenue target 20%. Em muốn lead không?" &mdash; Ngắn gọn (DISC-D) + Có/Không (HD Generator)</p>
+      <hr class="divider">
+      <p><strong>Nhân viên B:</strong> <span class="badge badge-s">S cao</span> + <strong>Projector</strong> (HD)</p>
+      <p>HD: "Cần mời, công nhận" + DISC: "Nhẹ nhàng, riêng tư"</p>
+      <p><strong>Kết hợp:</strong> Gặp riêng 1:1: "Anh rất đánh giá cao em (công nhận). Muốn mời em chia sẻ (invitation). Cứ suy nghĩ thêm (cho thời gian)."</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ====== TAB 2: MBTI ====== -->
+<div class="tab-panel" id="panel-mbti">
+<div class="panel-content">
+  <h2>MBTI &mdash; 16 Kiểu Tính Cách</h2>
+  <p class="subtitle">Hiểu cách mỗi người tiếp nhận thông tin và ra quyết định để tinh chỉnh giao tiếp.</p>
+
+  <div class="lead-box">
+    <strong>MBTI là gì?</strong> Myers-Briggs Type Indicator phân loại theo 4 cặp đối lập: E/I (Năng lượng), S/N (Thông tin), T/F (Quyết định), J/P (Lối sống). Kết hợp 4 chữ = 16 kiểu. Ví dụ: INTJ, ENFP, ISTP. Không kiểu nào "tốt hơn" &mdash; mỗi kiểu là một cách hợp lệ để xử lý thế giới.
+  </div>
+
+  <h3>4 Cặp Đối Lập &mdash; Nền Tảng</h3>
+  <div class="grid-2">
+    <div class="card card-accent">
+      <h4>E vs I &mdash; Nguồn Năng Lượng</h4>
+      <p><strong>E (Extraversion):</strong> Nạp năng lượng từ bên ngoài. Nghĩ bằng cách nói ra. "Mọi người nghĩ sao?"</p>
+      <p><strong>I (Introversion):</strong> Nạp năng lượng từ bên trong. Nghĩ xong mới nói. "Để tôi suy nghĩ đã."</p>
+      <p><em>Nhận biết:</em> Sau họp 2 tiếng, ai muốn đi ăn cùng (E) vs ngồi một mình (I)?</p>
+    </div>
+    <div class="card card-accent">
+      <h4>S vs N &mdash; Cách Tiếp Nhận Thông Tin</h4>
+      <p><strong>S (Sensing):</strong> Sự thật cụ thể, chi tiết, kinh nghiệm. "Số liệu cho thấy..."</p>
+      <p><strong>N (iNtuition):</strong> Ý nghĩa, pattern, khả năng. "Tôi có linh cảm..."</p>
+      <p><em>Nhận biết:</em> Ai hỏi "Ngân sách cụ thể?" (S) vs "Sẽ thay đổi ngành thế nào?" (N)?</p>
+    </div>
+    <div class="card card-accent">
+      <h4>T vs F &mdash; Cách Ra Quyết Định</h4>
+      <p><strong>T (Thinking):</strong> Logic, phân tích khách quan. "Giải pháp tối ưu nhất?"</p>
+      <p><strong>F (Feeling):</strong> Giá trị, tác động con người. "Ảnh hưởng mọi người thế nào?"</p>
+      <p><em>Nhận biết:</em> Khi sa thải, ai phân tích hiệu suất (T) vs lo "Họ sẽ ra sao?" (F)?</p>
+    </div>
+    <div class="card card-accent">
+      <h4>J vs P &mdash; Cách Tổ Chức</h4>
+      <p><strong>J (Judging):</strong> Kế hoạch, cấu trúc, deadline, quyết định sớm. Calendar đầy.</p>
+      <p><strong>P (Perceiving):</strong> Linh hoạt, mở, thích ứng. Làm tốt dưới deadline pressure.</p>
+      <p><em>Nhận biết:</em> Ai gửi agenda trước họp (J) vs "see how it goes" (P)?</p>
+    </div>
+  </div>
+
+  <h3>4 Nhóm Tính Cách Chính</h3>
+  <div class="grid-2">
+    <div class="card" style="border-top:4px solid var(--mbti-analyst);">
+      <h4 style="color:var(--mbti-analyst);">Analyst (NT) &mdash; Nhà Phân Tích</h4>
+      <p><strong>Gồm:</strong> INTJ, INTP, ENTJ, ENTP</p>
+      <p><strong>Đặc trưng:</strong> Logic, chiến lược, yêu tri thức. Luôn hỏi "Tại sao?" Giỏi vấn đề phức tạp.</p>
+      <p><strong>Giao tiếp:</strong> Dùng logic, data, argument chặt. Tránh kêu gọi cảm xúc. Thách thức trí tuệ = động lực.</p>
+      <p><strong>Ví dụ:</strong> "Anh có bài toán thú vị chưa ai giải. Em thử xem?"</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--mbti-diplomat);">
+      <h4 style="color:var(--mbti-diplomat);">Diplomat (NF) &mdash; Nhà Ngoại Giao</h4>
+      <p><strong>Gồm:</strong> INFJ, INFP, ENFJ, ENFP</p>
+      <p><strong>Đặc trưng:</strong> Lý tưởng, đồng cảm, tìm ý nghĩa. Muốn công việc có "purpose".</p>
+      <p><strong>Giao tiếp:</strong> Kết nối ý nghĩa. "Tại sao điều này QUAN TRỌNG" chứ không chỉ "Làm gì".</p>
+      <p><strong>Ví dụ:</strong> "Project giúp 10,000 người tiếp cận dịch vụ tốt hơn. Em muốn tham gia?"</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--mbti-sentinel);">
+      <h4 style="color:var(--mbti-sentinel);">Sentinel (SJ) &mdash; Người Bảo Vệ</h4>
+      <p><strong>Gồm:</strong> ISTJ, ISFJ, ESTJ, ESFJ</p>
+      <p><strong>Đặc trưng:</strong> Đáng tin, trách nhiệm, tôn trọng quy tắc. Giỏi duy trì hệ thống.</p>
+      <p><strong>Giao tiếp:</strong> Rõ ràng, cụ thể, có kế hoạch. Cho thấy precedent. Tránh thay đổi đột ngột.</p>
+      <p><strong>Ví dụ:</strong> "Quy trình đã thành công ở team X. Đây là plan 3 tuần step-by-step."</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--mbti-explorer);">
+      <h4 style="color:var(--mbti-explorer);">Explorer (SP) &mdash; Nhà Thám Hiểm</h4>
+      <p><strong>Gồm:</strong> ISTP, ISFP, ESTP, ESFP</p>
+      <p><strong>Đặc trưng:</strong> Linh hoạt, thực tế, hành động. Học bằng LÀM. Giỏi xử lý khủng hoảng.</p>
+      <p><strong>Giao tiếp:</strong> Cho LÀM thay vì đọc tài liệu dài. Vào action nhanh. Tránh lý thuyết trừu tượng.</p>
+      <p><strong>Ví dụ:</strong> "Đây prototype. Em nghịch xem, break nó, rồi feedback trực tiếp."</p>
+    </div>
+  </div>
+
+  <h3>Tình Huống Áp Dụng</h3>
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128203;</span> Triển khai tool mới cho team</div>
+    <div class="scenario-body">
+      <p><strong>Analyst (NT):</strong> "Tool giải quyết bottleneck X, giảm 40% thời gian. Đây là architecture diagram."</p>
+      <p><strong>Diplomat (NF):</strong> "Tool giúp team ít overtime &mdash; mọi người có thời gian cho gia đình."</p>
+      <p><strong>Sentinel (SJ):</strong> "Plan triển khai 4 tuần. Tuần 1: training. Tuần 2: chạy song song. Data backup đầy đủ."</p>
+      <p><strong>Explorer (SP):</strong> "Đây sandbox. Em thử dùng, chiều mai demo cho team."</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#129309;</span> Performance Review theo MBTI</div>
+    <div class="scenario-body">
+      <p><strong>E:</strong> Cho brainstorm bằng lời. Đừng chê "Nói nhiều quá".</p>
+      <p><strong>I:</strong> Gửi câu hỏi TRƯỚC. Cho khoảng lặng &mdash; đừng fill silence. Câu trả lời tốt nhất đến sau 5-10 giây.</p>
+      <p><strong>T:</strong> Tập trung metrics, KPI, career path rõ ràng.</p>
+      <p><strong>F:</strong> Bắt đầu bằng điểm tốt. Hỏi cảm giác. Khi feedback tiêu cực: "Anh chia sẻ vì muốn em phát triển."</p>
+    </div>
+  </div>
+
+  <div class="tip">
+    <p><strong>Mẹo nhận biết qua email:</strong> Email dài, có agenda = J. Email ngắn, casual = P. Có emoji, hỏi thăm = F. Chỉ facts = T. 10 email/ngày = E. Chỉ reply khi cần = I.</p>
+  </div>
+</div>
+</div>
+
+<!-- ====== TAB 3: ENNEAGRAM ====== -->
+<div class="tab-panel" id="panel-enneagram">
+<div class="panel-content">
+  <h2>Enneagram &mdash; Cửu Hình Nhân Cách</h2>
+  <p class="subtitle">Đi sâu vào ĐỘNG LỰC CỐT LÕI và NỖI SỢ SÂU THẲM nhất &mdash; vũ khí coaching mạnh nhất.</p>
+
+  <div class="lead-box">
+    <strong>Enneagram là gì?</strong> Hệ thống 9 kiểu nhân cách, mỗi kiểu được định nghĩa bởi MỘT ĐỘNG LỰC CỐT LÕI và MỘT NỖI SỢ CƠ BẢN. Khác DISC (hành vi bên ngoài) và MBTI (cách xử lý thông tin), Enneagram đi vào TẠI SAO. 9 kiểu chia 3 nhóm: Bụng (8,9,1), Tim (2,3,4), Đầu (5,6,7).
+  </div>
+
+  <h3>3 Nhóm Trung Tâm</h3>
+  <div class="grid-3">
+    <div class="card" style="border-top:4px solid var(--enn-body);">
+      <h4 style="color:var(--enn-body);">Nhóm Bụng (8, 9, 1)</h4>
+      <p><strong>Cảm xúc chính:</strong> Tức giận</p>
+      <p>Phản ứng bản năng. "Gut feeling". Type 8 giận ra ngoài. Type 1 giận vào trong. Type 9 né tránh giận.</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--enn-heart);">
+      <h4 style="color:var(--enn-heart);">Nhóm Tim (2, 3, 4)</h4>
+      <p><strong>Cảm xúc chính:</strong> Xấu hổ</p>
+      <p>Hình ảnh, bản sắc. "Tôi có giá trị không?" Type 2 qua giúp đỡ. Type 3 qua thành tựu. Type 4 qua sự độc đáo.</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--enn-head);">
+      <h4 style="color:var(--enn-head);">Nhóm Đầu (5, 6, 7)</h4>
+      <p><strong>Cảm xúc chính:</strong> Lo lắng</p>
+      <p>An toàn, kế hoạch. Type 5 thu thập kiến thức. Type 6 tìm sự chắc chắn. Type 7 né tránh đau.</p>
+    </div>
+  </div>
+
+  <h3>Chi Tiết 9 Kiểu &mdash; Cách Quản Lý Từng Người</h3>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-body);">Type 1 &mdash; Người Cầu Toàn (The Reformer)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Làm đúng, sống đúng &middot; <strong>Nỗi sợ:</strong> Bị đánh giá là sai</p>
+      <p><strong>Nhận biết:</strong> Hay tự phê bình. Chú ý lỗi sai. "Inner critic" rất lớn.</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; Hiệu quả</div>"Anh đánh giá cao sự cẩn thận. Report rất chuẩn. Có vài điểm thảo luận &mdash; không phải sai, chỉ là góc nhìn khác."</div>
+      </div>
+      <p><em>Mẹo:</em> ĐỪNG nói "em sai" &mdash; nói "có cách tiếp cận khác". Type 1 đã tự phê bình rất nặng rồi.</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-heart);">Type 2 &mdash; Người Giúp Đỡ (The Helper)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Được yêu thương, được cần &middot; <strong>Nỗi sợ:</strong> Không ai cần mình</p>
+      <p><strong>Nhận biết:</strong> "Mình giúp gì được không?" Nhớ sinh nhật mọi người. Hy sinh bản thân.</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; Hiệu quả</div>"Em hỗ trợ team tuyệt vời. Nhưng em KHÔNG CẦN giúp mọi người để được đánh giá cao. Em bản thân đã đủ rồi."</div>
+      </div>
+      <p><em>Mẹo:</em> Nhắc nghỉ ngơi. Type 2 KHÔNG TỰ nghỉ. Leader cần "cho phép" họ nghỉ.</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-heart);">Type 3 &mdash; Người Thành Đạt (The Achiever)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Thành công, được ngưỡng mộ &middot; <strong>Nỗi sợ:</strong> Vô giá trị, thất bại</p>
+      <p><strong>Nhận biết:</strong> Goal-oriented mạnh. Hình ảnh quan trọng. Hay "chameleon".</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; Hiệu quả</div>"Anh giao project high-visibility. Nếu thành công = showcase cho department. KPI rõ: X, Y, Z."</div>
+      </div>
+      <p><em>Mẹo:</em> Cho spotlight + metrics. Nhưng nhắc: "Anh đánh giá vì con người em, không chỉ kết quả."</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-heart);">Type 4 &mdash; Người Cá Tính (The Individualist)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Bản sắc, sự độc đáo &middot; <strong>Nỗi sợ:</strong> Tầm thường, thiếu vắng</p>
+      <p><strong>Nhận biết:</strong> Sáng tạo, cảm xúc mãnh liệt. Ghét bị "đánh đồng".</p>
+      <p><strong>Cách quản lý:</strong> Công nhận KHÁC BIỆT: "Cách của em rất khác &mdash; đó là lý do anh cần em." Khi "down mood": "Anh hiểu, em cần gì từ anh?" ĐỪNG nói "Vui lên!"</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-head);">Type 5 &mdash; Nhà Quan Sát (The Investigator)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Hiểu biết, năng lực, tự chủ &middot; <strong>Nỗi sợ:</strong> Bất lực, bị "drain"</p>
+      <p><strong>Nhận biết:</strong> Ít nói nhưng rất sâu. Cần không gian riêng. Ghét small talk.</p>
+      <p><strong>Cách quản lý:</strong> Respect thời gian. Đặt lịch trước &mdash; ĐỪNG "đi qua bàn hỏi thăm". Cho chuyên sâu chuyên môn. "Em cần resource gì?"</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-head);">Type 6 &mdash; Người Trung Thành (The Loyalist)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> An toàn, hỗ trợ &middot; <strong>Nỗi sợ:</strong> Bị bỏ rơi, nguy hiểm</p>
+      <p><strong>Nhận biết:</strong> Hay "what if". Trung thành cực kỳ khi tin tưởng. Test leader liên tục.</p>
+      <p><strong>Cách quản lý:</strong> NHẤT QUÁN. Giữ lời hứa dù nhỏ. Khi lo lắng: "Anh nghe concern của em. Đây là plan B nếu xảy ra..."</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-head);">Type 7 &mdash; Người Nhiệt Huyết (The Enthusiast)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Trải nghiệm, tự do &middot; <strong>Nỗi sợ:</strong> Bị mắc kẹt, nhàm chán</p>
+      <p><strong>Nhận biết:</strong> Hào hứng, nhiều ý tưởng. Tránh cảm xúc tiêu cực. Năng lượng cao nhưng phân tán.</p>
+      <p><strong>Cách quản lý:</strong> Cho variety + giới hạn rõ. "3 projects OK, nhưng KPI cụ thể mỗi cái." Khi cần đối diện khó: "Xử lý xong hôm nay = ngày mai tự do."</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-body);">Type 8 &mdash; Người Thách Thức (The Challenger)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Tự chủ, sức mạnh &middot; <strong>Nỗi sợ:</strong> Bị kiểm soát, phản bội</p>
+      <p><strong>Nhận biết:</strong> Mạnh mẽ, trực tiếp. Presence lớn. Bảo vệ "người mình" mãnh liệt.</p>
+      <p><strong>Cách quản lý:</strong> THẲNG THẮN. Tôn trọng người dám đối đầu. Cho quyền tự chủ. "Anh cần em dẫn dắt mảng này &mdash; toàn quyền, update weekly."</p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header" style="background:var(--enn-body);">Type 9 &mdash; Người Hòa Giải (The Peacemaker)</div>
+    <div class="scenario-body">
+      <p><strong>Động lực:</strong> Hòa bình, hài hòa &middot; <strong>Nỗi sợ:</strong> Xung đột, mất kết nối</p>
+      <p><strong>Nhận biết:</strong> Dễ đồng ý, "go with the flow". Đôi khi đồng ý mà không đồng ý thật (passive resistance).</p>
+      <p><strong>Cách quản lý:</strong> Hỏi riêng 1:1: "Em thật sự nghĩ gì? Không có câu trả lời sai." Khi đồng ý quá dễ: "Anh muốn chắc: em đồng ý vì thật sự muốn, hay vì ngại nói khác?"</p>
+    </div>
+  </div>
+
+  <h3>Bảng Tóm Tắt: Câu Thần Chú Mỗi Type</h3>
+  <div style="overflow-x:auto;">
+  <table class="tbl">
+    <thead><tr><th>Type</th><th>Nỗi sợ</th><th>Câu tạo động lực</th><th>Câu TRÁNH nói</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Sai lầm</td><td>"Cách tiếp cận rất chuẩn"</td><td>"Em sai rồi"</td></tr>
+      <tr><td><strong>2</strong></td><td>Không được yêu</td><td>"Anh cần em" + "Em cũng cần nghỉ"</td><td>"Đừng lo chuyện người khác"</td></tr>
+      <tr><td><strong>3</strong></td><td>Vô giá trị</td><td>"Cơ hội thể hiện đây"</td><td>"Kết quả không quan trọng"</td></tr>
+      <tr><td><strong>4</strong></td><td>Tầm thường</td><td>"Góc nhìn rất độc đáo"</td><td>"Ai cũng giống nhau"</td></tr>
+      <tr><td><strong>5</strong></td><td>Bất lực</td><td>"Cần thêm resource gì?"</td><td>"Đừng nghĩ nữa, cứ làm"</td></tr>
+      <tr><td><strong>6</strong></td><td>Bị bỏ rơi</td><td>"Anh ở đây, plan B đây"</td><td>"Đừng lo, trust me" (không đủ)</td></tr>
+      <tr><td><strong>7</strong></td><td>Bị mắc kẹt</td><td>"Xong = tự do thử thứ mới"</td><td>"Chỉ được làm cái này"</td></tr>
+      <tr><td><strong>8</strong></td><td>Bị kiểm soát</td><td>"Toàn quyền. Anh tin em."</td><td>"Xin phép trước"</td></tr>
+      <tr><td><strong>9</strong></td><td>Xung đột</td><td>"Ý kiến em quan trọng"</td><td>"Cứ theo số đông"</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+</div>
+
+<!-- ====== TAB 4: NLP ====== -->
+<div class="tab-panel" id="panel-nlp">
+<div class="panel-content">
+  <h2>NLP &mdash; Lập Trình Ngôn Ngữ Tư Duy</h2>
+  <p class="subtitle">Kỹ thuật giao tiếp thực chiến giúp kết nối, thuyết phục và dẫn dắt hiệu quả.</p>
+
+  <div class="lead-box">
+    <strong>NLP là gì?</strong> Neuro-Linguistic Programming nghiên cứu mối liên hệ giữa ngôn ngữ (Linguistic), tư duy thần kinh (Neuro), và hành vi (Programming). NLP dạy bạn CÁCH NÓI để ảnh hưởng CÁCH NGHĨ và CÁCH HÀNH ĐỘNG. Đây là "how" mà Human Design, DISC, MBTI không dạy.
+  </div>
+
+  <h3>7 Kỹ Thuật Quan Trọng Nhất</h3>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">1. Rapport &mdash; Tạo Kết Nối Ngầm</h4>
+    <p><strong>Bản chất:</strong> Con người tin người GIỐNG mình. Rapport tạo cảm giác "người này hiểu mình" qua phản chiếu vô thức.</p>
+    <p><strong>Matching:</strong> Bắt chước nhẹ tư thế, giọng điệu, tốc độ nói. Họ ngồi nghiêng &rarr; bạn cũng nghiêng.</p>
+    <p><strong>Pacing:</strong> Đồng bộ cảm xúc. Họ lo &rarr; "Anh hiểu điều này khiến em lo..." (pace) &rarr; "...bây giờ xem giải pháp nhé" (lead).</p>
+    <p><strong>Leading:</strong> Sau khi pace, từ từ thay đổi &mdash; họ sẽ theo.</p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128172;</span> Ví dụ: Nhân viên stress deadline</div>
+      <div class="scenario-body">
+        <div class="dialogue">
+          <div class="dialogue-line wrong"><div class="label">&#10007; Phá rapport</div>"Bình tĩnh đi! Deadline vẫn còn mà!"</div>
+          <div class="dialogue-line right"><div class="label">&#10003; Pace &rarr; Lead</div>"Anh thấy deadline tight, áp lực thật..." (pace) &rarr; dừng 2 giây &rarr; "...nếu ưu tiên 3 task quan trọng nhất, áp lực giảm hẳn. Em thấy sao?" (lead)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">2. Reframing &mdash; Đổi Khung Nhìn</h4>
+    <p><strong>Content Reframe:</strong> Thay đổi ý nghĩa. "Thất bại" &rarr; "Phát hiện cách KHÔNG hiệu quả."</p>
+    <p><strong>Context Reframe:</strong> Đặt vào bối cảnh khác. "Quá cẩn thận, chậm!" &rarr; "Team CẦN người kiểm tra chất lượng. Đó là sức mạnh em."</p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128172;</span> 5 Reframe hay dùng</div>
+      <div class="scenario-body">
+        <p>"Hay nhảy việc" &rarr; "Nhiều trải nghiệm đa dạng &mdash; phù hợp cross-functional."</p>
+        <p>"Quá thẳng thắn" &rarr; "Có dũng khí nói sự thật &mdash; team cần."</p>
+        <p>"Ít nói trong meeting" &rarr; "Quan sát giỏi &mdash; insight sâu vì lắng nghe trước."</p>
+        <p>"Project thất bại" &rarr; "Có data thực tế mà lý thuyết không thể cho."</p>
+        <p>"Client phàn nàn nhiều" &rarr; "Client quan tâm &mdash; người không quan tâm bỏ đi luôn."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">3. Anchoring &mdash; Neo Cảm Xúc</h4>
+    <p><strong>Bản chất:</strong> Liên kết kích thích (cử chỉ, từ ngữ, vị trí) với trạng thái cảm xúc.</p>
+    <p><strong>Ứng dụng:</strong> Mỗi lần khen team, đứng ở CÙNG MỘT VỊ TRÍ + giọng phấn khởi. Sau vài lần, chỉ cần đứng đó = team tự tích cực. Tạo ritual trước sprint (high-five, khẩu hiệu) &rarr; sau vài sprint thành công, ritual = anchor cho tự tin.</p>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">4. Meta Model &mdash; Hỏi Đúng Câu</h4>
+    <p>Khi người ta nói, họ bóp méo, xóa bớt, hoặc khái quát hóa. Meta Model giúp "mở khóa" thông tin thật.</p>
+    <div class="grid-3">
+      <div class="card">
+        <h4>Khái quát hóa</h4>
+        <p><strong>"Không ai hiểu tôi."</strong></p>
+        <p>&rarr; "Không ai? Cụ thể ai?"</p>
+      </div>
+      <div class="card">
+        <h4>Xóa bớt</h4>
+        <p><strong>"Em sợ."</strong></p>
+        <p>&rarr; "Sợ cụ thể điều gì?"</p>
+      </div>
+      <div class="card">
+        <h4>Bóp méo</h4>
+        <p><strong>"Sếp không giao = không tin."</strong></p>
+        <p>&rarr; "Có thể lý do khác?"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">5. Representational Systems &mdash; Kênh Giác Quan</h4>
+    <p>Mỗi người ưu tiên 1 kênh: Visual (nhìn), Auditory (nghe), Kinesthetic (cảm giác).</p>
+    <p><strong>Visual:</strong> "Tôi THẤY vấn đề" &rarr; Dùng hình ảnh, sơ đồ, whiteboard.</p>
+    <p><strong>Auditory:</strong> "Nghe có vẻ hợp lý" &rarr; Dùng thảo luận, voice note.</p>
+    <p><strong>Kinesthetic:</strong> "CẢM THẤY đúng" &rarr; Dùng prototype, hands-on.</p>
+    <div class="tip">
+      <p><strong>Pro tip:</strong> Khi present, dùng CẢ BA: "Hãy hình dung (V) kết quả. Nghe feedback client (A) rất tích cực. Cảm giác (K) hoàn thành tuyệt vời." &rarr; "Nói ngôn ngữ" cả 3 nhóm.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">6. Milton Model &mdash; Ngôn Ngữ Mơ Hồ Chiến Lược</h4>
+    <p>Ngược Meta Model. Dùng ngôn ngữ MƠ HỒ CÓ CHỦ ĐÍCH &rarr; người nghe tự "fill in" ý nghĩa phù hợp.</p>
+    <p><strong>Ví dụ:</strong> "Mỗi người đều có thế mạnh riêng, khi kết hợp đúng cách, kết quả vượt xa tưởng tượng." &rarr; Ai cũng tự gán ý nghĩa cá nhân.</p>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-top:4px solid var(--nlp);">
+    <h4 style="color:var(--nlp);">7. Presuppositions &mdash; Giả Định Ngầm</h4>
+    <p>Đặt điều muốn vào câu hỏi như giả định đã được chấp nhận.</p>
+    <p>"Em muốn bắt đầu thứ 2 hay thứ 4?" &rarr; Giả định: em SẼ bắt đầu.</p>
+    <p>"Khi em hoàn thành phase 1, muốn tự present hay anh present cùng?" &rarr; Giả định: SẼ hoàn thành.</p>
+    <p>"Em đã cải thiện nhiều &mdash; muốn phát triển kỹ năng nào tiếp?" &rarr; Giả định: ĐÃ cải thiện.</p>
+    <div class="warning">
+      <p><strong>Lưu ý đạo đức:</strong> NLP rất mạnh &mdash; dùng để giúp phát triển, KHÔNG thao túng. Ranh giới nằm ở ý định: win-win hay chỉ win cho mình?</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ====== TAB 5: EQ ====== -->
+<div class="tab-panel" id="panel-eq">
+<div class="panel-content">
+  <h2>EQ &mdash; Trí Tuệ Cảm Xúc</h2>
+  <p class="subtitle">Nền tảng cốt lõi &mdash; không có EQ, tất cả phương pháp khác chỉ là lý thuyết suông.</p>
+
+  <div class="lead-box">
+    <strong>EQ là gì?</strong> Khả năng nhận biết, hiểu, quản lý cảm xúc bản thân và người khác. Theo Daniel Goleman, 90% leader xuất sắc có EQ cao. EQ gồm 4 trụ cột: Tự nhận thức, Tự quản lý, Nhận thức xã hội, Quản lý mối quan hệ.
+  </div>
+
+  <h3>4 Trụ Cột EQ Chi Tiết</h3>
+
+  <div class="card" style="margin:24px 0; border-left:5px solid #E74C3C;">
+    <h4 style="color:#E74C3C;">Trụ 1: Tự Nhận Thức (Self-Awareness)</h4>
+    <p><strong>Gọi tên cảm xúc chính xác:</strong> Không phải "stressed" &mdash; cụ thể: "Lo lắng vì sợ project fail" hay "Thất vọng vì không được công nhận". Càng cụ thể &rarr; càng dễ xử lý.</p>
+    <p><strong>Nhận biết trigger:</strong> "Khi nhân viên đến muộn, tôi giận &mdash; vì trigger 'thiếu tôn trọng'."</p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128221;</span> Bài tập: Nhật ký cảm xúc 5 phút/ngày</div>
+      <div class="scenario-body">
+        <p>&#10122; "Cảm xúc mạnh nhất hôm nay: ___"</p>
+        <p>&#10123; "Xuất hiện khi: ___"</p>
+        <p>&#10124; "Tôi đã phản ứng: ___ Kết quả: ___"</p>
+        <p><em>Sau 2 tuần &rarr; thấy PATTERN &mdash; trigger lặp lại, cách react thường dùng.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-left:5px solid #E67E22;">
+    <h4 style="color:#E67E22;">Trụ 2: Tự Quản Lý (Self-Management)</h4>
+    <p><strong>Khoảng dừng 6 giây:</strong> Giữa kích thích và phản ứng, hít thở sâu, đếm 1-6. Cho cortisol giảm, prefrontal cortex hoạt động.</p>
+    <p><strong>Reappraisal:</strong> "Nhân viên muộn vì cố tình hay con bệnh? Mình có assume worst case?"</p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128172;</span> Report trễ lần 3</div>
+      <div class="scenario-body">
+        <div class="dialogue">
+          <div class="dialogue-line wrong"><div class="label">React (EQ thấp)</div>"Lần thứ 3! Em có coi trọng công việc không?!"</div>
+          <div class="dialogue-line right"><div class="label">Respond (EQ cao)</div>[Hít thở 6 giây] "Anh nhận thấy report trễ lần 3. Có gì đang cản trở em? Mình xem cách giúp."</div>
+        </div>
+        <p><em>Kết quả: Phát hiện overload &rarr; redistribute, không phải phê bình.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-left:5px solid #2ECC71;">
+    <h4 style="color:#27AE60;">Trụ 3: Nhận Thức Xã Hội (Social Awareness)</h4>
+    <p><strong>Empathic Listening:</strong> Nghe để HIỂU, không phải nghe để TRẢ LỜI. 100% ở đây.</p>
+    <p><strong>Đọc ngôn ngữ cơ thể:</strong> Khoanh tay = phòng thủ. Ngả ra sau = không đồng ý. Mắt xuống = không thoải mái. Gật nhanh = muốn nói. Nhíu mày + nghiêng đầu = đang suy nghĩ.</p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128065;</span> Bài tập: "Read the Room"</div>
+      <div class="scenario-body">
+        <p>Trong cuộc họp tiếp theo, quan sát:</p>
+        <p>&#10122; Ai khoanh tay? (có thể không đồng ý)</p>
+        <p>&#10123; Ai nhìn điện thoại? (không engaged)</p>
+        <p>&#10124; Ai ngả về trước? (hứng thú)</p>
+        <p>&#10125; Ai im lặng bất thường?</p>
+        <p><em>Sau họp, check: "Anh để ý em im lặng hơn bình thường. OK không?"</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin:24px 0; border-left:5px solid #3498DB;">
+    <h4 style="color:#2980B9;">Trụ 4: Quản Lý Mối Quan Hệ (Relationship Management)</h4>
+    <p><strong>OIR Framework (thay thế Feedback Sandwich):</strong></p>
+    <div class="scenario" style="margin-top:16px;">
+      <div class="scenario-header"><span class="icon">&#128172;</span> OIR trong thực tế</div>
+      <div class="scenario-body">
+        <p><strong>O (Observation):</strong> "3 buổi standup gần nhất, em đến muộn 10-15 phút."</p>
+        <p><strong>I (Impact):</strong> "Team phải chờ, meeting kéo dài."</p>
+        <p><strong>R (Request):</strong> "Em commit đúng giờ từ tuần sau? Nếu khó khăn, mình tìm giải pháp cùng."</p>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;"><strong>Conflict Resolution &mdash; 4 Bước:</strong></p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><h4>Acknowledge</h4><p>"Cả hai bên đều có quan điểm hợp lý. Không phải ai đúng ai sai."</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><h4>Understand</h4><p>Cho mỗi bên 3 phút KHÔNG BỊ NGẮT.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><h4>Mirror</h4><p>"A muốn [tóm tắt]. B muốn [tóm tắt]. Đúng chưa?" &rarr; Cảm thấy ĐƯỢC NGHE.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><h4>Co-create</h4><p>"Tìm giải pháp thỏa mãn CẢ HAI. Ai có ý tưởng?"</p></div></div>
+    </div>
+  </div>
+
+  <h3>Bài Tập EQ Hàng Ngày &mdash; 5 Phút</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Sáng: Intention Setting</h4>
+      <p>"Hôm nay phản ứng thế nào khi gặp khó? Tập trung lắng nghe ai?"</p>
+    </div>
+    <div class="card">
+      <h4>Tối: Reflection</h4>
+      <p>"Mình react hay respond? Khoảnh khắc nào wish phản ứng khác? Ngày mai làm gì khác?"</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ====== TAB 6: SITUATIONAL LEADERSHIP ====== -->
+<div class="tab-panel" id="panel-sl">
+<div class="panel-content">
+  <h2>Situational Leadership &mdash; Lãnh Đạo Tình Huống</h2>
+  <p class="subtitle">Không có phong cách "tốt nhất" &mdash; chỉ có PHÙ HỢP NHẤT với từng người, từng giai đoạn.</p>
+
+  <div class="lead-box">
+    <strong>SL là gì?</strong> Ken Blanchard &amp; Paul Hersey: Leader hiệu quả THAY ĐỔI phong cách dựa trên mức phát triển của nhân viên trong TỪNG TASK. Một senior có thể D4 cho task quen nhưng D1 cho task mới hoàn toàn.
+  </div>
+
+  <h3>4 Mức Phát Triển (Development Levels)</h3>
+  <div class="grid-2">
+    <div class="card" style="border-top:4px solid #E74C3C;">
+      <h4 style="color:#E74C3C;">D1 &mdash; Enthusiastic Beginner</h4>
+      <p><strong>Năng lực:</strong> Thấp &middot; <strong>Cam kết:</strong> Cao</p>
+      <p>Mới bắt đầu, chưa biết gì nhưng RẤT HỨNG THÚ. "Giao em đi!" &mdash; nhưng chưa biết bắt đầu từ đâu.</p>
+    </div>
+    <div class="card" style="border-top:4px solid #E67E22;">
+      <h4 style="color:#E67E22;">D2 &mdash; Disillusioned Learner</h4>
+      <p><strong>Năng lực:</strong> Tăng dần &middot; <strong>Cam kết:</strong> Giảm mạnh</p>
+      <p>Đủ biết để nhận ra MÌNH KHÔNG BIẾT NHIỀU. Mất tự tin. "Sao khó quá?" Giai đoạn nguy hiểm nhất.</p>
+    </div>
+    <div class="card" style="border-top:4px solid #3498DB;">
+      <h4 style="color:#3498DB;">D3 &mdash; Capable but Cautious</h4>
+      <p><strong>Năng lực:</strong> Cao &middot; <strong>Cam kết:</strong> Dao động</p>
+      <p>Có kỹ năng nhưng CHƯA TỰ TIN. Biết làm, hay hỏi: "Anh review giúp?" dù không cần.</p>
+    </div>
+    <div class="card" style="border-top:4px solid #27AE60;">
+      <h4 style="color:#27AE60;">D4 &mdash; Self-Reliant Achiever</h4>
+      <p><strong>Năng lực:</strong> Cao &middot; <strong>Cam kết:</strong> Cao</p>
+      <p>Giỏi VÀ tự tin. Tự chủ hoàn toàn. Cần TỰ DO, không micro-manage.</p>
+    </div>
+  </div>
+
+  <h3>4 Phong Cách Lãnh Đạo Tương Ứng</h3>
+  <div style="overflow-x:auto;">
+  <table class="tbl">
+    <thead><tr><th>Phong cách</th><th>Dùng cho</th><th>Chỉ đạo</th><th>Hỗ trợ</th><th>Leader nói gì</th></tr></thead>
+    <tbody>
+      <tr><td><strong>S1 &mdash; Directing</strong></td><td>D1</td><td>Cao</td><td>Thấp</td><td>"Đây là cách: Step 1, 2, 3. Follow theo, hỏi nếu cần."</td></tr>
+      <tr><td><strong>S2 &mdash; Coaching</strong></td><td>D2</td><td>Cao</td><td>Cao</td><td>"Anh hướng dẫn cách này. Em đang tiến bộ. Cứ từ từ."</td></tr>
+      <tr><td><strong>S3 &mdash; Supporting</strong></td><td>D3</td><td>Thấp</td><td>Cao</td><td>"Em nghĩ nên làm thế nào? Anh tin em."</td></tr>
+      <tr><td><strong>S4 &mdash; Delegating</strong></td><td>D4</td><td>Thấp</td><td>Thấp</td><td>"Đây là goal. Em tự quyết. Update khi xong."</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Tình Huống Áp Dụng Chi Tiết</h3>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128203;</span> Senior nhận task mới chưa từng làm</div>
+    <div class="scenario-body">
+      <p><strong>Bối cảnh:</strong> Senior dev (D4 coding) được giao viết technical proposal (chưa bao giờ làm).</p>
+      <p><strong>Sai:</strong> "Em senior &rarr; tự làm nhé" (S4 cho mọi thứ) &rarr; struggle, không dám hỏi.</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; Đúng: S1 cho task mới</div>"Anh biết em giỏi coding. Proposal writing hơi khác &mdash; đây template, đây 3 ví dụ tốt. Follow structure này. Lần đầu anh review kỹ trước khi gửi."</div>
+      </div>
+      <p><em>Respect kinh nghiệm + cung cấp direction cho task mới.</em></p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128203;</span> Nhân viên mới ở giai đoạn D2</div>
+    <div class="scenario-body">
+      <p><strong>Bối cảnh:</strong> Vào team 2 tháng. Ban đầu hào hứng (D1). Giờ ít nói, hay so sánh với đồng nghiệp.</p>
+      <p><strong>Sai:</strong> S4 "Tự lo" &rarr; bị bỏ rơi. S1 "Làm theo cái này" &rarr; không được trust.</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; S2 Coaching</div>"Anh biết giai đoạn này overwhelming &mdash; ai cũng trải qua. Em đã làm tốt [kể cụ thể]. Tuần này focus [1 skill]. Anh pair 30 phút/ngày. Cần gì cứ Slack."</div>
+      </div>
+      <p><em>Công thức: Direction + Encouragement + Availability</em></p>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header"><span class="icon">&#128203;</span> D3 hay hỏi dù biết câu trả lời</div>
+    <div class="scenario-body">
+      <p><strong>Bối cảnh:</strong> Kỹ năng tốt nhưng trước mỗi quyết định: "Anh thấy OK không?" dù đã biết.</p>
+      <div class="dialogue">
+        <div class="dialogue-line right"><div class="label">&#10003; S3 Supporting</div>"Em nghĩ nên xử lý thế nào?" [Z trả lời] &rarr; "Anh cũng nghĩ vậy! Em quyết định đi. Anh trust em."</div>
+      </div>
+      <p><em>Kỹ thuật: Hỏi ngược &rarr; xác nhận &rarr; trao quyền. Dần Z tự tin quyết định.</em></p>
+    </div>
+  </div>
+
+  <h3>Kết Hợp SL + Human Design</h3>
+  <div class="key-point">
+    <p><strong>Power Combo:</strong> SL = LƯỢNG directive/support. HD = PHONG CÁCH directive/support.</p>
+    <p><strong>Ví dụ:</strong> Projector (HD) + D2 (SL)</p>
+    <p>SL: S2 Coaching (chỉ đạo + hỗ trợ nhiều)</p>
+    <p>HD: Cần MỜI + CÔNG NHẬN</p>
+    <p><strong>Kết hợp:</strong> "Anh MỜI em chia sẻ tiến độ (HD). Em đã cải thiện nhiều (HD recognition). Tuần này focus skill X &mdash; đây roadmap (SL direction). Anh pair thứ 3, 5 (SL support)."</p>
+  </div>
+
+  <h3>Cheat Sheet Nhận Diện Nhanh</h3>
+  <div style="overflow-x:auto;">
+  <table class="tbl">
+    <thead><tr><th>Dấu hiệu</th><th>D1</th><th>D2</th><th>D3</th><th>D4</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Câu hay nói</strong></td><td>"Giao em đi!"</td><td>"Sao khó quá..."</td><td>"Anh review giúp?"</td><td>"Em handle được"</td></tr>
+      <tr><td><strong>Năng lượng</strong></td><td>Hào hứng cao</td><td>Mệt mỏi, hoài nghi</td><td>Ổn nhưng thận trọng</td><td>Tự tin, bình tĩnh</td></tr>
+      <tr><td><strong>Phong cách cần</strong></td><td>S1 Directing</td><td>S2 Coaching</td><td>S3 Supporting</td><td>S4 Delegating</td></tr>
+      <tr><td><strong>% Chỉ đạo</strong></td><td>90%</td><td>60%</td><td>20%</td><td>5%</td></tr>
+      <tr><td><strong>% Hỗ trợ</strong></td><td>10%</td><td>60%</td><td>80%</td><td>20%</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tip">
+    <p><strong>Nguyên tắc cuối:</strong> Development Level thay đổi theo TASK, không theo NGƯỜI. Một nhân viên đồng thời D4 coding, D2 presenting, D1 project management. Leader giỏi nhận ra và điều chỉnh phong cách cho TỪNG TASK.</p>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--border); padding:48px 40px; text-align:center; color:var(--text-muted); font-size:14px; background:var(--bg-warm);">
+  <p style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--text); margin-bottom:8px;">6 Phương Pháp Bổ Trợ Leadership</p>
+  <p>DISC &middot; MBTI &middot; Enneagram &middot; NLP &middot; EQ &middot; Situational Leadership</p>
+  <p style="margin-top:12px; font-size:12px;">Tài liệu học nội bộ dành cho Team Leader</p>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tab-nav-wrapper').offsetTop, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
