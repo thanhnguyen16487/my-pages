@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .page-list {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .page-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .page-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .page-card a {
+            color: #764ba2;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .page-card a:hover {
+            text-decoration: underline;
+        }
+        .page-card p {
+            margin-top: 0.5rem;
+            color: #555;
+        }
+        .meta {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        footer {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chào mừng đến GitHub Pages!</h1>
+        <p class="subtitle">Repository: thanhnguyen16487/my-pages</p>
+
+        <div class="page-list">
+            <div class="page-card">
+                <a href="leadership_methods_guide.html">
+                    6 Phương Pháp Bổ Trợ Cho Team Leader
+                    <span class="badge">Leadership</span>
+                </a>
+                <p>Tài liệu học chi tiết về các phương pháp quản lý và lãnh đạo team hiệu quả.</p>
+                <div class="meta">File: leadership_methods_guide.html</div>
+            </div>
+
+            <div class="page-card">
+                <a href="human_design_guide.html">
+                    Human Design — Cẩm Nang Toàn Diện Cho Ngườii Mới
+                    <span class="badge">Self-Development</span>
+                </a>
+                <p>Cẩm nang toàn diện về Human Design giúp bạn hiểu rõ bản thân và cách tương tác với thế giới xung quanh.</p>
+                <div class="meta">File: human_design_guide.html</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Published with GitHub Pages 2025</p>
+        </footer>
+    </div>
+</body>
+</html>
