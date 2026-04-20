@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harness Engineering — Beginner → Advanced | AI Agents</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090b;
+  --bg2: #111114;
+  --bg3: #1a1a1f;
+  --surface: #222228;
+  --border: #2a2a32;
+  --accent: #10b981;
+  --accent2: #34d399;
+  --accent-dim: #065f46;
+  --accent-glow: rgba(16,185,129,0.08);
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  --purple: #a78bfa;
+  --text: #d4d4d8;
+  --text-dim: #71717a;
+  --text-bright: #fafafa;
+  --pink: #f472b6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:16px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3rem 2rem;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 20% 50%,rgba(16,185,129,0.06) 0%,transparent 50%),
+              radial-gradient(ellipse at 80% 30%,rgba(167,139,250,0.05) 0%,transparent 50%),var(--bg);}
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(255,255,255,0.015) 80px),
+                    repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(255,255,255,0.015) 80px);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.2rem;border:1px solid var(--accent-dim);border-radius:100px;font-size:.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.15em;margin-bottom:2rem;background:var(--accent-glow);}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5.5vw,4.5rem);color:var(--text-bright);line-height:1.1;max-width:850px;margin-bottom:1.5rem;}
+.hero h1 em{color:var(--accent);font-style:italic;}
+.hero p{font-size:1.1rem;color:var(--text-dim);max-width:620px;margin-bottom:2.5rem;line-height:1.7;}
+.hero-formula{font-family:'JetBrains Mono',monospace;font-size:clamp(1rem,2vw,1.4rem);color:var(--accent2);background:var(--bg2);border:1px solid var(--border);padding:1rem 2rem;border-radius:12px;margin-bottom:2.5rem;letter-spacing:.02em;}
+.hero-formula span{color:var(--text-dim);}
+
+/* NAV */
+.toc-bar{position:sticky;top:0;z-index:100;background:rgba(9,9,11,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.toc-bar nav{display:flex;max-width:1100px;margin:0 auto;padding:0 1rem;}
+.toc-bar a{display:block;padding:.85rem 1rem;color:var(--text-dim);text-decoration:none;font-size:.78rem;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;}
+.toc-bar a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* CONTENT */
+.content{max-width:880px;margin:0 auto;padding:0 2rem;}
+.ch{padding:4.5rem 0;border-bottom:1px solid var(--border);}
+.ch:last-child{border-bottom:none;}
+.ch-tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.2em;margin-bottom:.75rem;}
+.ch h2{font-family:'Fraunces',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--text-bright);margin-bottom:1.25rem;line-height:1.2;}
+.ch h3{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--text-bright);margin:2.5rem 0 .75rem;padding-left:1rem;border-left:3px solid var(--accent);}
+.ch h4{font-size:1rem;font-weight:600;color:var(--purple);margin:1.75rem 0 .6rem;}
+.ch p{margin-bottom:1.15rem;}
+.lead{font-size:1.05rem;color:var(--text-dim);border-left:3px solid var(--accent-dim);padding-left:1.25rem;margin-bottom:2rem;}
+
+/* WHY BOX */
+.why{background:linear-gradient(135deg,rgba(16,185,129,.07),rgba(16,185,129,.02));border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:1.5rem 1.75rem;margin:1.5rem 0;}
+.why-t{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem;}
+.why p{font-size:.93rem;margin-bottom:.4rem;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.15rem;margin:1.75rem 0;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.4rem;transition:all .25s;}
+.card:hover{border-color:var(--accent-dim);transform:translateY(-2px);}
+.card h5{font-size:.95rem;color:var(--text-bright);margin-bottom:.5rem;}
+.card p{font-size:.88rem;color:var(--text-dim);margin:0;}
+.card-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.85rem;}
+.ic-g{background:rgba(16,185,129,.12);color:var(--accent);}
+.ic-b{background:rgba(59,130,246,.12);color:var(--info);}
+.ic-p{background:rgba(167,139,250,.12);color:var(--purple);}
+.ic-w{background:rgba(245,158,11,.12);color:var(--warn);}
+.ic-r{background:rgba(239,68,68,.12);color:var(--danger);}
+.ic-k{background:rgba(244,114,182,.12);color:var(--pink);}
+
+/* PRINCIPLE BLOCK */
+.pri{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.75rem;margin:1.75rem 0;position:relative;overflow:hidden;}
+.pri::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;}
+.pri-g::before{background:var(--accent);} .pri-b::before{background:var(--info);} .pri-p::before{background:var(--purple);} .pri-w::before{background:var(--warn);} .pri-r::before{background:var(--danger);} .pri-k::before{background:var(--pink);}
+.pri h5{font-size:1.02rem;color:var(--text-bright);margin-bottom:.7rem;}
+
+/* CODE */
+.code{background:#0c0c10;border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;margin:1.4rem 0;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--accent2);overflow-x:auto;white-space:pre-wrap;line-height:1.6;}
+.code .lbl{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem;display:block;}
+
+/* QUOTE */
+.quote{background:linear-gradient(135deg,rgba(59,130,246,.05),rgba(167,139,250,.03));border:1px solid rgba(59,130,246,.12);border-radius:12px;padding:1.4rem 1.75rem;margin:1.75rem 0;position:relative;}
+.quote::before{content:'"';font-family:'Fraunces',serif;font-size:3.5rem;color:rgba(59,130,246,.15);position:absolute;top:-.2rem;left:.8rem;line-height:1;}
+.quote p{font-style:italic;padding-left:1.2rem;font-size:.95rem;}
+.quote .src{font-style:normal;font-size:.78rem;color:var(--info);margin-top:.6rem;padding-left:1.2rem;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;margin:1.75rem 0;font-size:.88rem;}
+.tbl thead{background:var(--bg2);}
+.tbl th{padding:.75rem .9rem;text-align:left;font-weight:600;color:var(--accent);border-bottom:2px solid var(--accent-dim);font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;}
+.tbl td{padding:.7rem .9rem;border-bottom:1px solid var(--border);}
+.tbl tbody tr:hover{background:var(--bg2);}
+
+/* FLOW */
+.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0;margin:1.75rem 0;padding:1.5rem;background:var(--bg2);border-radius:12px;border:1px solid var(--border);}
+.flow-s{text-align:center;padding:.8rem 1.2rem;min-width:110px;}
+.flow-s .num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--bg);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;}
+.flow-s .fl{font-size:.78rem;font-weight:500;color:var(--text-bright);}
+.flow-a{font-size:1.3rem;color:var(--accent-dim);padding:0 .15rem;}
+
+/* BADGE */
+.lvl{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .65rem;border-radius:100px;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;}
+.lvl-b{background:rgba(16,185,129,.12);color:var(--accent);}
+.lvl-i{background:rgba(245,158,11,.12);color:var(--warn);}
+.lvl-a{background:rgba(239,68,68,.12);color:var(--danger);}
+
+/* COMPARE */
+.cmp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1.5rem 0;}
+.cmp-item{padding:1.2rem;border-radius:10px;border:1px solid var(--border);background:var(--bg2);}
+.cmp-item h6{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem;}
+
+/* FOOTER */
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);color:var(--text-dim);font-size:.82rem;}
+footer strong{color:var(--accent);}
+
+/* ACCORDION */
+.acc{margin:1.5rem 0;}
+.acc-item{border:1px solid var(--border);border-radius:8px;margin-bottom:.4rem;overflow:hidden;}
+.acc-h{padding:.9rem 1.15rem;background:var(--bg2);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:500;font-size:.92rem;color:var(--text-bright);transition:background .2s;}
+.acc-h:hover{background:var(--bg3);}
+.acc-h .arr{transition:transform .3s;color:var(--accent);font-size:.85rem;}
+.acc-item.open .acc-h .arr{transform:rotate(180deg);}
+.acc-b{max-height:0;overflow:hidden;transition:max-height .4s ease;background:rgba(17,17,20,.5);}
+.acc-item.open .acc-b{max-height:3000px;}
+.acc-bi{padding:1.15rem;}
+.acc-bi p{font-size:.92rem;}
+
+@media(max-width:768px){
+  .cmp{grid-template-columns:1fr;}
+  .flow{flex-direction:column;}
+  .flow-a{transform:rotate(90deg);}
+  .toc-bar a{padding:.7rem .6rem;font-size:.72rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🛠️ AI Agent Infrastructure</div>
+  <h1>Harness <em>Engineering</em><br>Beginner → Advanced</h1>
+  <p>Nguyên lý thiết kế, xây dựng và vận hành hệ thống bao quanh AI agents — context engineering, constraints, evaluation, observability, orchestration và safe autonomy — để agents hoạt động đáng tin cậy trong production.</p>
+  <div class="hero-formula">Agent <span>=</span> Model <span>+</span> Harness</div>
+</section>
+
+<!-- NAV -->
+<div class="toc-bar">
+  <nav>
+    <a href="#ch1">Foundations</a>
+    <a href="#ch2">Agent = Model + Harness</a>
+    <a href="#ch3">6 Components</a>
+    <a href="#ch4">Context Engineering</a>
+    <a href="#ch5">Constraints & Guardrails</a>
+    <a href="#ch6">Specs & Agent Files</a>
+    <a href="#ch7">Evals & Observability</a>
+    <a href="#ch8">Long-Running Agents</a>
+    <a href="#ch9">Multi-Agent</a>
+    <a href="#ch10">Tools & Benchmarks</a>
+    <a href="#ch11">Real-World Lessons</a>
+    <a href="#ch12">Tương Lai</a>
+  </nav>
+</div>
+
+<div class="content">
+
+<!-- CH1 -->
+<section class="ch" id="ch1">
+  <div class="ch-tag">Chương 01 <span class="lvl lvl-b">● Beginner</span></div>
+  <h2>Foundations — Harness Engineering Là Gì?</h2>
+
+  <p class="lead">Harness engineering là ngành thực hành thiết kế môi trường xung quanh AI agents để chúng hoạt động đáng tin cậy. Nó nằm ở giao điểm của context engineering, evaluation, observability, orchestration, safe autonomy và software architecture.</p>
+
+  <p>Thuật ngữ "harness" mượn từ thế giới ngựa: con ngựa mạnh mẽ nhưng vô dụng cho canh tác nếu không có bộ dây cương. AI model là con ngựa. Harness là mọi thứ hướng sức mạnh của nó vào công việc hữu ích. Kỹ sư là người cưỡi, cung cấp phương hướng.</p>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao harness engineering xuất hiện ngay bây giờ?</div>
+    <p>Agents đã đủ giỏi để hữu ích, nhưng chưa đủ tin cậy để tin tưởng một mình. Khoảng cuối 2025, Andrej Karpathy mô tả sự đảo ngược: từ "chủ yếu code thủ công + ít AI hỗ trợ" sang "chủ yếu agent-driven + con người chỉnh sửa". Nhưng ngay khi agents đủ mạnh để làm nhiều, mọi người cũng phát hiện chúng dễ vỡ thế nào trong môi trường thực.</p>
+    <p>Kết quả yếu từ coding agents thường là VẤN ĐỀ HARNESS, không phải vấn đề model. Hai team dùng cùng model Claude/GPT có thể thấy chênh lệch 40 điểm phần trăm completion rate — hoàn toàn do harness design khác nhau.</p>
+  </div>
+
+  <h3>Phân biệt 3 cấp độ engineering</h3>
+
+  <div class="cmp">
+    <div class="cmp-item">
+      <h6 style="color:var(--accent)">Prompt Engineering</h6>
+      <p>Tối ưu chỉ thị cho MỘT lần tương tác với model. "Hỏi cái gì" — đầu vào trực tiếp.</p>
+    </div>
+    <div class="cmp-item">
+      <h6 style="color:var(--info)">Context Engineering</h6>
+      <p>Quản lý tập token xuyên suốt các lượt trong MỘT context window. "Gửi cho model cái gì" để nó trả lời tự tin.</p>
+    </div>
+    <div class="cmp-item">
+      <h6 style="color:var(--purple)">Harness Engineering</h6>
+      <p>TOÀN BỘ hệ thống vận hành: tools, permissions, state, tests, logs, retries, checkpoints, guardrails, reviews, evals — XUYÊN SUỐT nhiều context windows.</p>
+    </div>
+  </div>
+
+  <p>Context engineering nằm BÊN TRONG harness engineering. Harness bao trùm context engineering cùng với tool orchestration, state management, verification, human-in-the-loop controls, và lifecycle management.</p>
+
+  <div class="quote">
+    <p>Nếu prompt engineering là lệnh "rẽ phải", thì harness engineering là con đường, rào chắn, biển báo, và hệ thống giao thông cho phép mười phương tiện di chuyển an toàn cùng lúc.</p>
+    <div class="src">— So sánh phổ biến trong cộng đồng harness engineering</div>
+  </div>
+
+  <h3>Nguồn gốc từ các tổ chức hàng đầu</h3>
+  <p><strong>Anthropic</strong> (11/2025): Công bố bài viết về effective harnesses cho long-running agents — giới thiệu initializer agent, feature list, self-verification, và handoff artifacts xuyên context windows.</p>
+  <p><strong>OpenAI</strong> (02/2026): Field report xây dựng sản phẩm lớn với Codex — 1 triệu dòng code, 3 engineers, ~1,500 PRs, sử dụng AGENTS.md, CI constraints, browser validation, và telemetry.</p>
+  <p><strong>LangChain</strong> (03/2026): "The Anatomy of an Agent Harness" — phân tích agent = model + harness gồm prompts, tools, middleware, orchestration, và runtime infrastructure.</p>
+  <p><strong>Martin Fowler / Thoughtworks</strong>: Phân khung harness engineering thành context engineering, architectural constraints, và "garbage collection" chống entropy.</p>
+</section>
+
+<!-- CH2 -->
+<section class="ch" id="ch2">
+  <div class="ch-tag">Chương 02 <span class="lvl lvl-b">● Beginner</span></div>
+  <h2>Agent = Model + Harness — Kiến Trúc Cơ Bản</h2>
+
+  <p class="lead">Model là engine. Harness là phần còn lại của chiếc xe: hệ thống lái, phanh, làn đường, lịch bảo trì, đèn cảnh báo. Nếu chỉ tập trung vào engine và nhiên liệu, bạn vẫn có thể xây một chiếc xe tệ.</p>
+
+  <h3>Harness bao gồm những gì?</h3>
+  <p>Harness là toàn bộ runtime environment quản lý cách agent thực thi. Claude Agent SDK, OpenAI Codex harness, và các custom orchestration layers đều là harnesses. Chúng quản lý context, thực thi safety, xử lý failures, duy trì state, và kiểm soát lifecycle của agent.</p>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao không chỉ dùng framework?</div>
+    <p>Framework dùng để BUILD agent. Harness dùng để RUN agent. Nhiều team bỏ qua harness — deploy agents xây bằng framework trực tiếp vào production mà không có runtime infrastructure đảm bảo reliability. Đó là lúc failures bắt đầu. Một team đã deploy agent "crush" mọi demo, nhưng lúc 3 giờ sáng thứ Ba, agent đó vào retry loop với một flaky API, đốt cháy toàn bộ budget tokens.</p>
+  </div>
+
+  <h3>Vòng lặp cốt lõi: ReAct Loop</h3>
+  <p>Pattern phổ biến nhất cho execution là ReAct (Reasoning + Acting). Model nhận trạng thái hiện tại → suy luận bước tiếp theo → thực hiện action qua tool call → quan sát kết quả → lặp lại cho đến khi gặp stopping condition. Harness orchestrate vòng lặp này; model suy luận và chọn actions.</p>
+
+  <div class="code"><span class="lbl">ReAct Loop Example</span>
+User: "Fix the failing test"
+→ Model reads test output
+→ Reasons: import path is wrong
+→ Action: edits file via tool
+→ Observes: re-runs tests, new type mismatch
+→ Action: fixes type
+→ Observes: tests pass
+→ Reasons: job done → STOP</div>
+
+  <h3>Harness vs Orchestrator</h3>
+  <p><strong>Orchestrator</strong> = bộ não: phân rã goal thành sub-tasks, quyết định sequence, điều khiển reasoning loop (ReAct, tree-of-thought). Tập trung vào LOGIC và CONTROL FLOW.</p>
+  <p><strong>Harness</strong> = đôi tay và hạ tầng: cung cấp tools, quản lý I/O, duy trì state, enforce safety. Tập trung vào CAPABILITIES và SIDE-EFFECTS. Cải thiện ở bất kỳ bên nào đều cải thiện dramatically performance tổng thể.</p>
+</section>
+
+<!-- CH3 -->
+<section class="ch" id="ch3">
+  <div class="ch-tag">Chương 03 <span class="lvl lvl-i">● Intermediate</span></div>
+  <h2>6 Components Cốt Lõi Của Agent Harness</h2>
+
+  <p class="lead">Sáu thành phần này quyết định agent của bạn thành công hay thất bại — không phải model bạn chọn.</p>
+
+  <div class="cards">
+    <div class="card"><div class="card-icon ic-g">📋</div>
+      <h5>1. Context Engineering</h5>
+      <p>Quản lý context window như ngân sách working memory — không phải thùng rác. Quyết định instructions, evidence, intermediate artifacts, và state nào nên có ở mỗi bước.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-b">🔧</div>
+      <h5>2. Tool Orchestration</h5>
+      <p>Registry tools, dispatch, routing. Bash + code execution là general-purpose strategy. Ít tools hơn có thể cho kết quả TỐT hơn (Vercel bỏ 80% tools → kết quả tốt hơn).</p>
+    </div>
+    <div class="card"><div class="card-icon ic-p">💾</div>
+      <h5>3. State Management</h5>
+      <p>Duy trì state xuyên sessions: filesystem, git history, progress files, feature lists. Mỗi session mới bắt đầu với ZERO memory — harness phải bridge the gap.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-w">✅</div>
+      <h5>4. Verification Loops</h5>
+      <p>Write → Test → Fix cycles. Agent tự verify output trước khi declare done. Self-verification loops là harness change tạo cải thiện lớn nhất.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-r">🛡️</div>
+      <h5>5. Human-in-the-Loop</h5>
+      <p>Thiết kế KHI NÀO và THẾ NÀO con người được tham vấn. Full autonomy hiếm khi phù hợp. Approval flows, review checkpoints, escalation paths.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-k">📊</div>
+      <h5>6. Observability & Lifecycle</h5>
+      <p>Log mọi action, track token usage, record decision points, surface anomalies. Đây là ranh giới giữa research prototype và production system.</p>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>LangChain's coding agent nhảy từ 52.8% lên 66.5% trên Terminal Bench 2.0 — chỉ bằng cách thay đổi harness, không đổi model. Thêm self-verification loop và loop detection biến performer trung bình thành top 5.</p>
+    <div class="src">— LangChain, "Improving Deep Agents with Harness Engineering"</div>
+  </div>
+</section>
+
+<!-- CH4 -->
+<section class="ch" id="ch4">
+  <div class="ch-tag">Chương 04 <span class="lvl lvl-i">● Intermediate</span></div>
+  <h2>Context Engineering — Quản Lý Working Memory</h2>
+
+  <p class="lead">Context window là tài nguyên khan hiếm. Một file instruction khổng lồ lấn chiếm task, code, và docs liên quan — agent bỏ lỡ constraints hoặc tối ưu cho thứ sai.</p>
+
+  <h3>Nguyên tắc: Map, không phải Manual 1000 trang</h3>
+  <p>OpenAI học được bài học sớm nhất: cho Codex một BẢN ĐỒ, không phải cuốn sách hướng dẫn khổng lồ. AGENTS.md là mục lục; knowledge base thực sự nằm trong thư mục docs/ có cấu trúc, được version control, và cập nhật tự động.</p>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao quá nhiều context là vấn đề?</div>
+    <p><strong>Crowding:</strong> Instruction file lớn đẩy hết chỗ cho task, code, và relevant docs.</p>
+    <p><strong>Non-guidance:</strong> Khi mọi thứ đều "quan trọng", không gì quan trọng. Agent pattern-match locally thay vì navigate intentionally.</p>
+    <p><strong>Rot:</strong> Manual monolithic thành nghĩa trang rules cũ. Agent không biết cái gì còn đúng.</p>
+    <p><strong>Hard to verify:</strong> Một blob duy nhất không phù hợp cho mechanical checks (coverage, freshness, ownership).</p>
+  </div>
+
+  <h3>Patterns từ Manus (Context Engineering for AI Agents)</h3>
+  <p><strong>KV-cache locality:</strong> Tối ưu cách sắp xếp context để tận dụng KV-cache, giảm latency.</p>
+  <p><strong>Tool masking:</strong> Chỉ hiển thị tools relevant cho bước hiện tại — giảm confusion.</p>
+  <p><strong>Filesystem as memory:</strong> Dùng filesystem làm bộ nhớ dài hạn thay vì nhồi nhét vào context window.</p>
+  <p><strong>Keeping useful failures in-context:</strong> Giữ lại thông tin về lỗi hữu ích để agent không lặp lại sai lầm.</p>
+
+  <h3>Context-Efficient Backpressure</h3>
+  <p>Ngăn agent đốt context vào công việc noisy hoặc low-value. Khi output từ tool quá dài hoặc không liên quan, harness cần cơ chế "back-pressure" — cắt giảm, tóm tắt, hoặc defer — để bảo vệ context budget cho công việc thực sự quan trọng.</p>
+
+  <div class="pri pri-g">
+    <h5>Progressive Disclosure Pattern</h5>
+    <p>Agent bắt đầu với entry point nhỏ, ổn định và được HƯỚNG DẪN nơi tìm tiếp — thay vì bị overwhelm ngay từ đầu. OpenAI áp dụng cơ chế này: AGENTS.md là bảng mục lục, liên kết tới docs/ cụ thể. Linters và CI jobs validate rằng knowledge base luôn up-to-date, cross-linked, và structured đúng. Một "doc-gardening" agent quét tìm docs lỗi thời và mở fix-up PRs tự động.</p>
+  </div>
+</section>
+
+<!-- CH5 -->
+<section class="ch" id="ch5">
+  <div class="ch-tag">Chương 05 <span class="lvl lvl-i">● Intermediate</span></div>
+  <h2>Constraints, Guardrails & Safe Autonomy</h2>
+
+  <p class="lead">Câu hỏi không phải CÓ NÊN constraint agent behavior hay không — mà là LOẠI constraint nào giải quyết failure mode cụ thể.</p>
+
+  <h3>3 loại Controls: Guides, Sensors, và Enforcement</h3>
+
+  <div class="pri pri-b">
+    <h5>Guides (Feedforward Controls)</h5>
+    <p>Dự đoán hành vi agent và hướng dẫn TRƯỚC KHI nó hành động. Tăng xác suất kết quả tốt ngay lần đầu. Ví dụ: rules files, coding conventions, architectural specs, AGENTS.md.</p>
+  </div>
+
+  <div class="pri pri-w">
+    <h5>Sensors (Feedback Controls)</h5>
+    <p>Quan sát SAU KHI agent hành động và giúp nó tự sửa. Mạnh nhất khi tạo tín hiệu tối ưu cho LLM consumption — ví dụ custom linter messages bao gồm hướng dẫn tự sửa (một dạng "positive prompt injection"). Thiếu guides → agent lặp lỗi. Thiếu sensors → agent không biết rules có hoạt động không.</p>
+  </div>
+
+  <div class="pri pri-r">
+    <h5>Deterministic Enforcement (CI Layer)</h5>
+    <p>Tất cả rules set thành "error", KHÔNG PHẢI "warn" — chúng hoạt động như hard gates, không phải advisory signals. Linter, type checker, format checker phải CHẶN commit nếu violate, không phải nhắc nhở.</p>
+  </div>
+
+  <h3>2 execution types</h3>
+  <p><strong>Computational</strong> (CPU): Tests, linters, type checkers, structural analysis. Chạy trong milliseconds đến seconds. Kết quả deterministic, đáng tin cậy.</p>
+  <p><strong>Inferential</strong> (GPU/NPU): Semantic analysis, AI code review, "LLM as judge". Chậm hơn, đắt hơn, non-deterministic. Nhưng cho phép guidance phong phú và judgment ngữ nghĩa sâu.</p>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao Vercel bỏ 80% tools lại tốt hơn?</div>
+    <p>Nhiều tools = nhiều confusion, nhiều incorrect tool selections, nhiều failed tasks. Tool orchestration layer phải CONSTRAINT options của model để cải thiện output. Ít capability hơn, nhiều reliability hơn. Đây là insight cốt lõi của harness engineering: hạn chế có chủ đích tạo ra kết quả tốt hơn.</p>
+  </div>
+
+  <h3>Rules Files & AGENTS.md</h3>
+  <p>Rules files là instruction sets repository-scoped, persistent, được inject vào context agent ở đầu mỗi session. Khác biệt cơ bản so với prompts đơn giản: survive across sessions, inject tự động bởi runtime, scope toàn directory tree, compose hierarchically. AGENTS.md spec (released 08/2025) là open standard cross-tool convention — OpenAI dùng 88 files AGENTS.md xuyên suốt monorepo.</p>
+</section>
+
+<!-- CH6 -->
+<section class="ch" id="ch6">
+  <div class="ch-tag">Chương 06 <span class="lvl lvl-i">● Intermediate</span></div>
+  <h2>Specs, Agent Files & Workflow Design</h2>
+
+  <p class="lead">Spec-driven development biến requirements từ ngôn ngữ tự nhiên mơ hồ thành contracts rõ ràng mà agents có thể execute — và con người có thể verify.</p>
+
+  <h3>Các format và standard phổ biến</h3>
+  <table class="tbl">
+    <thead><tr><th>Format</th><th>Nguồn gốc</th><th>Mục đích</th></tr></thead>
+    <tbody>
+      <tr><td><strong>AGENTS.md</strong></td><td>Open standard (agentsmd)</td><td>Repo-local instructions cho agents: cách làm việc trong codebase</td></tr>
+      <tr><td><strong>agent.md</strong></td><td>agentmd project</td><td>Machine-readable agent instructions xuyên projects & tools</td></tr>
+      <tr><td><strong>CLAUDE.md</strong></td><td>Anthropic / Community</td><td>Repo-local instructions tối ưu cho Claude Code</td></tr>
+      <tr><td><strong>GitHub Spec Kit</strong></td><td>GitHub</td><td>Toolkit cho spec-driven development — agents execute against explicit specs</td></tr>
+      <tr><td><strong>12 Factor Agents</strong></td><td>HumanLayer</td><td>Operating principles: explicit prompts, state ownership, clean pause-resume</td></tr>
+      <tr><td><strong>12-Factor AgentOps</strong></td><td>Community</td><td>Operations: context discipline, validation, reproducible agent workflows</td></tr>
+    </tbody>
+  </table>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao spec-driven thay vì "just prompt"?</div>
+    <p>Một feature description viết tốt trong Jira với scope rõ ràng, acceptance criteria cụ thể, và context liên quan → trực tiếp cải thiện plans và code agent tạo ra. "Same structure in, structure out" — chất lượng đầu vào quyết định chất lượng đầu ra. Khi không có spec rõ ràng, agent "đoán" về codebase thay vì "nhìn" vào nó → hallucinate file paths, invent APIs không tồn tại, modify sai module.</p>
+  </div>
+
+  <h3>Feature List Pattern (Anthropic)</h3>
+  <p>Cho long-running projects, initializer agent tạo file feature list toàn diện mở rộng từ prompt ban đầu. Tất cả features ban đầu marked "failing". Coding agents chỉ được thay đổi status "passes" — KHÔNG ĐƯỢC xóa hoặc edit test descriptions. Dùng JSON thay vì Markdown vì model ít likely thay đổi JSON files inappropriately.</p>
+
+  <div class="code"><span class="lbl">Feature List Entry (JSON)</span>
+{
+  "category": "functional",
+  "description": "New chat button creates fresh conversation",
+  "steps": [
+    "Navigate to main interface",
+    "Click 'New Chat' button",
+    "Verify new conversation created",
+    "Check chat area shows welcome state",
+    "Verify conversation appears in sidebar"
+  ],
+  "passes": false
+}</div>
+</section>
+
+<!-- CH7 -->
+<section class="ch" id="ch7">
+  <div class="ch-tag">Chương 07 <span class="lvl lvl-a">● Advanced</span></div>
+  <h2>Evals & Observability</h2>
+
+  <p class="lead">Bạn không thể cải thiện cái bạn không thể nhìn thấy. Observability là ranh giới giữa research prototype và production system.</p>
+
+  <h3>Evaluation: Đo gì khi agents có nhiều trajectories?</h3>
+  <p>Agents không có một đường đi duy nhất đến thành công — chúng có thể giải quyết cùng task theo nhiều cách khác nhau. Eval design phải phản ánh điều này.</p>
+
+  <div class="cards">
+    <div class="card"><div class="card-icon ic-g">📝</div>
+      <h5>Single-step Evals</h5>
+      <p>Đánh giá mỗi quyết định riêng lẻ: tool call đúng không? Reasoning logic không?</p>
+    </div>
+    <div class="card"><div class="card-icon ic-b">🔄</div>
+      <h5>Full-run Evals</h5>
+      <p>Đánh giá kết quả cuối cùng: task có hoàn thành? Output có correct? Bao nhiêu attempts?</p>
+    </div>
+    <div class="card"><div class="card-icon ic-p">🗣️</div>
+      <h5>Multi-turn Evals</h5>
+      <p>Đánh giá conversations dài: agent có maintain coherence? State có được tracked đúng?</p>
+    </div>
+  </div>
+
+  <div class="pri pri-w">
+    <h5>Infrastructure Noise — Anthropic's Warning</h5>
+    <p>Runtime configuration có thể dịch chuyển benchmark scores NHIỀU HƠN so với khoảng cách giữa các vị trí trên leaderboard. Điều này có nghĩa: nếu bạn so sánh model A vs B nhưng harness khác nhau, bạn đang so sánh harnesses, không phải models. Eval phải kiểm soát biến harness.</p>
+  </div>
+
+  <h3>Observability Stack</h3>
+  <p>Good observability trả lời: Tại sao agent chọn tool này? Bao nhiêu attempts để pass test suite? Ở đâu trong workflow tốn nhiều tokens nhất? Khi nào agent lần cuối cần human intervention?</p>
+
+  <h4>Công cụ observability phổ biến:</h4>
+  <p><strong>Langfuse</strong> — self-hostable LLM observability, trace mọi agent step, quản lý prompt versions, run evals. <strong>Arize Phoenix</strong> — self-hostable trace UI, replay mọi reasoning step offline. <strong>Braintrust</strong> — evaluation-first platform, auto-tracing mọi LLM call/tool invocation. <strong>W&B Weave</strong> — tracing + eval cho agent workflows. <strong>OpenTelemetry GenAI Conventions</strong> — standard attribute names cho portable harness traces.</p>
+
+  <h3>Harness-First Engineering (Datadog)</h3>
+  <p>Datadog đề xuất: thay vì đọc mọi dòng code agent tạo ra, đầu tư vào automated checks nói cho bạn trong vài giây liệu code đúng hay không. Agent generates code → harness verifies → production telemetry validates → nếu sai, feedback cập nhật harness và agent thử lại. Đầu tư vào harness tỷ lệ thuận với chi phí failure.</p>
+</section>
+
+<!-- CH8 -->
+<section class="ch" id="ch8">
+  <div class="ch-tag">Chương 08 <span class="lvl lvl-a">● Advanced</span></div>
+  <h2>Long-Running Agents — Xuyên Nhiều Context Windows</h2>
+
+  <p class="lead">Thách thức cốt lõi: agents phải làm việc trong discrete sessions, và mỗi session mới bắt đầu với ZERO memory. Hãy tưởng tượng dự án phần mềm mà mỗi kỹ sư ca mới đến với không một ký ức về ca trước.</p>
+
+  <h3>4 Failure Modes của Long-Running Agents</h3>
+
+  <table class="tbl">
+    <thead><tr><th>Failure Mode</th><th>Mô tả</th><th>Giải pháp Harness</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>One-shotting</td>
+        <td>Agent cố làm TẤT CẢ cùng lúc, hết context giữa chừng, feature nửa chừng, undocumented</td>
+        <td>Feature list + incremental progress (1 feature/session)</td>
+      </tr>
+      <tr>
+        <td>Premature completion</td>
+        <td>Agent nhìn thấy progress, tuyên bố "xong" quá sớm</td>
+        <td>Feature list với tất cả items ban đầu = "failing"</td>
+      </tr>
+      <tr>
+        <td>Dirty state</td>
+        <td>Rời môi trường với bugs, code lộn xộn, không document</td>
+        <td>Git commit + progress notes + basic test trước khi kết thúc</td>
+      </tr>
+      <tr>
+        <td>False verification</td>
+        <td>Mark feature "done" mà không test end-to-end thực sự</td>
+        <td>Browser automation (Puppeteer MCP) — test như user thật</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Giải pháp 2 phần của Anthropic</h3>
+
+  <div class="flow">
+    <div class="flow-s"><div class="num">1</div><div class="fl">Initializer<br>Agent</div></div>
+    <div class="flow-a">→</div>
+    <div class="flow-s"><div class="num">2</div><div class="fl">Setup<br>init.sh</div></div>
+    <div class="flow-a">→</div>
+    <div class="flow-s"><div class="num">3</div><div class="fl">Feature<br>List</div></div>
+    <div class="flow-a">→</div>
+    <div class="flow-s"><div class="num">4</div><div class="fl">Progress<br>File</div></div>
+    <div class="flow-a">→</div>
+    <div class="flow-s"><div class="num">5</div><div class="fl">Coding<br>Agent Loop</div></div>
+    <div class="flow-a">→</div>
+    <div class="flow-s"><div class="num">6</div><div class="fl">Git Commit<br>& Update</div></div>
+  </div>
+
+  <p><strong>Initializer Agent (session đầu tiên):</strong> Prompt đặc biệt yêu cầu setup môi trường: tạo init.sh script, claude-progress.txt log, feature list toàn diện, và initial git commit.</p>
+  <p><strong>Coding Agent (mọi session sau):</strong> Bắt đầu bằng đọc progress file + git log → chạy basic test → chọn 1 feature priority cao nhất chưa done → implement → test end-to-end → commit + update progress.</p>
+
+  <h3>Ralph Loop Pattern</h3>
+  <p>Khi agent cố exit, harness intercept exit attempt qua hook, reinject original prompt vào CLEAN context window mới, buộc agent tiếp tục làm việc against completion goal. Filesystem cho phép điều này: mỗi iteration bắt đầu fresh context nhưng ĐỌC state từ iteration trước qua file.</p>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao incremental progress quan trọng đến vậy?</div>
+    <p>Mỗi context window là hữu hạn. Nếu agent cố build toàn bộ app trong 1 window → hết context giữa chừng → session sau phải ĐOÁN chuyện gì đã xảy ra → lãng phí tokens "dọn dẹp" thay vì "xây mới". Incremental = mỗi session tạo VALUE NHỎ NHƯNG HOÀN CHỈNH → không bao giờ rơi vào trạng thái hỏng.</p>
+  </div>
+</section>
+
+<!-- CH9 -->
+<section class="ch" id="ch9">
+  <div class="ch-tag">Chương 09 <span class="lvl lvl-a">● Advanced</span></div>
+  <h2>Multi-Agent Architecture & Orchestration</h2>
+
+  <p class="lead">Khi task đủ phức tạp, một single agent không còn đủ. Multi-agent systems phân chia vai trò — nhưng tạo ra challenges mới về coordination, state sharing, và verification.</p>
+
+  <h3>Coordinator → Implementor → Verifier Pattern</h3>
+  <p><strong>Coordinator:</strong> Phân tích codebase, soạn living spec (goals, tasks, decisions, trade-offs), delegate cho Implementor agents song song.</p>
+  <p><strong>Implementor:</strong> Thực thi tasks cụ thể trong parallel, mỗi agent với context window riêng.</p>
+  <p><strong>Verifier:</strong> Đóng vòng lặp — kiểm tra implementation against spec, validate cross-service dependencies, flag violations TRƯỚC KHI code đến PR stage. Khi Verifier reject, rejection trở thành structured context cho correction — KHÔNG bị drop im lặng.</p>
+
+  <h3>Anthropic's Multi-Agent Research System</h3>
+  <p>Architecture với separation of roles và structured coordination. Mỗi agent có vai trò chuyên biệt, giao tiếp qua artifacts rõ ràng, và harness đảm bảo không agent nào đi chệch khỏi phạm vi được giao.</p>
+
+  <h3>Shared Context Problem</h3>
+
+  <div class="why">
+    <div class="why-t">❓ WHY — Tại sao multi-agent khó hơn single agent?</div>
+    <p>Mỗi agent có context window riêng → không tự động biết agent khác đã làm gì. Filesystem trở thành "shared ledger" — nơi agents ghi lại và đọc work progress. Nhưng conflicts xảy ra: hai agents sửa cùng file, hoặc agent A phụ thuộc vào output chưa hoàn thành của agent B. Harness phải quản lý concurrency, dependencies, và conflict resolution.</p>
+  </div>
+</section>
+
+<!-- CH10 -->
+<section class="ch" id="ch10">
+  <div class="ch-tag">Chương 10 <span class="lvl lvl-i">● Intermediate</span></div>
+  <h2>Runtimes, Tools & Benchmarks</h2>
+
+  <p class="lead">Benchmarks đo chất lượng harness, không chỉ chất lượng model. Chúng stress context handling, tool calling, environment control, verification logic, và runtime scaffolding.</p>
+
+  <h3>Benchmarks chính</h3>
+  <table class="tbl">
+    <thead><tr><th>Benchmark</th><th>Focus</th><th>Harness Relevance</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SWE-bench Verified</strong></td><td>Software engineering — real GitHub issues</td><td>Harness choices về retrieval, patching, validation rất visible</td></tr>
+      <tr><td><strong>Terminal-Bench 2.0</strong></td><td>Terminal-native agents, shells, filesystems</td><td>So sánh coding-agent harnesses trong verification-heavy environments</td></tr>
+      <tr><td><strong>OSWorld</strong></td><td>369 tasks trên Ubuntu/Windows/macOS</td><td>Test desktop & multimodal harnesses</td></tr>
+      <tr><td><strong>WebArena-Verified</strong></td><td>Web agent với deterministic evaluators</td><td>Đo web-facing harnesses qua captured network traces</td></tr>
+      <tr><td><strong>GAIA</strong></td><td>General AI assistants</td><td>So sánh harness-level choices: tools, planning, verification, autonomy</td></tr>
+      <tr><td><strong>AgentBench</strong></td><td>Cross-environment: OS, DB, web, knowledge graphs</td><td>Test liệu harness có generalize không</td></tr>
+      <tr><td><strong>AppWorld</strong></td><td>Interactive coding agents, state-based tests</td><td>Surface harness quality quanh planning & collateral-damage control</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Runtimes & Reference Implementations</h3>
+  <p><strong>Claude Agent SDK:</strong> Production-oriented SDK với sessions, tools, orchestration support. <strong>SWE-agent:</strong> Research coding agent — harness, prompt, tools, environment trực tiếp inspectable. <strong>deepagents (LangChain):</strong> Open-source cho deeper, longer-running agents với middleware. <strong>Harbor:</strong> Generalized harness cho evaluating và improving agents at scale. <strong>AgentKit (Inngest):</strong> TypeScript toolkit cho durable, workflow-aware agents trên event-driven infrastructure.</p>
+</section>
+
+<!-- CH11 -->
+<section class="ch" id="ch11">
+  <div class="ch-tag">Chương 11 <span class="lvl lvl-a">● Advanced</span></div>
+  <h2>Bài Học Thực Chiến Từ Production</h2>
+
+  <p class="lead">Mọi bài học harness engineering đều đến từ nỗi đau — từ người nhận ra rằng khi model đủ capable, bottleneck không còn là "có thể generate code không?" mà trở thành "có thể khiến nó behave reliably trong real system không?"</p>
+
+  <h3>OpenAI: 1 triệu dòng code, 3 kỹ sư, 5 tháng</h3>
+  <div class="pri pri-g">
+    <h5>Bài học cốt lõi</h5>
+    <p><strong>"Humans steer. Agents execute."</strong> Mọi dòng code — app logic, tests, CI, docs, observability, internal tooling — viết bởi Codex. 1,500 PRs merged, 3.5 PRs/engineer/ngày, throughput tăng khi team grow. Khi gặp failure, fix KHÔNG BAO GIỜ là "try harder" — mà luôn là "capability nào thiếu, và làm sao legible + enforceable cho agent?"</p>
+    <p><strong>Observability for agents:</strong> Logs, metrics, traces exposed qua local observability stack. Agent query logs với LogQL, metrics với PromQL. Prompts như "ensure service startup under 800ms" trở nên tractable. Single Codex runs thường chạy 6+ giờ (thường khi con người đang ngủ).</p>
+  </div>
+
+  <h3>Anthropic: Claude.ai Clone Demo</h3>
+  <div class="pri pri-b">
+    <h5>Kết quả thực tế</h5>
+    <p>Initializer agent tạo 200+ features cho claude.ai clone. Mỗi coding session chọn 1 feature, implement, test qua Puppeteer MCP (screenshots thực), commit, update progress. Vấn đề còn tồn tại: Claude không thấy browser-native alert modals qua Puppeteer → features dùng modals buggier hơn. Nhưng tổng thể, harness approach biến "prompt đơn giản" thành "incremental progress đáng tin cậy".</p>
+  </div>
+
+  <h3>Datadog: Harness-First Engineering</h3>
+  <div class="pri pri-p">
+    <h5>redis-rust & Helix</h5>
+    <p>Harness đủ mạnh để THAY THẾ code review làm nguồn chính cho correctness. redis-rust đạt production-like staging với latency tương đương và giảm 87% memory. Helix (Kafka-compatible streaming engine) chịu hàng triệu deterministic simulation runs, đạt ~93% peak disk throughput mà không hy sinh Kafka-semantic guarantees. Nguyên tắc: đầu tư thời gian vào strengthening harness — tighten invariants, expand simulation coverage, connect telemetry feedback loops — thay vì review mọi diff.</p>
+  </div>
+
+  <h3>Red Hat: Structured Workflows</h3>
+  <div class="pri pri-w">
+    <h5>Hai kỹ thuật hoạt động</h5>
+    <p><strong>1. Repository Impact Map:</strong> Trước khi agent plan, phân tích symbols thực tế trong code → ground mọi downstream task trong real code, không phải hallucination.</p>
+    <p><strong>2. Structured Constraints:</strong> File paths, symbol names, existing patterns to follow — càng cụ thể input, càng consistent output.</p>
+    <p><strong>Nguyên tắc:</strong> Treat harness as software you maintain. Skills, prompts, MCP configs là CODE — version, review trong PRs, refactor khi drift. Stale prompt rots giống stale test.</p>
+  </div>
+
+  <h3>Martin Fowler / Thoughtworks: Cybernetics Framing</h3>
+  <div class="pri pri-k">
+    <h5>Feedforward + Feedback = Cybernetic System</h5>
+    <p>Con người mang "organisational alignment" mà agent không có: awareness about team goals, technical debt nào được tolerate, "good" trông như thế nào trong context cụ thể. Agent không có social accountability, không có aesthetic disgust trước function 300 dòng, không biết convention nào load-bearing và convention nào chỉ là thói quen.</p>
+    <p><strong>Harness là nỗ lực externalize và make explicit những gì developer experience của con người mang lại</strong> — nhưng chỉ đi được tới một mức. Mục tiêu: harness không loại bỏ hoàn toàn human review, mà giảm review toil và tăng system quality.</p>
+  </div>
+</section>
+
+<!-- CH12 -->
+<section class="ch" id="ch12">
+  <div class="ch-tag">Chương 12 <span class="lvl lvl-a">● Advanced</span></div>
+  <h2>Tương Lai & Open Questions</h2>
+
+  <p class="lead">Tương lai không phải "một genius model làm mọi thứ" mà là "models vận hành bên trong well-engineered environments khiến chúng sử dụng được." Và đó chính xác là lý do harness engineering quan trọng.</p>
+
+  <h3>Harness Layer Framework (3 tầng)</h3>
+  <p>Nghiên cứu học thuật đang formalize harness thành 3 tầng rõ ràng:</p>
+
+  <div class="cards">
+    <div class="card"><div class="card-icon ic-g">🎛️</div>
+      <h5>Control Layer</h5>
+      <p>Cách work được phân rã và scheduled. Stages, phase gates, stopping conditions.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-b">🤖</div>
+      <h5>Agency Layer</h5>
+      <p>Cách model ĐƯỢC PHÉP hành động. Action substrates (code execution, browser), planner-verifier structures, reviewer roles.</p>
+    </div>
+    <div class="card"><div class="card-icon ic-p">⏱️</div>
+      <h5>Runtime Layer</h5>
+      <p>Cái gì xảy ra khi work unfold theo thời gian: context assembly, memory, compaction, checkpoints, retries, budgets, trace collection. Đây là nơi long-horizon behavior thành công hoặc sụp đổ.</p>
+    </div>
+  </div>
+
+  <h3>Open Questions</h3>
+
+  <div class="acc">
+    <div class="acc-item open">
+      <div class="acc-h" onclick="this.parentElement.classList.toggle('open')">Single agent hay multi-agent tốt hơn? <span class="arr">▼</span></div>
+      <div class="acc-b"><div class="acc-bi"><p>Chưa rõ liệu single general-purpose coding agent hay specialized agents (testing agent, QA agent, cleanup agent) cho performance tốt hơn. Chuyên biệt hóa có thể giỏi hơn ở sub-tasks nhưng tạo coordination overhead.</p></div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-h" onclick="this.parentElement.classList.toggle('open')">Harness coverage — đo thế nào? <span class="arr">▼</span></div>
+      <div class="acc-b"><div class="acc-bi"><p>Nếu sensors không bao giờ fire, đó là dấu hiệu chất lượng cao hay cơ chế detection không đủ? Cần metric tương tự code coverage / mutation testing cho harness quality.</p></div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-h" onclick="this.parentElement.classList.toggle('open')">Generalize beyond coding? <span class="arr">▼</span></div>
+      <div class="acc-b"><div class="acc-bi"><p>Các bài học từ coding agent harness có thể áp dụng cho scientific research, financial modeling, và các long-running agentic tasks khác — nhưng patterns cụ thể chưa được validate.</p></div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-h" onclick="this.parentElement.classList.toggle('open')">Harness coherence khi scale? <span class="arr">▼</span></div>
+      <div class="acc-b"><div class="acc-bi"><p>Khi harness grow với guides và sensors, làm sao giữ chúng in sync, không contradict nhau? Khi instructions và feedback signals point khác hướng, agent trade-off thế nào?</p></div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-h" onclick="this.parentElement.classList.toggle('open')">Natural-language harnesses? <span class="arr">▼</span></div>
+      <div class="acc-b"><div class="acc-bi"><p>Nghiên cứu đang khám phá việc externalize harness pattern logic thành executable representations — viết harness bằng ngôn ngữ tự nhiên, compile thành runnable constraints. AutoFlow, FlowAgent, AgentSpec đang tiến theo hướng này.</p></div></div>
+    </div>
+  </div>
+
+  <h3>Competitive Advantage đã dịch chuyển</h3>
+  <p>Khoảng cách giữa available models đang thu hẹp. Khoảng cách giữa harness quality giữa các teams đang MỞ RỘNG. Lời khuyên từ toàn bộ lĩnh vực: <strong>đầu tư vào harness, không phải vào model.</strong></p>
+
+  <div class="quote">
+    <p>Đây không phải rename cho prompting. Đây là thứ xuất hiện khi bạn ngừng demo intelligence và bắt đầu cố gắng ship nó.</p>
+    <div class="src">— Louis Bouchard, "Harness Engineering: The Missing Layer Behind AI Agents"</div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p><strong>Harness Engineering — Beginner → Advanced</strong></p>
+  <p>Tổng hợp từ: Anthropic Engineering, OpenAI, LangChain, Martin Fowler/Thoughtworks, Datadog, Red Hat, HumanLayer, Manus, Augment Code, Preprints.org, và awesome-harness-engineering repo.</p>
+  <p style="margin-top:.8rem;font-size:.72rem;color:#3f3f46;">21/04/2026 · Created with Claude</p>
+</footer>
+
+<script>
+document.querySelectorAll('.toc-bar a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){const o=document.querySelector('.toc-bar').offsetHeight;window.scrollTo({top:t.offsetTop-o-20,behavior:'smooth'});}
+  });
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      document.querySelectorAll('.toc-bar a').forEach(a=>{
+        const match=a.getAttribute('href')==='#'+id;
+        a.style.color=match?'#10b981':'';
+        a.style.borderBottomColor=match?'#10b981':'transparent';
+      });
+    }
+  });
+},{rootMargin:'-80px 0px -60% 0px'});
+document.querySelectorAll('.ch').forEach(c=>obs.observe(c));
+</script>
+</body>
+</html>
