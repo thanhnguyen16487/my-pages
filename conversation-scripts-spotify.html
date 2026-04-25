@@ -681,13 +681,127 @@
     section.category > h2 { font-size: 24px; }
     main.doc-content h1 { font-size: 30px; }
   }
+
+  /* ===== Project Management page ===== */
+  .pm-intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 14px 0 28px;
+  }
+  .pm-pillar {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--bg-card) 92%, var(--accent-soft)), var(--bg-card));
+    box-shadow: var(--shadow);
+  }
+  .pm-pillar .pm-pillar-num {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pm-pillar h4 {
+    margin: 2px 0 6px;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .pm-pillar p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.55;
+  }
+
+  .technique-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin: 14px 0 22px;
+  }
+  .technique-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: color-mix(in srgb, var(--bg-card) 94%, var(--bg-soft));
+  }
+  .technique-card .tech-icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .technique-card h4 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    letter-spacing: -0.005em;
+  }
+  .technique-card p {
+    margin: 0 0 6px;
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.55;
+  }
+  .technique-card .tech-when {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .visual-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 8px 0 14px;
+    font-size: 12.5px;
+    color: var(--text-soft);
+  }
+  .visual-flow .step {
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: color-mix(in srgb, var(--bg-card) 90%, var(--bg-soft));
+    color: var(--text);
+  }
+  .visual-flow .arrow { color: var(--accent); font-weight: 700; }
+
+  .badge.role-PO { background: rgba(30, 215, 96, 0.16); color: var(--accent); border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
+  .badge.role-BA { background: rgba(99, 169, 230, 0.16); color: #63a9e6; border-color: color-mix(in srgb, #63a9e6 30%, var(--border)); }
+  .badge.role-Dev { background: rgba(241, 193, 75, 0.16); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 30%, var(--border)); }
+
+  .role-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 12px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-soft);
+    font-weight: 700;
+  }
+  .role-divider::before,
+  .role-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 </style>
 </head>
 <body data-theme="dark">
 
 <header class="topbar">
   <h1>📘 EM Toolkit</h1>
-  <span class="meta">50 scripts · 5 playbooks · VN + EN</span>
+  <span class="meta">50 scripts · 5 playbooks · 75 PM scripts · VN + EN</span>
   <div class="actions">
     <button class="btn" id="themeToggle">☀️ Light</button>
   </div>
@@ -700,6 +814,7 @@
   <button class="tab" data-page="page-dashboard"><span class="tab-icon">📊</span>Conflict Dashboard</button>
   <button class="tab" data-page="page-frameworks"><span class="tab-icon">🧭</span>Frameworks</button>
   <button class="tab" data-page="page-reinvention"><span class="tab-icon">🚀</span>Team Reinvention</button>
+  <button class="tab" data-page="page-pm"><span class="tab-icon">🗂️</span>Project Management<span class="tab-count">75</span></button>
 </nav>
 
 <div class="page active" id="page-scripts">
@@ -4234,6 +4349,1929 @@ Trong 12 tháng tới, team sẽ [transformation chính].</code></pre>
   </div>
 </div>
 
+<div class="page" id="page-pm">
+<div class="layout">
+<aside class="sidebar">
+  <input type="search" class="search-box" id="searchBoxPm" placeholder="🔍 Tìm trong PM scripts..." />
+  <h3>Lọc theo nhóm</h3>
+  <div class="filters" id="pmCategoryFilters">
+    <button class="chip active" data-pmfilter="pmcat" data-value="all">Tất cả</button>
+    <button class="chip" data-pmfilter="pmcat" data-value="P1">P1 Scope</button>
+    <button class="chip" data-pmfilter="pmcat" data-value="P2">P2 Planning</button>
+    <button class="chip" data-pmfilter="pmcat" data-value="P3">P3 Delivery</button>
+    <button class="chip" data-pmfilter="pmcat" data-value="P4">P4 Risk</button>
+    <button class="chip" data-pmfilter="pmcat" data-value="P5">P5 Stakeholder</button>
+  </div>
+  <h3>Lọc theo vai trò</h3>
+  <div class="filters" id="pmRoleFilters">
+    <button class="chip active" data-pmfilter="role" data-value="all">Tất cả</button>
+    <button class="chip" data-pmfilter="role" data-value="PO">👤 Product Owner</button>
+    <button class="chip" data-pmfilter="role" data-value="BA">📐 Business Analyst</button>
+    <button class="chip" data-pmfilter="role" data-value="Dev">💻 Developer</button>
+  </div>
+  <h3>Mục lục</h3>
+  <nav class="toc" id="tocPm"></nav>
+</aside>
+
+<main>
+  <div class="intro">
+    <p><strong>Project Management cho EM:</strong> 5 nhóm kỹ năng cốt lõi × 15 script/nhóm (5 PO + 5 BA + 5 Dev) = <strong>75 kịch bản hội thoại</strong> sẵn dùng.</p>
+    <p><strong>Cách dùng:</strong> Lọc theo nhóm hoặc role → đọc kỹ thuật → copy script → cá nhân hóa theo dự án thật. Mỗi script ngắn, đi thẳng vào việc.</p>
+  </div>
+  <div id="noResultsPm" class="no-results hidden">Không có script nào khớp. Thử bỏ bớt filter.</div>
+
+  <div class="pm-intro-grid">
+    <div class="pm-pillar"><span class="pm-pillar-num">P1</span><h4>📦 Scope &amp; Requirements</h4><p>Làm rõ "làm gì / không làm gì", chốt acceptance criteria, kiểm soát scope creep.</p></div>
+    <div class="pm-pillar"><span class="pm-pillar-num">P2</span><h4>📅 Planning &amp; Estimation</h4><p>Chia nhỏ công việc, ước lượng có cơ sở, tính buffer & dependency thực tế.</p></div>
+    <div class="pm-pillar"><span class="pm-pillar-num">P3</span><h4>🚀 Delivery Execution</h4><p>Standup, burndown, WIP limit, unblock — biến kế hoạch thành output đều đặn.</p></div>
+    <div class="pm-pillar"><span class="pm-pillar-num">P4</span><h4>⚠️ Risk &amp; Issue</h4><p>Phát hiện sớm, log RAID, mitigation plan, escalation đúng lúc đúng kênh.</p></div>
+    <div class="pm-pillar"><span class="pm-pillar-num">P5</span><h4>📣 Stakeholder Comm</h4><p>Status update, RACI, expectation, say-no có lý — giữ alignment xuyên suốt.</p></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- P1 — SCOPE & REQUIREMENTS                                    -->
+  <!-- ============================================================ -->
+  <section class="category" id="cat-pm-P1">
+    <h2>📦 P1 — Scope &amp; Requirements (15)</h2>
+    <p class="cat-desc">Làm rõ scope, viết requirements rõ ràng, kiểm soát change request, định nghĩa acceptance criteria. <strong>Đây là nhóm có ROI cao nhất:</strong> 1 giờ clarify cứu 10 giờ rework.</p>
+
+    <h3 style="margin-top:18px;">🎯 Kỹ thuật chủ đạo</h3>
+    <div class="technique-grid">
+      <div class="technique-card">
+        <div class="tech-icon">🧱</div>
+        <h4>INVEST (cho user story)</h4>
+        <p><strong>I</strong>ndependent · <strong>N</strong>egotiable · <strong>V</strong>aluable · <strong>E</strong>stimable · <strong>S</strong>mall · <strong>T</strong>estable. Story thiếu 1 chữ là red flag.</p>
+        <span class="tech-when">Dùng khi: review backlog</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📊</div>
+        <h4>MoSCoW</h4>
+        <p><strong>M</strong>ust have · <strong>S</strong>hould · <strong>C</strong>ould · <strong>W</strong>on't (this release). Buộc PO chọn — không có "tất cả đều P0".</p>
+        <span class="tech-when">Dùng khi: cắt scope</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">✅</div>
+        <h4>Given–When–Then</h4>
+        <p>Acceptance criteria dạng kịch bản: <em>Given</em> trạng thái, <em>When</em> hành động, <em>Then</em> kết quả. QA đọc là chạy được.</p>
+        <span class="tech-when">Dùng khi: viết AC</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🚪</div>
+        <h4>Definition of Ready / Done</h4>
+        <p>DoR: story đủ điều kiện vào sprint. DoD: story xong là xong (test, doc, deploy). Không có DoR/DoD = scope creep.</p>
+        <span class="tech-when">Dùng khi: refinement</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🔁</div>
+        <h4>Change Request (impact-first)</h4>
+        <p>Mọi yêu cầu mới sau khi chốt scope phải qua: tác động <em>thời gian + người + rủi ro</em> → trade-off, không "thêm cho vui".</p>
+        <span class="tech-when">Dùng khi: mid-sprint</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🗺️</div>
+        <h4>User Story Mapping</h4>
+        <p>Vẽ user journey theo trục ngang, layer ưu tiên theo trục dọc. Cắt MVP bằng đường ngang — tự nhiên, không tranh cãi.</p>
+        <span class="tech-when">Dùng khi: kickoff</span>
+      </div>
+    </div>
+
+    <div class="visual-flow">
+      <span class="step">Idea</span><span class="arrow">→</span>
+      <span class="step">User Story Map</span><span class="arrow">→</span>
+      <span class="step">MoSCoW cut</span><span class="arrow">→</span>
+      <span class="step">INVEST check</span><span class="arrow">→</span>
+      <span class="step">AC (Given-When-Then)</span><span class="arrow">→</span>
+      <span class="step">DoR ✓</span>
+    </div>
+
+    <div class="role-divider">👤 Product Owner — 5 scripts</div>
+    <article class="script" id="s-pm-P1-PO-1" data-pmcat="P1" data-role="PO">
+      <h3><span class="num">P1·PO·1</span> PO xin "thêm 1 feature nhỏ thôi" giữa sprint <a class="anchor-link" href="#s-pm-P1-PO-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Change Request</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Sprint đang ngày 6/10. PO ping: "thêm field 'note' cho form đăng ký, nhanh thôi mà".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">"OK để team làm thử" → mở cửa scope creep, demo cuối sprint hụt.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Mình ghi nhận yêu cầu. Trước khi quyết, đi qua <strong>3 câu</strong> nhé:
+1. Tác động <strong>thời gian</strong>: ước lượng nhanh là 2 ngày dev + 0.5 ngày test. Sprint còn 4 ngày.
+2. Tác động <strong>scope</strong>: nếu thêm cái này, mình phải bỏ story X (đã commit). Anh OK trade-off đó không?
+3. Tác động <strong>rủi ro</strong>: chưa qua refinement → có thể có edge case chưa thấy.
+
+Nếu anh vẫn muốn thêm: mình tạo CR ticket, anh và mình ký off bằng 1 line trong Slack thread. Nếu không gấp: cho vào backlog cho sprint sau.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Không nói "không" trống. Luôn cho PO 2 lựa chọn: <em>trade-off</em> hoặc <em>hoãn</em>. Ghi lại quyết định bằng văn bản.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-PO-2" data-pmcat="P1" data-role="PO">
+      <h3><span class="num">P1·PO·2</span> Requirement của PO mơ hồ — cần ép clarify <a class="anchor-link" href="#s-pm-P1-PO-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">INVEST</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO ghi story: "Cải thiện trải nghiệm checkout". Team nhìn không biết làm gì.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev tự đoán → làm xong PO bảo "không phải ý anh". Mất 1 sprint.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Story này hiện chưa pass <strong>INVEST</strong> — cụ thể là thiếu <strong>V</strong>aluable rõ và <strong>T</strong>estable. Mình muốn cùng anh làm rõ:
+
+1. <strong>User là ai?</strong> Người mua mới hay khách quen?
+2. <strong>Vấn đề họ đang gặp?</strong> Có data không — drop-off ở step nào?
+3. <strong>Sau khi làm xong, ta đo gì?</strong> Conversion +X%? Time-to-checkout giảm Y giây?
+4. <strong>Định nghĩa "xong"</strong>: 3 acceptance criteria cụ thể, không "đẹp hơn" hay "mượt hơn".
+
+Nếu anh chưa rõ 4 câu này, mình cùng làm 1 buổi 30 phút với BA trước khi đưa vào refinement. Đầu tư 30 phút giờ tiết kiệm 1 sprint sau.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Đẩy story "không testable" trở lại PO là <strong>quyền</strong> của team — đừng nhận đại để rồi rework.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-PO-3" data-pmcat="P1" data-role="PO">
+      <h3><span class="num">P1·PO·3</span> PO nói "tất cả đều P0" — buộc cắt scope <a class="anchor-link" href="#s-pm-P1-PO-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">MoSCoW</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO đẩy 18 story cho sprint, capacity team chỉ 10. Hỏi cắt thì "cái nào cũng quan trọng".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đồng ý ôm hết → team OT, chất lượng giảm, cuối sprint vẫn miss.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Capacity team là 10, anh đang đẩy 18. Việc của mình là đảm bảo team deliver cái <strong>thật sự cần</strong>, không phải nhận đại rồi miss.
+
+Mình dùng <strong>MoSCoW</strong> 30 phút:
+• <strong>Must</strong> — không có cái này thì release không go-live được. <strong>Tối đa 60% capacity</strong> = 6 story.
+• <strong>Should</strong> — quan trọng nhưng có workaround. ~30% = 3 story.
+• <strong>Could</strong> — nice to have, làm nếu còn slot. 1 story.
+• <strong>Won't (this release)</strong> — phần còn lại, anh ghi vào next sprint.
+
+Anh chọn 6 cái Must trước. Nếu chọn không xong, là tín hiệu anh chưa rõ priority — mình schedule 1 buổi với stakeholder để chốt.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> "Tất cả đều P0" = không có P0. Buộc PO chọn là protect team, không phải đối đầu PO.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-PO-4" data-pmcat="P1" data-role="PO">
+      <h3><span class="num">P1·PO·4</span> PO không có Acceptance Criteria rõ <a class="anchor-link" href="#s-pm-P1-PO-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Given-When-Then</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Story chỉ có 1 dòng AC: "User đăng nhập được". QA hỏi: "đăng nhập sai pass thì sao?".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev tự handle theo cảm tính → demo PO bảo "phải khóa 5 phút" → rework.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">AC hiện tại không testable. Mình đề xuất viết lại theo <strong>Given–When–Then</strong> — mỗi kịch bản 1 dòng:
+
+<strong>AC1 — Happy path:</strong>
+<em>Given</em> user có tài khoản hợp lệ
+<em>When</em> nhập đúng email + password
+<em>Then</em> redirect dashboard trong &lt; 2s
+
+<strong>AC2 — Sai password:</strong>
+<em>Given</em> ... <em>When</em> sai pass 3 lần liên tiếp <em>Then</em> khóa account 5 phút + gửi email cảnh báo.
+
+<strong>AC3 — Quên password:</strong> ...
+
+Mình draft 5 AC trong 20 phút. Anh review, ký off bằng 👍 — sau đó dev/QA mới bắt đầu. AC này = contract giữa 3 phía.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> AC dạng prose ("đăng nhập được") = không bao giờ rõ. <strong>Given-When-Then</strong> ép suy nghĩ về edge case ngay từ đầu.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-PO-5" data-pmcat="P1" data-role="PO">
+      <h3><span class="num">P1·PO·5</span> PO bypass refinement, push thẳng vào sprint <a class="anchor-link" href="#s-pm-P1-PO-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Definition of Ready</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO đưa 4 story mới ngay buổi planning, chưa qua refinement, bảo "team estimate luôn đi".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Estimate đại → trượt sprint → PO nói "team ước lượng kém".</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Mình hiểu anh muốn move fast. Nhưng team không estimate story chưa pass <strong>Definition of Ready</strong>:
+• Có user value rõ
+• Có ≥ 3 acceptance criteria
+• Đã review với BA + 1 dev
+• Dependency rõ (API, design có sẵn?)
+
+4 story này chưa đạt — nếu mình estimate giờ, sai số sẽ ±100% → vô nghĩa.
+
+<strong>Đề xuất:</strong> dành 30 phút cuối buổi này refine 2 story khả thi nhất → đưa vào sprint. 2 story còn lại → refine sang tuần, vào sprint sau. Đó là cách <em>thực sự</em> nhanh.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> DoR phải được PO + team đồng ý <strong>1 lần</strong> rồi treo công khai. Sau đó từ chối story chưa đạt là việc kỹ thuật, không phải đối đầu cá nhân.</div>
+    </article>
+
+    <div class="role-divider">📐 Business Analyst — 5 scripts</div>
+    <article class="script" id="s-pm-P1-BA-1" data-pmcat="P1" data-role="BA">
+      <h3><span class="num">P1·BA·1</span> BA viết spec quá chi tiết, lock-down solution <a class="anchor-link" href="#s-pm-P1-BA-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">INVEST (Negotiable)</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA viết spec 8 trang ghi rõ "dùng dropdown, gọi API X, lưu vào table Y". Dev không có không gian để chọn implementation tốt hơn.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev follow đúng spec → giải pháp suboptimal nhưng không ai cãi.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Cảm ơn em đã viết kỹ. Mình muốn tách thành <strong>2 phần</strong>:
+
+1. <strong>WHAT &amp; WHY</strong> (BA owner) — vấn đề, user value, AC, ràng buộc business. Đây là <strong>không thể negotiate</strong>.
+2. <strong>HOW</strong> (Dev owner) — UI pattern, API, data structure. Đây <strong>phải negotiable</strong>.
+
+Spec hiện tại đang fix luôn HOW — như vậy mình mất cơ hội dev đề xuất giải pháp tốt hơn (ví dụ: dùng autocomplete thay dropdown — UX tốt hơn, em chưa biết).
+
+Đề xuất: em rewrite phần How thành <em>example</em> hoặc <em>constraint</em> ("phải dùng component design system X") thay vì instruction. Dev sẽ propose lại trong refinement.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> User story phải <strong>N</strong>egotiable. BA viết "yêu cầu" — dev đề xuất "giải pháp". Trộn 2 vai trò = mất cả 2 năng lực.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-BA-2" data-pmcat="P1" data-role="BA">
+      <h3><span class="num">P1·BA·2</span> BA thiếu user journey, story rời rạc <a class="anchor-link" href="#s-pm-P1-BA-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">User Story Mapping</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 1 buổi workshop</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA đưa 25 story rời rạc. Team không thấy bức tranh tổng. Cắt MVP thì cắt sai.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Cắt theo cảm giác ("cái này khó, bỏ") → MVP thiếu step quan trọng, user không hoàn thành flow.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">25 story này anh thấy như danh sách checklist, không phải product. Mình đề xuất 1 buổi <strong>User Story Mapping</strong> 2 tiếng:
+
+<strong>Trục ngang</strong> = các bước user đi qua: <em>Discover → Sign-up → Onboard → First action → Retain</em>.
+<strong>Trục dọc</strong> = layer ưu tiên: <em>Walking skeleton → MVP → Nice-to-have → Future</em>.
+
+Mình dán 25 sticky lên tường, sắp xếp. Sau đó kẻ 1 đường ngang = MVP — mỗi step user phải có ít nhất 1 story. Nếu cắt 1 step trống → user kẹt → MVP không dùng được.
+
+Kết quả: rõ MVP, rõ thứ tự, rõ cái gì có thể defer.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Story mapping là kỹ thuật <strong>visual</strong> — phải làm trên tường/Miro, không làm trên Excel.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-BA-3" data-pmcat="P1" data-role="BA">
+      <h3><span class="num">P1·BA·3</span> BA và PO disagree về priority <a class="anchor-link" href="#s-pm-P1-BA-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">MoSCoW + Data</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA cho rằng feature A phải làm trước (60% user request), PO bảo feature B (CEO yêu cầu).</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">EM "chia đôi" → 2 feature đều dở dang.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Đây là disagree quan trọng — không skip. Mình đề xuất 30 phút 3 người cùng nhìn data:
+
+• Em (BA) bring: 60% user request — nguồn data nào, segment user nào, conversion impact dự kiến?
+• Anh (PO) bring: CEO ask — vì sao gấp? Customer cụ thể nào? Revenue tiềm năng?
+• Mình map vào MoSCoW: cả 2 có thể đều "Must", nhưng <em>Must this sprint</em> chỉ có 1.
+
+Nếu vẫn không chốt được → escalate lên trên cùng 1 slide có 2 option + recommendation. Decision-maker chốt trong 24h.
+
+Nguyên tắc: mình không tự quyết priority cross-team — nhưng mình ép mọi người ra quyết định <strong>nhanh</strong>, có data.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Conflict priority = data conflict. Đẩy về data sớm → tránh "ai to tiếng hơn người đó thắng".</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-BA-4" data-pmcat="P1" data-role="BA">
+      <h3><span class="num">P1·BA·4</span> BA quên Non-Functional Requirements <a class="anchor-link" href="#s-pm-P1-BA-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">NFR Checklist</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Spec rõ về flow, nhưng không nói về performance, security, accessibility, observability. Đến UAT mới phát sinh.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev assume "sau làm" → load test fail tuần cuối → release trễ.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Spec hiện chưa cover NFR. Mình đi qua 6 trục với em — mỗi trục 1 dòng concrete:
+
+1. <strong>Performance</strong>: API p95 &lt; ?ms, load 1000 RPS có chịu nổi?
+2. <strong>Security</strong>: data nhạy cảm? PII? Cần encrypt at rest?
+3. <strong>Reliability</strong>: SLA bao nhiêu 9? RTO/RPO?
+4. <strong>Accessibility</strong>: WCAG AA? Screen reader?
+5. <strong>Observability</strong>: log, metric, alert nào cần?
+6. <strong>Scalability</strong>: 6 tháng tới user x10 thì sao?
+
+Nếu em không biết, hỏi: anh sẽ giúp draft. Nhưng <strong>không có</strong> NFR ≠ không cần — là default thấp, đến PROD mới biết là quá muộn.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> NFR phải <strong>numeric</strong>. "Phải nhanh" = không testable. "p95 &lt; 200ms ở 500 RPS" = testable.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-BA-5" data-pmcat="P1" data-role="BA">
+      <h3><span class="num">P1·BA·5</span> BA viết AC dạng paragraph, không testable <a class="anchor-link" href="#s-pm-P1-BA-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Given-When-Then template</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>AC viết dạng "Khi user upload file thì hệ thống xử lý đúng" — QA không biết test gì.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">QA viết test theo cách hiểu của QA → demo PO bảo "không phải vậy".</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh muốn em chuyển AC sang format <strong>Given-When-Then</strong> — chuẩn duy nhất team mình dùng:
+
+<strong>Trước:</strong> "Khi user upload file thì hệ thống xử lý đúng"
+
+<strong>Sau:</strong>
+• AC1: <em>Given</em> user logged-in, <em>When</em> upload file CSV ≤ 10MB hợp format, <em>Then</em> file được parse + hiển thị preview trong &lt; 5s.
+• AC2: <em>Given</em> ..., <em>When</em> upload file &gt; 10MB, <em>Then</em> báo lỗi "file vượt giới hạn" + không upload.
+• AC3: <em>When</em> upload sai format, <em>Then</em> ...
+• AC4: <em>When</em> mạng disconnect giữa upload, <em>Then</em> ...
+
+Quy tắc: mỗi AC <strong>1 kịch bản, 1 kết quả đo được</strong>. Nếu em viết AC mà không nghĩ ra cách test → AC đó chưa đủ.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> AC = contract giữa BA, Dev, QA. Format thống nhất = ít hiểu lầm.</div>
+    </article>
+
+    <div class="role-divider">💻 Developer — 5 scripts</div>
+    <article class="script" id="s-pm-P1-DEV-1" data-pmcat="P1" data-role="Dev">
+      <h3><span class="num">P1·DEV·1</span> Dev kêu requirement không clear, không estimate được <a class="anchor-link" href="#s-pm-P1-DEV-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">INVEST gap call-out</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Trong refinement, Dev nói: "Story này em không estimate được, requirement mơ hồ".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">EM ép estimate đại 5 points → trượt → blame dev.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Em đúng — không estimate được nghĩa là story chưa <strong>E</strong>stimable trong INVEST. Mình muốn em chỉ rõ <strong>cụ thể thiếu gì</strong>:
+
+• Thiếu AC? Thiếu data structure? Thiếu wireframe?
+• Phụ thuộc API/team khác chưa rõ?
+• Có nhiều cách triển khai và mình chưa biết PO muốn cái nào?
+
+Em list 3 câu hỏi <strong>cụ thể</strong> — anh sẽ ping PO/BA trả lời trước cuối ngày. Sau đó mình estimate lại trong 15 phút.
+
+Nếu PO không trả lời được trong 24h → story bị đẩy ra khỏi sprint, không tranh cãi.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Khuyến khích dev <strong>nói "không estimate được"</strong>. Đó là tín hiệu tốt — không phải dấu hiệu yếu.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-DEV-2" data-pmcat="P1" data-role="Dev">
+      <h3><span class="num">P1·DEV·2</span> Dev tự thêm scope (gold-plating) <a class="anchor-link" href="#s-pm-P1-DEV-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">DoD discipline</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev làm xong story, lại bonus thêm "refactor toàn bộ module liên quan" — story trễ 2 ngày.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Khen "chủ động tốt" → khuyến khích thói quen không estimate, blow up sprint.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh thấy code refactor em làm chất lượng — rất có giá trị. Nhưng mình cần nói thẳng:
+
+Việc đó <strong>không trong DoD của story</strong> — nó là tech debt task riêng. Khi em tự nhập vào:
+• Sprint trễ 2 ngày — anh không lường trước được khi report stakeholder.
+• Reviewer khó review (PR to)
+• Risk regression không cover trong test scope
+
+Lần sau, gặp tình huống tương tự: tạo <strong>tech debt ticket</strong> trong refinement, propose vào sprint sau, có estimate đàng hoàng. Anh ưu tiên approve.
+
+Gold-plating tốt bụng nhưng phá predictability của team.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Khen ý tốt + nói thẳng tác động hệ thống. Đừng để dev cảm thấy "lần sau lười là vừa".</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-DEV-3" data-pmcat="P1" data-role="Dev">
+      <h3><span class="num">P1·DEV·3</span> Dev nghi ngờ MVP cắt quá tay <a class="anchor-link" href="#s-pm-P1-DEV-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Trade-off conversation</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev: "MVP này thiếu retry logic, vào prod chắc chắn fail. Em không yên tâm release".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Bỏ qua concern → incident → blame ngược dev "sao không nói".</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Cảm ơn em đã raise. Anh muốn cụ thể hóa risk này:
+
+1. <strong>Xác suất fail</strong> trong tuần đầu sau release: theo em là ~?% — vì sao?
+2. <strong>Impact nếu fail</strong>: bao nhiêu user ảnh hưởng? Mất data hay chỉ retry tay được?
+3. <strong>Cost để add retry</strong>: bao nhiêu story points? Có dependency?
+
+Nếu (P × I) cao → mình mở CR, đưa vào MVP scope, có thể trượt 2 ngày — anh đi nói PO.
+Nếu (P × I) thấp + cost cao → ghi vào RAID log, có alert + manual recovery procedure, làm ở sprint sau.
+
+Quyết định ghi lại trong ticket, em comment đồng ý hay không. Không có "em không yên tâm" mơ hồ — phải lựa chọn rõ ràng.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Engineer raise concern là tín hiệu vàng. Nhiệm vụ EM: chuyển concern → quyết định có document.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-DEV-4" data-pmcat="P1" data-role="Dev">
+      <h3><span class="num">P1·DEV·4</span> Dev phát hiện edge case mới giữa sprint <a class="anchor-link" href="#s-pm-P1-DEV-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Change Request mini</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Day 5/10. Dev phát hiện AC không cover case "user disconnect giữa transaction". Hỏi: "em handle hay bỏ?".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev tự handle thầm → balloon thêm 1 ngày, không ai biết.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Quy trình edge case mới giữa sprint — 5 phút thôi:
+
+1. Em ghi case vào ticket gốc (comment) — 1 dòng mô tả.
+2. Em assess: <em>(a)</em> bao lâu để handle, <em>(b)</em> nếu không handle thì user gặp gì.
+3. Tag PO + anh trong ticket.
+4. PO quyết trong 4 tiếng:
+   • <strong>In scope</strong>: handle ngay, có thể trượt task khác → anh sẽ swap.
+   • <strong>Out of scope</strong>: tạo ticket mới cho sprint sau + thêm note vào release ghi rõ "known limitation".
+
+Nguyên tắc: <strong>không silent handle</strong>, không silent skip. Một là document và làm, hai là document và defer.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Tạo lightweight CR cho mid-sprint discovery — đừng đợi đến retro mới biết.</div>
+    </article>
+
+    <article class="script" id="s-pm-P1-DEV-5" data-pmcat="P1" data-role="Dev">
+      <h3><span class="num">P1·DEV·5</span> Story quá to (&gt;13 points) — phải split <a class="anchor-link" href="#s-pm-P1-DEV-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">INVEST (Small)</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Trong planning poker, story estimate 21 points (mọi người đồng ý). Vượt sprint capacity 1 người.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Cứ đẩy vào sprint → cuối sprint half-done, không demo được.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Story 21 points = quá to, vi phạm <strong>S</strong>mall trong INVEST. Không split = không vào sprint.
+
+Mình thử <strong>SPIDR pattern</strong> — chọn 1 trục cắt:
+• <strong>S</strong>pike: tách phần unknown thành research story riêng (3 points)
+• <strong>P</strong>ath: chia happy path vs error path
+• <strong>I</strong>nterface: tách backend API vs UI
+• <strong>D</strong>ata: tách logic theo loại data (text-only trước, file sau)
+• <strong>R</strong>ules: tách theo business rule (user thường trước, admin sau)
+
+Ví dụ: story "Import bulk users" 21 points → tách:
+• A: Import 100 user, không validation phức tạp (5 pts)
+• B: Add validation rules + error report (5 pts)
+• C: Async + progress bar cho file lớn (8 pts)
+• D: Spike: integrate với SSO (3 pts)
+
+Mỗi mảnh độc lập demo được. Em chọn cách nào?</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Story &gt; 13 = signal team chưa hiểu đủ, không phải team yếu. Split là kỹ năng phải luyện.</div>
+    </article>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- P2 — PLANNING & ESTIMATION                                   -->
+  <!-- ============================================================ -->
+  <section class="category" id="cat-pm-P2">
+    <h2>📅 P2 — Planning &amp; Estimation (15)</h2>
+    <p class="cat-desc">Chia nhỏ công việc, ước lượng có cơ sở, lập timeline thực tế. <strong>Mục tiêu: estimate đáng tin trong ±20%, không phải "đoán cho có".</strong></p>
+
+    <h3 style="margin-top:18px;">🎯 Kỹ thuật chủ đạo</h3>
+    <div class="technique-grid">
+      <div class="technique-card">
+        <div class="tech-icon">🔢</div>
+        <h4>Story Points (Fibonacci)</h4>
+        <p>1, 2, 3, 5, 8, 13. Đo <em>độ phức tạp</em>, không phải giờ. >13 = chưa đủ chia nhỏ → tách story.</p>
+        <span class="tech-when">Dùng khi: sprint planning</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">👕</div>
+        <h4>T-shirt Sizing</h4>
+        <p>XS · S · M · L · XL. Nhanh, dùng cho roadmap-level. Sau đó mới refine xuống story points.</p>
+        <span class="tech-when">Dùng khi: roadmap</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🎴</div>
+        <h4>Planning Poker</h4>
+        <p>Mọi người estimate đồng thời, lật bài cùng lúc → tránh anchoring. Lệch lớn = thảo luận, không bỏ phiếu trung bình.</p>
+        <span class="tech-when">Dùng khi: refinement</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🧮</div>
+        <h4>Three-point Estimation</h4>
+        <p><strong>(O + 4M + P) / 6</strong> — Optimistic, Most likely, Pessimistic. Cho task quan trọng/dễ trượt.</p>
+        <span class="tech-when">Dùng khi: critical task</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📈</div>
+        <h4>Velocity-based forecast</h4>
+        <p>3 sprint gần nhất trung bình → forecast. Đừng dùng best-case một lần để hứa.</p>
+        <span class="tech-when">Dùng khi: commit timeline</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🛡️</div>
+        <h4>Buffer &amp; Critical Path</h4>
+        <p>Buffer cuối project (10–20%), không buffer mỗi task. Critical path = dài nhất, chậm 1 ngày = trễ 1 ngày.</p>
+        <span class="tech-when">Dùng khi: lock deadline</span>
+      </div>
+    </div>
+
+    <div class="visual-flow">
+      <span class="step">Epic</span><span class="arrow">→</span>
+      <span class="step">T-shirt size</span><span class="arrow">→</span>
+      <span class="step">Break to stories</span><span class="arrow">→</span>
+      <span class="step">Planning Poker</span><span class="arrow">→</span>
+      <span class="step">Velocity check</span><span class="arrow">→</span>
+      <span class="step">Buffer + Critical path</span>
+    </div>
+
+    <div class="role-divider">👤 Product Owner — 5 scripts</div>
+    <article class="script" id="s-pm-P2-PO-1" data-pmcat="P2" data-role="PO">
+      <h3><span class="num">P2·PO·1</span> PO ép deadline cố định, không cho thời gian estimate <a class="anchor-link" href="#s-pm-P2-PO-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Velocity forecast</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "Phải ra ngày X, không còn thời gian planning nữa".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Nhận deadline không cơ sở → đua → vẫn miss + burnout.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu deadline ngoài ép. Nhưng <strong>commit không có estimate = hứa suông</strong>. Trong 1 giờ anh đưa ra <strong>3 con số</strong>:
+
+1. Velocity 3 sprint gần nhất: 28, 31, 25 → trung bình ~28 pts/sprint.
+2. Scope hiện tại (t-shirt size): ~110 pts → cần ~4 sprint.
+3. Từ hôm nay đến deadline: 3 sprint = ~84 pts khả dụng.
+
+Gap = 26 pts. Mình có 3 lựa chọn:
+• <strong>Cắt scope</strong> 26 pts (MoSCoW)
+• <strong>Dời deadline</strong> 1 sprint
+• <strong>Thêm người</strong> (lưu ý: ramp-up 1 sprint)
+
+Anh chọn 1 trong 3. "Đủ scope + đủ người + đúng deadline" không phải option.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Iron Triangle: scope/time/people — chỉ fix được 2/3. Buộc PO chọn bằng số, không bằng cảm giác.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-PO-2" data-pmcat="P2" data-role="PO">
+      <h3><span class="num">P2·PO·2</span> PO muốn forecast roadmap cả quý <a class="anchor-link" href="#s-pm-P2-PO-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">T-shirt + 3-point</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 1 buổi</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO chưa có detail story, muốn forecast 12 tuần.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đoán "3 tuần" → commit → thiếu 4 tuần.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Roadmap level mình không story-point từng item — dùng <strong>t-shirt sizing</strong>:
+
+• XS (~1 sprint, 1 dev) — ví dụ thêm field
+• S (~2 sprint) — feature đơn
+• M (~½ quarter) — module mới
+• L (~1 quarter) — epic
+• XL (&gt; 1 quarter) — cần breakdown trước
+
+Với item quan trọng, dùng <strong>3-point estimation</strong>:
+• Optimistic, Most likely, Pessimistic → (O+4M+P)/6
+• Range = P−O = mức độ unknown
+
+Mình đưa anh range, không đưa 1 con số. Anh commit lên exec bằng range, không bằng điểm giữa.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Forecast bằng range trung thực hơn 1 con số. "4–6 sprint" tốt hơn "5 sprint".</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-PO-3" data-pmcat="P2" data-role="PO">
+      <h3><span class="num">P2·PO·3</span> PO so sánh story points giữa team <a class="anchor-link" href="#s-pm-P2-PO-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Relative sizing</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "Team A 50 pts/sprint mà team em 30, team em yếu hơn?".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Team "lạm phát" points cho đẹp → mất ý nghĩa estimate.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Story points là <strong>relative</strong>, không absolute. Mỗi team tự calibrate "1 point" theo task chuẩn riêng. So số trade giữa team là <strong>vô nghĩa</strong>.
+
+So sánh đúng (cross-team): dùng <strong>cycle time</strong> (số ngày start→done mỗi story) hoặc <strong>throughput</strong> (số story/sprint).
+
+Trong cùng team, theo thời gian, velocity em ổn định 28–32 trong 6 sprint qua → forecast được. Đó là cái mình care.
+
+Nếu anh nghi team em chậm hơn thực sự, mình cùng nhìn 3 metric: cycle time, throughput, escape defect rate. Không nhìn points.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Story points = currency nội bộ team. Cross-team → dùng time-based metrics.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-PO-4" data-pmcat="P2" data-role="PO">
+      <h3><span class="num">P2·PO·4</span> PO muốn buffer = 0 để "ép team" <a class="anchor-link" href="#s-pm-P2-PO-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Project-level buffer</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "Bỏ buffer cho chật, team mới tập trung".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Plan không buffer → unknown bung là trượt.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Research nhất quán: <strong>buffer mỗi task bị ăn hết</strong> (Parkinson's law), nhưng <strong>buffer tập trung cuối project</strong> (Critical Chain) thì giữ on time.
+
+Đề xuất:
+• Estimate từng story <strong>aggressive</strong> (không padding cá nhân) → ép focus.
+• Aggregate buffer 15–20% cuối project — chỉ dùng khi unknown bung.
+• Theo dõi "buffer burn rate" tuần: nếu cháy nhanh hơn progress → yellow flag.
+
+Không buffer = anh cá với stakeholder. Cá thua, anh mất credibility — không phải team.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Buffer = người lớn lập plan dưới unknown, không phải "team yếu cần buffer".</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-PO-5" data-pmcat="P2" data-role="PO">
+      <h3><span class="num">P2·PO·5</span> PO muốn ngày go-live cụ thể cho exec <a class="anchor-link" href="#s-pm-P2-PO-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Confidence range</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO hỏi: "Khi nào ra epic Y?" cho meeting với exec.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đưa 1 ngày để PO yên tâm → miss → mất trust.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh không đưa 1 ngày — đưa <strong>3 ngày</strong> theo confidence:
+
+• <strong>P50</strong> (best case): ngày X
+• <strong>P80</strong> (commit thường): ngày Y
+• <strong>P95</strong> (nếu unknown bung): ngày Z
+
+Công thức: scope 110 pts, velocity range 25–32 → cần 3.4–4.4 sprint = 7–9 tuần.
+
+Lên exec: dùng <strong>P80 hoặc P95</strong>, không dùng P50. Mỗi 2 tuần re-forecast và update anh.
+
+Trust = consistency giữa lời hứa và kết quả, không phải đưa ngày đẹp.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Re-forecast mỗi 2–4 tuần. "Frozen plan" 6 tháng = cổ tích.</div>
+    </article>
+
+    <div class="role-divider">📐 Business Analyst — 5 scripts</div>
+    <article class="script" id="s-pm-P2-BA-1" data-pmcat="P2" data-role="BA">
+      <h3><span class="num">P2·BA·1</span> BA muốn breakdown chi tiết toàn epic ngay từ đầu <a class="anchor-link" href="#s-pm-P2-BA-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Progressive elaboration</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA muốn viết chi tiết 60 user story trước khi sprint 1.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Spec 60 story tháng đầu → sprint 3 mới code → spec lạc hậu, rewrite.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh ủng hộ chuẩn bị kỹ, nhưng <strong>không phải toàn bộ</strong>, <strong>không phải ngay</strong>. Dùng <strong>progressive elaboration</strong>:
+
+• Sprint 0–1: detail 100% cho 2 sprint tới (AC, design, dependency).
+• Sprint 2–3: medium detail (title + 2–3 dòng AC).
+• Sprint 4–6: high-level (epic, t-shirt size).
+• Sau đó: hypothesis.
+
+Cách này: đủ chuẩn bị, không waste effort viết chi tiết cho story có thể bị bỏ.
+
+Mỗi sprint, em bỏ 30% thời gian "refine 2 sprint tới" — đó là cách giữ backlog healthy mà không over-invest.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Detail càng xa tương lai = càng vô nghĩa. Khó kiềm BA chi tiết — nhưng phải.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-BA-2" data-pmcat="P2" data-role="BA">
+      <h3><span class="num">P2·BA·2</span> BA bỏ qua dependency cross-team <a class="anchor-link" href="#s-pm-P2-BA-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Critical Path</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Story phụ thuộc API team Platform. BA không hỏi trước, sprint mới biết API cần 6 tuần nữa.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Plan dựa assumption "API có sẵn" → dev block 6 tuần.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Bài học: mỗi story trong refinement phải có câu <strong>"thứ gì phải sẵn trước?"</strong>.
+
+Từ giờ template story add ô <strong>External Dependency</strong>:
+• Team nào phải deliver gì? Khi nào?
+• Đã confirm với họ chưa?
+• Plan B nếu họ trễ?
+
+Viết <strong>Critical Path</strong> 1 trang:
+<code>Design → [API Platform: 6 tuần] → Backend → Frontend → QA</code>
+Trễ API 1 ngày = trễ epic 1 ngày.
+
+Trước khi commit timeline: anh + em meet team Platform 30 phút → chốt API contract + ngày ready, có email recap.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Dependency unconfirmed = giant risk ẩn. Đưa ra ánh sáng sớm.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-BA-3" data-pmcat="P2" data-role="BA">
+      <h3><span class="num">P2·BA·3</span> BA đẩy timeline dựa optimistic <a class="anchor-link" href="#s-pm-P2-BA-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">3-point Estimation</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Em hỏi 1 anh dev, ảnh bảo 2 ngày — plan 2 tuần là xong".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dùng số 1 người 1 cảm hứng → plan hụt.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">"2 ngày" là best-case của 1 người. Cần <strong>3-point</strong> cho task quan trọng:
+
+• <strong>O</strong>ptimistic (mọi việc trôi): 2 ngày
+• <strong>M</strong>ost likely: 4 ngày
+• <strong>P</strong>essimistic (kẹt review, kẹt merge, bug): 8 ngày
+
+Expected = (2 + 4×4 + 8) / 6 ≈ <strong>4.3 ngày</strong>
+Stdev = (P−O)/6 ≈ 1 ngày
+→ Plan 5–6 ngày để confidence cao.
+
+Làm 5–7 task chính, cuộn lại → ra timeline có mức độ unknown.
+
+Nếu (P−O) quá lớn (2 vs 20 ngày) = unknown quá cao → cần <strong>spike trước</strong>, không plan ngay.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Range giữa O và P đo risk. To = cần spike/POC trước.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-BA-4" data-pmcat="P2" data-role="BA">
+      <h3><span class="num">P2·BA·4</span> BA không sequencing story <a class="anchor-link" href="#s-pm-P2-BA-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Story sequencing</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>30 story đều "Must" — không rõ thứ tự.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Pull random → sprint 3 mới biết X phải có trước Y.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Em map sequencing theo <strong>3 loại phụ thuộc</strong>:
+
+1. <strong>Technical</strong>: A dùng API của B → B trước.
+2. <strong>User flow</strong>: user phải sign-up trước checkout → sign-up trước.
+3. <strong>Risk</strong>: story unknown lớn → làm sớm để fail nhanh.
+
+Vẽ "dependency graph" trên Miro: mỗi story 1 sticky, kẻ arrow A→B (A trước B). Topological sort → ra thứ tự.
+
+Nếu graph có cycle (A→B→A) = thiết kế có vấn đề, phải refactor scope.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Sequencing ≠ priority. Priority cần PO. Sequencing cần BA + tech lead. Đừng trộn.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-BA-5" data-pmcat="P2" data-role="BA">
+      <h3><span class="num">P2·BA·5</span> BA hỏi "sao team estimate cao thế?" <a class="anchor-link" href="#s-pm-P2-BA-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Complexity vs Effort</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Story đơn giản mà 8 pts? Không hợp lý".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Hạ estimate cho vừa lòng → miss sprint sau.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Em nhìn từ góc <strong>mô tả</strong>, team nhìn từ góc <strong>complexity</strong>. 3 yếu tố tăng điểm:
+
+1. <strong>Unknown</strong>: chưa làm bao giờ, học library mới.
+2. <strong>Risk</strong>: đụng legacy code không test, regression cao.
+3. <strong>Effort</strong>: nhiều file, nhiều touchpoint, config 4 environment.
+
+Story đó nhìn "đơn giản" về mô tả nhưng đụng legacy + unit test lại 5 file khác (DoD) → 8 pts hợp lý.
+
+Nếu em muốn thấp hơn: cho team <strong>spike 1 ngày</strong> trước → estimate lại → có thể xuống 5 pts. Đó là cách đúng.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Story points = complexity, không = man-hours. BA hiểu mới negotiate được.</div>
+    </article>
+
+    <div class="role-divider">💻 Developer — 5 scripts</div>
+    <article class="script" id="s-pm-P2-DEV-1" data-pmcat="P2" data-role="Dev">
+      <h3><span class="num">P2·DEV·1</span> Dev underestimate liên tục (luôn miss) <a class="anchor-link" href="#s-pm-P2-DEV-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Retro learning + 3-point</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 20 phút 1-1</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev A: 5 sprint liên tiếp estimate trung bình thiếu 50%.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Critique "sao em estimate yếu thế?" → dev sợ → estimate cao không cơ sở.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh không đánh giá em "yếu" — anh muốn cùng em tìm <strong>pattern</strong>.
+
+Nhìn 5 sprint, 8 task em miss. Anh nhóm thành 3 loại:
+
+1. <strong>Underestimate testing</strong> (5/8) — em estimate dev time, quên 30% test time.
+2. <strong>Underestimate code review</strong> (2/8) — PR đi 3 vòng, mỗi vòng 0.5 ngày.
+3. <strong>Unknown bung</strong> (1/8) — khó tránh.
+
+Từ sprint tới:
+• Em dùng <strong>3-point</strong> cho task &gt; 3 pts: O/M/P, lấy (O+4M+P)/6.
+• Add 30% "test + review buffer" vào estimate dev-only.
+• Sau 5 sprint, anh + em xem lại: estimate trong ±20% không?
+
+Đây là skill, không phải talent. Senior nào mới vào team cũng underestimate.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Estimating là skill học theo thời gian. Coach bằng pattern, không critique bằng số.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-DEV-2" data-pmcat="P2" data-role="Dev">
+      <h3><span class="num">P2·DEV·2</span> Team anchor theo người estimate đầu <a class="anchor-link" href="#s-pm-P2-DEV-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Blind Planning Poker</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 5 phút fix</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Senior đề "3 pts" → mọi người đồng ý "3". 5 sprint không ai đề khác.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Thấy "team đồng thuận" là mừng → bỏ qua cơ hội phát hiện hiểu nhầm.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh observe planning poker 5 sprint — senior đề trước, mọi người follow. Đó là <strong>anchoring bias</strong>, mất giá trị planning poker.
+
+Đổi format từ tuần này:
+• Anh đọc story
+• Mọi người <strong>viết số ra giấy/Slack DM đồng thời</strong> (không nhìn nhau)
+• Đếm 1-2-3, lật cùng lúc
+• Nếu lệch &gt; 2 step (3 vs 8) → người <strong>cao nhất và thấp nhất</strong> giải thích trước (không phải senior)
+• Re-vote
+
+Lệch số = cơ hội vàng. Có 1 người nhìn thấy điều người khác không thấy — risk ẩn hoặc shortcut.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Anchoring là bệnh của mọi planning poker. Phải force blind voting.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-DEV-3" data-pmcat="P2" data-role="Dev">
+      <h3><span class="num">P2·DEV·3</span> Dev không tách Spike vs Delivery <a class="anchor-link" href="#s-pm-P2-DEV-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Spike pattern</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev gặp story unknown → estimate 13 pts (định "vừa research vừa làm"). 2 sprint vẫn dở.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Nhập research + delivery thành 1 story → estimate sai 200%, không kiểm soát.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Story này có 2 phần khác nhau hoàn toàn:
+• <strong>Phần unknown</strong>: chưa biết approach (kafka? webhook? polling?)
+• <strong>Phần delivery</strong>: sau khi biết approach, code + test + deploy
+
+Tách 2 ticket:
+• <strong>Spike</strong> (timeboxed 2 ngày): research, viết 1 trang RFC, demo POC. Output: <em>khuyến nghị approach</em>.
+• <strong>Delivery story</strong>: estimate <em>sau spike</em>, có cơ sở.
+
+Quy tắc: spike <strong>không bao giờ</strong> deliver code production. Output là <strong>tri thức</strong>. Sau spike mình estimate delivery — có thể 5 hoặc 13 pts, nhưng có cơ sở.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Spike timeboxed mạnh. Hết time → present current finding, decide tiếp tục hay đổi approach.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-DEV-4" data-pmcat="P2" data-role="Dev">
+      <h3><span class="num">P2·DEV·4</span> Dev xem velocity là KPI cá nhân <a class="anchor-link" href="#s-pm-P2-DEV-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Team metric</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 15 phút 1-1</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev: "Sprint này em làm 12 pts, em đỉnh nhất team". Bắt đầu cạnh tranh không lành mạnh.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Khen → khuyến khích lạm phát individual points → không ai pair, không ai mentor.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu em vui vì làm nhiều. Nhưng nói thẳng: <strong>velocity là metric của team, không phải cá nhân</strong>.
+
+Lý do:
+• Story points relative — em ước cao thì ra số cao, không liên quan giá trị.
+• Khuyến khích solo work, ngại pair/mentor (vì "mất points").
+• Đẩy team về tránh task khó (debug legacy, ít point) → tech debt tăng.
+
+Anh đánh giá em qua:
+1. <strong>Outcome</strong>: feature em làm có chạy production không, có bug không.
+2. <strong>Multiplier effect</strong>: em mentor ai, code review chất lượng không.
+3. <strong>Hard task ownership</strong>: em có nhận việc khó/ chán mà cần làm không.
+
+Anh sẽ không show "individual velocity" trong retro nữa — chỉ show team velocity.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Đo individual bằng story points = anti-pattern. Dùng outcome + multiplier + ownership.</div>
+    </article>
+
+    <article class="script" id="s-pm-P2-DEV-5" data-pmcat="P2" data-role="Dev">
+      <h3><span class="num">P2·DEV·5</span> Dev đẩy estimate lên cao "an toàn" <a class="anchor-link" href="#s-pm-P2-DEV-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Trust + Accountability</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 15 phút 1-1</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev sau lần bị critique miss sprint → estimate gấp 2× thực tế. Sprint xong sớm 30%.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Bỏ qua → 6 tháng sau team mất predictability ngược chiều, lãng phí capacity.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh nhận thấy sau lần miss vừa rồi, em estimate cao hẳn lên — sprint vừa rồi xong sớm 30%. Anh hiểu em <strong>đang tự bảo vệ</strong> — bình thường.
+
+Nhưng anh muốn nói thẳng: under-promise + over-deliver <strong>cũng là vấn đề</strong>:
+• Team plan ít hơn capacity thực → bỏ lỡ scope mình có thể làm.
+• Anh không biết capacity thật để negotiate với PO.
+
+Cam kết của anh:
+• Anh <strong>không bao giờ</strong> dùng estimate em đưa ra để critique em sau này.
+• Khi miss, mình focus pattern (P2·DEV·1), không focus blame.
+• Em estimate <strong>trung thực</strong>, dùng 3-point, anh sẽ giải thích range với PO.
+
+Đổi lại em commit estimate trong ±20% — không cao, không thấp.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Padding cao = signal psychological safety thấp. Phải xây trust trước, không ép estimate.</div>
+    </article>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- P3 — DELIVERY EXECUTION & TRACKING                           -->
+  <!-- ============================================================ -->
+  <section class="category" id="cat-pm-P3">
+    <h2>🚀 P3 — Delivery Execution &amp; Tracking (15)</h2>
+    <p class="cat-desc">Biến kế hoạch thành output đều đặn. Standup, burndown, WIP limit, unblock. <strong>Một team execution tốt: vấn đề nổi lên trong 24h, không phải khi gần deadline.</strong></p>
+
+    <h3 style="margin-top:18px;">🎯 Kỹ thuật chủ đạo</h3>
+    <div class="technique-grid">
+      <div class="technique-card">
+        <div class="tech-icon">⏱️</div>
+        <h4>Daily Standup (15')</h4>
+        <p>3 câu: <em>Hôm qua làm gì · hôm nay làm gì · blocker</em>. Không status report cho EM — là sync giữa team.</p>
+        <span class="tech-when">Dùng khi: hằng ngày</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🚦</div>
+        <h4>WIP Limit</h4>
+        <p>Mỗi người ≤ 2 task <em>In Progress</em>. Quá WIP = không ai finish gì. "Stop starting, start finishing."</p>
+        <span class="tech-when">Dùng khi: kanban</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📉</div>
+        <h4>Burndown / Burnup</h4>
+        <p>Đường flat 3 ngày = blocker chưa lộ. Đường lên = scope creep. Nhìn slope, không nhìn số tuyệt đối.</p>
+        <span class="tech-when">Dùng khi: review giữa sprint</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🔓</div>
+        <h4>Unblock fast</h4>
+        <p>Blocker > 24h = EM nhận. Đừng đợi developer "tự xử". Escalation chain: dev → lead → EM → cross-team.</p>
+        <span class="tech-when">Dùng khi: standup raise</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🎬</div>
+        <h4>Sprint Demo &amp; Review</h4>
+        <p>Demo sản phẩm <em>hoạt động được</em>, không phải slide. Stakeholder feedback ngay trong session.</p>
+        <span class="tech-when">Dùng khi: cuối sprint</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🔄</div>
+        <h4>Retrospective (Start/Stop/Continue)</h4>
+        <p>Mỗi sprint chốt 1–2 action item. Không có action = retro vô nghĩa.</p>
+        <span class="tech-when">Dùng khi: cuối sprint</span>
+      </div>
+    </div>
+
+    <div class="visual-flow">
+      <span class="step">Sprint planning</span><span class="arrow">→</span>
+      <span class="step">Standup × N</span><span class="arrow">→</span>
+      <span class="step">Burndown check</span><span class="arrow">→</span>
+      <span class="step">Unblock</span><span class="arrow">→</span>
+      <span class="step">Demo</span><span class="arrow">→</span>
+      <span class="step">Retro</span>
+    </div>
+
+    <div class="role-divider">👤 Product Owner — 5 scripts</div>
+    <article class="script" id="s-pm-P3-PO-1" data-pmcat="P3" data-role="PO">
+      <h3><span class="num">P3·PO·1</span> PO chen họp/yêu cầu giữa sprint, phá flow <a class="anchor-link" href="#s-pm-P3-PO-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Sprint protection</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO ping ad-hoc 5 lần/ngày, đặt 2 họp 1h giữa sprint cho dev senior.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Để team tự xử → flow gãy → velocity tụt 30%.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Sprint commit của team là contract — anh giúp em protect:
+
+• Câu hỏi PO: dồn vào <strong>1 buổi 30 phút giữa sprint</strong> (Wednesday refinement). Trừ blocker thật sự (P0 production).
+• Họp ad-hoc với dev: route qua anh trước. Nếu cần, anh swap người hoặc reschedule sang sau sprint.
+• Slack: anh sẽ tạo channel <code>#team-{name}-async</code> — em ping ở đó, dev trả lời theo nhịp họ, không bị interrupt.
+
+Lý do số: 1 lần interrupt = ~23 phút mất focus (research). 5 ping/ngày = 2h dev time biến mất.
+
+Đây không phải "team không cộng tác" — đây là làm cho cộng tác <strong>hiệu quả</strong>.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> EM = filter giữa stakeholder và dev focus time. Đừng outsource việc này cho dev tự xử.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-PO-2" data-pmcat="P3" data-role="PO">
+      <h3><span class="num">P3·PO·2</span> PO không dự demo / không feedback <a class="anchor-link" href="#s-pm-P3-PO-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Demo as feedback loop</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>3 sprint liền PO no-show demo, sau release lại complain "không phải ý anh".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Skip vắng PO, deliver theo team hiểu → rework toàn bộ sau release.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Demo là <strong>cơ hội duy nhất</strong> để anh sign-off trên product chạy thật trước khi release. Anh muốn xác nhận:
+
+1. Sprint Demo là Friday 4pm, 30 phút. Anh có vắng không?
+2. Nếu vắng được, ai là <strong>delegate có quyền sign-off</strong>? (BA? deputy?)
+3. Nếu không có delegate: demo bị move thành lý do release block.
+
+Quy tắc mới:
+• Anh hoặc delegate <strong>phải</strong> có mặt demo.
+• Sign-off bằng 1 line trong Slack thread sau demo.
+• Không sign-off = không release.
+
+Anh thấy "không có ý kiến" trong demo nghĩa là <strong>OK với cái team build</strong>. Sau release complain không tính.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Treo điều này ngay từ kickoff. Sau khi sự cố mới enforce sẽ khó.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-PO-3" data-pmcat="P3" data-role="PO">
+      <h3><span class="num">P3·PO·3</span> PO push skip retro để "tiết kiệm thời gian" <a class="anchor-link" href="#s-pm-P3-PO-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Retro defense</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "Retro 1 tiếng mỗi sprint = lãng phí, dev cần code".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Skip retro 3 sprint → cùng vấn đề cũ lặp lại 3 lần, không ai fix.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh nhìn ra anh care kết quả ngắn hạn, anh hiểu. Nhưng retro <strong>không phải để chia sẻ cảm xúc</strong> — nó là để fix process problem.
+
+Số liệu thật: 3 retro vừa qua team identified:
+• Code review trễ → fix bằng "review buddy" → cycle time giảm 1.5 ngày.
+• Test environment flaky → fix bằng dedicated env → -8h/sprint debug.
+• PO requirement clarification chậm → mình đang fix với DoR.
+
+Mỗi retro 60 phút save ~10h/sprint cho team 6 người. ROI = 10×.
+
+Anh giữ retro cho team em. Nếu PO bận, em có thể vắng 1–2 lần — không sao. Nhưng team không skip.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Defend retro bằng số (cycle time, defect rate cải thiện), không bằng "Agile nói thế".</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-PO-4" data-pmcat="P3" data-role="PO">
+      <h3><span class="num">P3·PO·4</span> PO panic vì burndown flat ngày 3 <a class="anchor-link" href="#s-pm-P3-PO-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Reading burndown</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Sprint 10 ngày, ngày 3 burndown vẫn flat (team đang work-in-progress). PO panic gọi escalate.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">PO ép team "show progress" → dev close ticket sớm khi chưa done thật → tech debt + bug.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu burndown flat trông đáng lo, nhưng đây là <strong>pattern bình thường</strong> trong sprint:
+
+• Ngày 1–3: pickup, code, chưa close gì → burndown flat.
+• Ngày 4–7: PR, review, merge → burndown dốc.
+• Ngày 8–10: test, polish, demo prep.
+
+Đây là "S-curve" của sprint, không phải linear. Flat 3 ngày <strong>không</strong> = team chậm.
+
+<strong>Khi nào lo</strong>:
+• Flat 5+ ngày liên tục
+• Hoặc burndown đi <em>lên</em> (= scope creep)
+• Hoặc cuối sprint mà còn &gt; 30% scope dở
+
+Anh check team mỗi standup, có blocker thật anh raise. Hôm nay không có. Anh đợi đến ngày 7 mới panic.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Educate PO đọc burndown thay vì trấn an. Lần sau PO tự nhìn được.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-PO-5" data-pmcat="P3" data-role="PO">
+      <h3><span class="num">P3·PO·5</span> PO yêu cầu daily status report cho exec <a class="anchor-link" href="#s-pm-P3-PO-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">BLUF + dashboard</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút setup</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "VP yêu cầu daily update của project". Đặt EM viết report 30p mỗi ngày.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">EM viết daily essay → 30p × 20 ngày = 10h/sprint mất, không có giá trị.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">VP cần update là chính đáng — nhưng cách rẻ nhất:
+
+<strong>Đề xuất 2 phần</strong>:
+
+1. <strong>Live dashboard</strong> (link sẵn cho VP): burndown, RAG status, blockers, top 3 risk. Auto-update từ Jira/Linear. Thiết lập 1 lần, dùng mãi.
+
+2. <strong>Weekly BLUF email</strong> (5 dòng) — anh viết Friday 4pm:
+   - Bottom line: on track / amber / red
+   - Done tuần này (3 bullet)
+   - Next tuần (3 bullet)
+   - Blocker cần exec help (nếu có)
+
+Daily essay thì <strong>không</strong> — không tạo signal, chỉ tạo noise. VP đọc 1 lần rồi bỏ qua.
+
+Anh sẽ ping anh nếu có thay đổi P0 cần exec biết ngay (không đợi tuần).</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Dashboard + BLUF tuần &gt;&gt; daily essay. Push back không xấu — push back có giải pháp tốt hơn.</div>
+    </article>
+
+    <div class="role-divider">📐 Business Analyst — 5 scripts</div>
+    <article class="script" id="s-pm-P3-BA-1" data-pmcat="P3" data-role="BA">
+      <h3><span class="num">P3·BA·1</span> BA hold info, không sync trong standup <a class="anchor-link" href="#s-pm-P3-BA-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Inclusive standup</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA biết PO sẽ thay đổi requirement story X, không nói trong standup. Dev đang code → rework.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">BA nghĩ "đợi confirm xong mới nói" → dev đã làm xong nửa story sai.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Quy tắc cho BA trong standup từ tuần này:
+
+<strong>Bất kỳ tín hiệu sớm nào</strong> về thay đổi requirement, dependency, blocker → raise <em>ngay trong standup gần nhất</em>, không đợi confirm.
+
+Format đơn giản: <em>"FYI — story X có khả năng thay đổi: PO đang xem xét Y. Sẽ confirm cuối ngày."</em>
+
+Lý do: dev cần biết để <strong>chậm hand</strong> hoặc đổi sequence. 2 phút BA share = 4 giờ dev không waste.
+
+BA = early warning system của team. Anh không phạt em vì raise sai (false positive). Anh phạt im lặng dẫn đến rework (false negative).</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Khuyến khích "noisy" hơn "silent". Im lặng cho safe = đẩy cost cho team.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-BA-2" data-pmcat="P3" data-role="BA">
+      <h3><span class="num">P3·BA·2</span> BA viết spec mới giữa sprint dump cho dev <a class="anchor-link" href="#s-pm-P3-BA-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">DoR enforcement</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Day 6/10. BA tạo 2 ticket mới, gán dev, ping "ưu tiên làm trong sprint này".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Dev nhận đại → drop story đang làm → cuối sprint dở dang cả hai.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh nhận thấy em vừa tạo 2 ticket dump vào sprint. Anh revert assignment, cho em biết quy trình:
+
+1. Ticket mới giữa sprint <strong>không tự vào</strong> sprint, dù em tag dev.
+2. Em đem ticket lên next refinement (Wed).
+3. Nếu gấp (P0 production): tag anh + PO trong Slack, anh đánh giá impact, swap với story đang dở.
+4. Nếu không gấp: chờ sprint sau, refine đàng hoàng.
+
+Sprint commit là contract — em không thể inject. Đây không phải bureaucracy, đây là cách team predictable.
+
+Có 1 ticket nào trong 2 cái em vừa tạo thật sự P0 không? Nếu có, mình xử ngay.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Mọi role đều có thể inject scope. EM = gatekeeper. Process &gt; goodwill.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-BA-3" data-pmcat="P3" data-role="BA">
+      <h3><span class="num">P3·BA·3</span> BA bypass team chốt trực tiếp với PO <a class="anchor-link" href="#s-pm-P3-BA-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">RACI clarification</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA đổi AC trực tiếp với PO trong họp riêng, không thông báo team. Dev nhận spec đã change, không kịp react.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Bỏ qua "lần sau ý"  → tạo precedent BA quyết technical impact.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh muốn rõ <strong>RACI</strong> cho thay đổi AC giữa sprint:
+
+• <strong>R</strong>esponsible (đưa proposal): BA hoặc PO
+• <strong>A</strong>ccountable (decide): PO
+• <strong>C</strong>onsulted (cần feedback trước decide): tech lead, dev đang làm story
+• <strong>I</strong>nformed (cần biết): toàn team
+
+Vừa rồi em skip C — không hỏi tech lead về impact thay đổi. Hậu quả: dev đang code half-way bị reset.
+
+Quy trình từ giờ:
+1. BA + PO discuss đề xuất thay đổi.
+2. Em ping anh + tech lead trong &lt;30p, có 4-tiếng feedback window.
+3. Sau feedback, PO chốt — ghi trong ticket.
+4. Standup hôm sau, em announce cho team.
+
+Không skip C. Anh care vì 1 quyết định 5 phút có thể tốn dev 2 ngày rework.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> RACI ngầm là RACI sai. Phải nói ra, đặc biệt cho mid-sprint changes.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-BA-4" data-pmcat="P3" data-role="BA">
+      <h3><span class="num">P3·BA·4</span> BA push test passing trước UAT thật <a class="anchor-link" href="#s-pm-P3-BA-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">DoD enforcement</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Cho UAT đi, edge case fix sau cũng được". Sau UAT user hit edge case → rollback.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Compromise DoD lần đầu → từ đó lần nào cũng "fix sau" → tech debt + customer trust giảm.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">DoD của team mình rõ:
+• Tất cả AC pass test (auto + manual)
+• &lt; 5 known issue (P3 trở xuống), 0 P0/P1
+• Doc + release note
+• Sign-off từ PO
+
+Story này hiện thiếu <strong>2 P2 bug</strong> ở edge case em raised. UAT bây giờ = đẩy bug đến user trực tiếp.
+
+Em đang trade-off giữa "release sớm 2 ngày" và "user gặp bug". Anh chọn fix bug — vì:
+• Fix bug giờ: 1 ngày dev.
+• User gặp bug: rollback + fix + customer support cost = 5+ ngày + reputation hit.
+
+Nếu PO ép release: anh đứng trước, em không cần đứng. Nhưng team không silent skip DoD.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> DoD không phải để break trong "trường hợp đặc biệt". Mọi trường hợp đều "đặc biệt" — đó là cách DoD chết.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-BA-5" data-pmcat="P3" data-role="BA">
+      <h3><span class="num">P3·BA·5</span> BA vắng demo / không feedback <a class="anchor-link" href="#s-pm-P3-BA-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Demo as feedback loop</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA viết spec nhưng không xem demo. Sau release nói "không phải ý em".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Quan niệm "BA viết xong là xong" → demo thiếu người verify spec → drift dần.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">BA = author của spec → BA cũng phải <strong>verify</strong> implementation match spec. Demo là cơ hội duy nhất.
+
+Quy tắc:
+• Em phải có mặt trong sprint demo, hoặc xem record trong &lt;24h.
+• Sau demo, em tick-mark từng AC: <em>match / partial / miss</em>.
+• Miss → tạo bug ticket trong sprint sau (không claim "không phải ý em" sau release).
+
+Đây không phải tăng work — đây là phần tự nhiên của BA role. Em không xem implementation = em không biết spec có thực sự work không → spec sau lại sai.
+
+Sign-off của em là contract: "team đã build đúng cái em viết".</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> BA ownership phải kéo dài đến demo, không kết thúc ở "spec đã viết".</div>
+    </article>
+
+    <div class="role-divider">💻 Developer — 5 scripts</div>
+    <article class="script" id="s-pm-P3-DEV-1" data-pmcat="P3" data-role="Dev">
+      <h3><span class="num">P3·DEV·1</span> Dev silent blocker, không raise trong standup <a class="anchor-link" href="#s-pm-P3-DEV-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Safe-to-raise</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút 1-1</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev kẹt 3 ngày với API cross-team không respond. Trong standup chỉ nói "vẫn đang làm".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Tin lời "vẫn đang làm" → cuối sprint mới biết kẹt 5 ngày → ngỡ ngàng.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh nhận thấy story X em báo "đang làm" 3 ngày liền, không tiến triển. Anh không evaluate em — anh muốn hiểu em đang gặp gì.
+
+[Nghe em chia sẻ, có thể đang chờ team khác.]
+
+OK, đây không phải em chậm — đây là <strong>blocker thật sự</strong>, em nên raise. Anh hiểu lý do em ngại:
+• Sợ "phiền sếp"
+• Sợ trông "không tự xử được"
+• Văn hóa cũ: blocker = yếu
+
+Anh đặt lại expectation:
+• <strong>Blocker &gt; 4 giờ → raise standup hôm sau.</strong>
+• <strong>Blocker &gt; 1 ngày → ping anh ngay, không đợi.</strong>
+• Anh là escalation channel, đó là job của anh.
+
+Raise blocker không = yếu. <em>Im lặng cho đến deadline = lỗi process</em>. Anh đứng trước nếu cần đẩy team khác.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Dev silent thường vì văn hóa cũ. Phải nói thẳng + show up khi raise → trust mới hình thành.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-DEV-2" data-pmcat="P3" data-role="Dev">
+      <h3><span class="num">P3·DEV·2</span> Dev có 5 ticket "In Progress" cùng lúc <a class="anchor-link" href="#s-pm-P3-DEV-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">WIP Limit</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Board cho thấy dev đang IP 5 ticket, không có gì close trong 5 ngày.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Khen "chăm chỉ" → context-switching ăn 40% productive time, không ai notice.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh thấy em đang In Progress 5 ticket, 0 done trong 5 ngày. Đây là <strong>WIP overload</strong>:
+
+• Mỗi switch context tốn ~23 phút "warm-up".
+• 5 ticket = não em luôn ở trạng thái "đang chuyển" → không bao giờ deep work.
+• Risk: 5 cái đều half-done cuối sprint, không demo được gì.
+
+Quy tắc team từ tuần này: <strong>WIP limit = 2 per dev</strong>.
+
+"Stop starting, start finishing":
+• Pick 1 ticket — finish to "Done" (merged + tested + deployed).
+• Pick ticket thứ 2.
+• Khi đó mới start ticket thứ 3 — và bỏ cái cũ về "Ready" hoặc bàn giao.
+
+Nếu em đang chờ review/dependency cho 1 cái → di chuyển nó về cột "Blocked", không tính WIP. Mở slot pickup mới.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> WIP limit phải enforce trên board, không chỉ "khuyên". Set hard limit = ai cũng phải tuân.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-DEV-3" data-pmcat="P3" data-role="Dev">
+      <h3><span class="num">P3·DEV·3</span> Dev "mostly done" 3 ngày liên tiếp <a class="anchor-link" href="#s-pm-P3-DEV-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Finish-line discipline</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev báo standup: "90% xong" 3 ngày liền, vẫn chưa close. 10% cuối là edge case + test.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Tin "90%" liên tục → cuối sprint biết là 60%, demo thiếu.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh để ý 3 ngày liền em báo "90% xong". Trong delivery, 10% cuối thường là 50% effort — testing, edge case, doc, deploy.
+
+Quy tắc mới với team:
+• Trong standup chỉ có 2 trạng thái: <strong>"Done"</strong> (merged + deployed staging + AC pass) hoặc <strong>"Not done"</strong>.
+• Phần trăm cảm tính bị ban — vô nghĩa.
+
+Cụ thể với story em đang làm:
+1. Liệt kê chính xác 3 việc cuối cần làm.
+2. Estimate 1 việc/giờ.
+3. Nếu xong trong 4 giờ tới → close cuối ngày. Nếu không → cần help, raise standup mai.
+
+"Mostly done" là dấu hiệu 1 trong 2: scope không rõ HOẶC dev đang né phần khó. Mình tìm cái nào đúng.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Loại bỏ "% done" khỏi standup. Chỉ dùng done / not done. Forces clarity.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-DEV-4" data-pmcat="P3" data-role="Dev">
+      <h3><span class="num">P3·DEV·4</span> Dev không update ticket trạng thái <a class="anchor-link" href="#s-pm-P3-DEV-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Ticket hygiene</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Board lệch thực tế: 3 ticket đã merge nhưng vẫn ở "In Progress". Dev: "em đang focus code, sau update".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">EM tự move ticket cho dev → maintenance forever, không bao giờ tự sửa.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu em focus code — nhưng board lệch thực tế là <strong>noise</strong> phá team:
+
+• Anh không biết workload thật → assign mới sai.
+• PO nhìn dashboard panic không cần thiết.
+• Standup tốn thời gian "nhắc lại trạng thái thật".
+
+Quy tắc đơn giản: <strong>1 hành động = 1 update</strong>:
+• Bắt đầu task → drag sang "In Progress" + ghi 1 dòng plan.
+• Mở PR → drag sang "Review" + paste link.
+• PR merged → drag sang "Done" + ghi link deploy.
+• Block → drag sang "Blocked" + ghi blocker là gì.
+
+Tổng thời gian: ~30 giây/ngày. Trade-off cực lợi.
+
+Nếu em không có thói quen, anh add bước này vào DoD: ticket không update = story không done dù code đã merge.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Ticket hygiene = team thông tin chung. EM không nên tự move thay → enforce ownership.</div>
+    </article>
+
+    <article class="script" id="s-pm-P3-DEV-5" data-pmcat="P3" data-role="Dev">
+      <h3><span class="num">P3·DEV·5</span> Dev tham gia retro nửa vời, không action item <a class="anchor-link" href="#s-pm-P3-DEV-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Action-driven retro</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Retro lặp 4 sprint cùng vấn đề ("CR review chậm"), không ai own action item.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Coi retro là "venting session" → vấn đề lặp lại mãi → team mất tin retro.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh thay đổi format retro từ tuần này:
+
+• 3 cột: <strong>Start / Stop / Continue</strong> — 5 phút mỗi người.
+• Vote chọn <strong>top 2 issue</strong> để fix.
+• Mỗi issue: <strong>1 action item, 1 owner, 1 deadline</strong>. Không có owner = action không tồn tại.
+• Retro mở đầu sprint sau: review action item từ retro trước. Done? Helped? Killed?
+
+Cụ thể "CR review chậm" lặp 4 sprint:
+• Anh propose: <em>review buddy rotation</em> — mỗi PR có 1 designated reviewer trong 24h.
+• Owner: tech lead. Deadline: cuối sprint tới.
+• Sprint sau retro: đo lại cycle time review.
+
+Retro không action = than thở. Anh muốn team trả 60 phút retro → save 5+ giờ/sprint.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Mỗi retro &lt; 3 action item, mỗi action có owner. Track cross-sprint, không "drop and forget".</div>
+    </article>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- P4 — RISK & ISSUE MANAGEMENT                                 -->
+  <!-- ============================================================ -->
+  <section class="category" id="cat-pm-P4">
+    <h2>⚠️ P4 — Risk &amp; Issue Management (15)</h2>
+    <p class="cat-desc">Phát hiện sớm, log đầy đủ, mitigation rõ ràng, escalation đúng kênh. <strong>Risk = chưa xảy ra, có thể phòng. Issue = đã xảy ra, phải xử.</strong></p>
+
+    <h3 style="margin-top:18px;">🎯 Kỹ thuật chủ đạo</h3>
+    <div class="technique-grid">
+      <div class="technique-card">
+        <div class="tech-icon">📋</div>
+        <h4>RAID Log</h4>
+        <p><strong>R</strong>isks · <strong>A</strong>ssumptions · <strong>I</strong>ssues · <strong>D</strong>ependencies. 1 sheet sống suốt project.</p>
+        <span class="tech-when">Dùng khi: kickoff + weekly</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🎯</div>
+        <h4>Risk Matrix (P × I)</h4>
+        <p>Probability (1–5) × Impact (1–5). Score &gt; 12 = phải có owner + mitigation cụ thể.</p>
+        <span class="tech-when">Dùng khi: prioritize risk</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🛡️</div>
+        <h4>Mitigation vs Contingency</h4>
+        <p><em>Mitigation</em>: giảm xác suất xảy ra. <em>Contingency</em>: làm gì <em>nếu</em> xảy ra. Phải có cả 2.</p>
+        <span class="tech-when">Dùng khi: risk &gt; 12</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📈</div>
+        <h4>Pre-mortem</h4>
+        <p>"Giả sử project fail sau 3 tháng — vì sao?" — list 10 nguyên nhân ngay từ đầu, ưu tiên top 3.</p>
+        <span class="tech-when">Dùng khi: kickoff</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🚨</div>
+        <h4>Escalation Ladder</h4>
+        <p>Lvl 1 dev → Lvl 2 lead → Lvl 3 EM → Lvl 4 director. Mỗi cấp có SLA: 1d, 2d, 3d. Không skip cấp.</p>
+        <span class="tech-when">Dùng khi: blocker dài</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🧯</div>
+        <h4>Blameless Postmortem</h4>
+        <p>Khi issue xảy ra: tập trung <em>hệ thống</em>, không tập trung người. 5 Whys → action item, không tìm tội.</p>
+        <span class="tech-when">Dùng khi: sau incident</span>
+      </div>
+    </div>
+
+    <div class="visual-flow">
+      <span class="step">Pre-mortem</span><span class="arrow">→</span>
+      <span class="step">RAID log</span><span class="arrow">→</span>
+      <span class="step">Risk matrix</span><span class="arrow">→</span>
+      <span class="step">Mitigation + Contingency</span><span class="arrow">→</span>
+      <span class="step">Weekly review</span><span class="arrow">→</span>
+      <span class="step">Escalation if breach</span>
+    </div>
+
+    <div class="role-divider">👤 Product Owner — 5 scripts</div>
+    <article class="script" id="s-pm-P4-PO-1" data-pmcat="P4" data-role="PO">
+      <h3><span class="num">P4·PO·1</span> PO không buy-in pre-mortem ("tốn thời gian") <a class="anchor-link" href="#s-pm-P4-PO-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Pre-mortem ROI</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO: "Mình code đi, đừng mất 2h họp lo những cái chưa xảy ra".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Bỏ pre-mortem → tháng 3 hit risk đã có thể prevent → mất 2 tuần catch up.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu anh muốn move fast. Pre-mortem 2h = <strong>insurance cheap nhất</strong> mình mua được:
+
+Quy tắc: anh tập 8 người, hỏi 1 câu — <em>"Giả sử 3 tháng nữa project fail. Lý do gì?"</em>. Mỗi người viết 5 lý do trong 10 phút. Cuộn lại → top 5 risk.
+
+Output: <strong>list 5 risk + owner + 1 mitigation/risk</strong>. Không phải plan dài 30 trang.
+
+Theo data Stanford: pre-mortem tăng ability identify reasons project fail thêm <strong>30%</strong>. Đó là 30% issue mình prevent được.
+
+Nếu anh skip: mình ký off chấp nhận risk, ghi vào RAID. Sau này hit risk → không thể nói "ai mà ngờ".</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Frame pre-mortem như insurance, không như "extra meeting". Cost low, payoff high.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-PO-2" data-pmcat="P4" data-role="PO">
+      <h3><span class="num">P4·PO·2</span> PO báo "project không có risk" <a class="anchor-link" href="#s-pm-P4-PO-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Explicit RAID</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Status meeting: PO: "Project mình OK, không có risk gì". RAID log trống suốt project.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đồng ý → tháng sau 3 risk bung ra cùng lúc → "ai mà ngờ".</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">"Không có risk" là <strong>red flag</strong> mạnh nhất trong project management. Không phải project nào không có risk — chỉ là chưa nhìn ra.
+
+Đề xuất: 30 phút next, mình cùng đi qua <strong>4 trục cố định</strong>:
+
+1. <strong>Technical</strong>: legacy code, tech mới, scaling unknown.
+2. <strong>People</strong>: ai key-person? Vacation? Attrition risk?
+3. <strong>External</strong>: dependency từ team/vendor khác? Compliance change?
+4. <strong>Business</strong>: market shift? Stakeholder thay đổi priority?
+
+Anh vào meeting với 1 list draft của anh (5–7 risk anh đã thấy). Mình review cùng nhau.
+
+Project có 0 risk = team naive. 5–10 risk + mitigation = team mature.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Force list bằng 4 trục — PO không thoát "không có gì". Tự draft trước → giảm cognitive load PO.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-PO-3" data-pmcat="P4" data-role="PO">
+      <h3><span class="num">P4·PO·3</span> PO escalate trực tiếp lên VP, skip cấp <a class="anchor-link" href="#s-pm-P4-PO-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Escalation Ladder</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Issue xảy ra hôm qua, PO email thẳng VP. Director của EM mới biết qua VP forward.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Bỏ qua → tạo precedent skip cấp → director mất visibility, EM mất trust.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh muốn nói thẳng về vụ escalate VP hôm qua — không phải để complain, mà để align process.
+
+Khi PO skip cấp:
+• Director của anh mất context → trả lời sai/chậm cho VP.
+• Anh không có cơ hội xử trước khi escalate → trông như anh không control.
+• VP gặp 1 vấn đề mà 3 cấp dưới chưa bàn → quyết định vội.
+
+<strong>Escalation ladder</strong> mình thống nhất:
+• <strong>Lvl 1</strong> (issue thường): anh + PO, &lt; 24h.
+• <strong>Lvl 2</strong> (cần resource): + Director, &lt; 48h.
+• <strong>Lvl 3</strong> (cần priority shift): + VP, &lt; 1 tuần.
+
+Trừ <strong>P0 production incident</strong> ảnh hưởng customer — lúc đó anh chủ động ping VP cùng anh.
+
+Lần sau, ping anh trước. Anh phản hồi trong &lt;2h, không bottleneck.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Skip cấp = trust issue 2 chiều. Đối thoại thẳng + đặt expectation rõ.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-PO-4" data-pmcat="P4" data-role="PO">
+      <h3><span class="num">P4·PO·4</span> PO yêu cầu "hide bad news" với stakeholder <a class="anchor-link" href="#s-pm-P4-PO-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Transparency principle</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Project trễ 2 sprint. PO: "Đừng nói VP, mình catch up trong tuần".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Hide → "tuần catch up" không xảy ra → tháng sau VP biết, mất trust gấp đôi.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh không thể giấu bad news với stakeholder, dù muốn giúp anh. Lý do thẳng:
+
+1. <strong>Stakeholder ghét bất ngờ hơn ghét tin xấu</strong> — biết sớm = chuẩn bị, biết muộn = sốc + giảm trust.
+2. Nếu mình "catch up không kịp", VP biết tháng sau → 2 lần fail (project + cover-up).
+3. Anh và anh đều mất credibility — nó stick lâu hơn 1 sprint trễ.
+
+<strong>Đề xuất alternative</strong>:
+• Status thành <strong>Amber</strong> tuần này, không Green.
+• Email VP với BLUF: <em>"Project trễ 2 sprint do X. Plan recovery: Y. Yêu cầu: Z."</em>
+• Anh + anh cùng vào meeting với VP, defend plan.
+
+Bad news + plan + ask = professionalism. Bad news muộn + spin = mất sự nghiệp.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Đứng vững trên transparency. Đây là career-protecting cho cả EM và PO, không phải "rigid".</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-PO-5" data-pmcat="P4" data-role="PO">
+      <h3><span class="num">P4·PO·5</span> PO không follow up mitigation, đợi issue rồi mới react <a class="anchor-link" href="#s-pm-P4-PO-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Weekly RAID review</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 30 phút/tuần</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>RAID log có 6 risk identified, không ai update mitigation 4 tuần. 2 risk thành issue.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">RAID log đẻ ra rồi để đó → vô nghĩa hơn không có.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">RAID log không update = nguy hiểm hơn không có RAID. Mình bỏ thời gian identify, không xử = waste.
+
+Cadence mới:
+• <strong>Weekly RAID review</strong> 30 phút, Friday 3pm.
+• Mỗi risk có <strong>owner</strong> (R) + <strong>accountable</strong> (A) + <strong>deadline mitigation</strong>.
+• Mỗi tuần update trạng thái: <em>Open / In Progress / Mitigated / Triggered (became issue)</em>.
+• Risk score (P × I) re-assess: tăng/giảm/ổn định.
+
+Cụ thể 2 risk vừa thành issue:
+1. Anh document blameless postmortem: vì sao mình spot risk nhưng không mitigate?
+2. Action items: ai làm, khi nào.
+3. Feed back vào pre-mortem template để tránh lặp.
+
+Risk-management-by-spreadsheet không work. Phải có nhịp tuần và human accountability.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Setup recurring 30p/tuần. Skip 1 lần = bắt đầu chết slow. Discipline + visibility.</div>
+    </article>
+
+    <div class="role-divider">📐 Business Analyst — 5 scripts</div>
+    <article class="script" id="s-pm-P4-BA-1" data-pmcat="P4" data-role="BA">
+      <h3><span class="num">P4·BA·1</span> BA treat assumption như fact <a class="anchor-link" href="#s-pm-P4-BA-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Assumption tracking</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA viết spec dựa trên "user sẽ luôn online" — production user offline 30% time → feature broken.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Spec không nói rõ assumption → dev không challenge → ship → fail.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Assumption ngầm = risk lớn nhất ẩn trong spec. Em phải <strong>list explicit</strong>:
+
+Trong template story add ô <strong>"Assumptions"</strong>:
+• User behavior: "Giả định user luôn online"
+• Data: "Giả định response &lt; 1MB"
+• Tech: "Giả định API X stable"
+• Business: "Giả định pricing không thay đổi 3 tháng"
+
+Mỗi assumption phải có:
+• <strong>Validation status</strong>: confirmed / unverified / risky
+• <strong>If wrong</strong>: hậu quả gì? (1 dòng)
+• <strong>Owner</strong>: ai validate?
+
+Trong refinement, dev có quyền challenge assumption. "Giả định user online" → có data nào support? Nếu không → đây là risk, ghi vào RAID.
+
+Không có spec không có assumption — chỉ có spec không list ra.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> "A" trong RAID = Assumption. Update đều như Risk. Assumption sai = root cause của nhiều issue.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-BA-2" data-pmcat="P4" data-role="BA">
+      <h3><span class="num">P4·BA·2</span> BA nói "có risk" nhưng không quantify <a class="anchor-link" href="#s-pm-P4-BA-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Risk Matrix (P × I)</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Cái này risky lắm" — không nói risky như nào, không action.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Vague "risky" → mọi thứ đều risky → không thứ tự ưu tiên → không xử.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">"Risky" không actionable. Em quantify thành 2 con số:
+
+<strong>Probability (1–5)</strong>: khả năng xảy ra trong project window.
+• 1 = rất ít (&lt;10%) · 5 = chắc xảy ra (&gt;80%)
+
+<strong>Impact (1–5)</strong>: nếu xảy ra, ảnh hưởng?
+• 1 = inconvenience · 5 = project fail / customer churn
+
+Score = P × I:
+• 1–4 (low): note, không action.
+• 5–11 (medium): owner + monitor weekly.
+• 12–25 (high): mitigation plan + contingency, weekly review.
+
+Cụ thể "vendor có thể trễ":
+• P = 4 (vendor đã trễ 2 lần trước)
+• I = 5 (block toàn epic)
+• Score = 20 → high → cần plan B.
+
+Sau workshop 30p, em sẽ có 8–12 risk có score → biết cái nào đáng dồn time, cái nào để vậy.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Force numeric. Lo lắng định tính = không có gì. P × I = ngôn ngữ chung với PO/exec.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-BA-3" data-pmcat="P4" data-role="BA">
+      <h3><span class="num">P4·BA·3</span> BA mới phát hiện dependency 3rd party <a class="anchor-link" href="#s-pm-P4-BA-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">RAID + Mitigation</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Mid-project, BA nhận ra feature phải tích hợp 3rd party có legal contract chưa ký.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Im lặng đợi legal "khi nào xong" → 4 tuần sau vẫn chưa xong → epic block.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Cảm ơn em raise. Đây là <strong>dependency risk</strong> đặc biệt nguy hiểm vì 3rd party + legal — ngoài tầm kiểm soát team.
+
+Bước nhanh:
+1. Update RAID log:
+   - <em>Dependency</em>: 3rd party API + legal contract
+   - <em>Risk</em>: nếu không sign trong 4 tuần, epic block
+   - P = 3, I = 5, Score = 15 → high
+2. <strong>Mitigation</strong>: anh + em + Legal họp tuần này, có deadline rõ.
+3. <strong>Contingency</strong> (nếu sign trễ):
+   - Build với mock API trước → giảm 30% risk
+   - Có thể release feature subset không cần 3rd party
+4. <strong>Weekly status</strong>: Legal owner update → anh report PO.
+
+Nguyên tắc: dependency ngoài team = phải có <em>plan B</em> lúc identify, không phải lúc hit.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Identify ≠ done. Phải có owner + mitigation + contingency. 3rd party luôn cần plan B.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-BA-4" data-pmcat="P4" data-role="BA">
+      <h3><span class="num">P4·BA·4</span> BA postpone update RAID "khi có thời gian" <a class="anchor-link" href="#s-pm-P4-BA-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Weekly cadence</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Em busy cập nhật RAID khi có thời gian". 3 tuần không update.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Để BA tự quản → RAID stale → giá trị = 0.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">RAID không phải "khi có thời gian" — nó là <strong>lifeblood của project</strong>. Anh đặt cadence cố định:
+
+• <strong>Mỗi Wednesday standup</strong>: 5 phút, em scan RAID và point ra <em>1 thay đổi</em> trong tuần.
+• <strong>Mỗi Friday 3pm</strong>: 30 phút full RAID review (anh + em + tech lead + PO).
+• Em là RAID owner — không có nghĩa em viết hết, có nghĩa em make sure log up-to-date.
+
+Cụ thể:
+• Risk score thay đổi không? P tăng/giảm?
+• Mitigation action có happen? Owner nào trễ?
+• Issue mới xuất hiện? Assumption nào prove sai?
+
+5 phút Wed + 30p Fri = 35p/tuần. So với cost 1 issue chưa mitigate explode → ROI cực cao.
+
+Anh sẽ check RAID mỗi Friday — không update = đỏ trong 1-1.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Cadence + accountability. RAID không cập nhật là RAID không tồn tại.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-BA-5" data-pmcat="P4" data-role="BA">
+      <h3><span class="num">P4·BA·5</span> BA panic vì issue lớn ở UAT <a class="anchor-link" href="#s-pm-P4-BA-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Issue Triage</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>UAT 1 ngày trước launch, BA phát hiện flow X không work cho user segment Y. Panic ping toàn team.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Cả team drop hết → fix vội → nửa đêm → bug phụ phát sinh → fail launch.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu panic — nhưng panic + cả team xông vào = chaos, không = fix nhanh hơn.
+
+Triage protocol — 20 phút, anh chủ trì:
+
+1. <strong>Reproduce + scope</strong>: bug ảnh hưởng segment Y. % user trong segment? Severity?
+2. <strong>Triage decision</strong> (3 lựa chọn):
+   - <strong>Block launch</strong>: nếu &gt; 20% user impact + no workaround.
+   - <strong>Launch + hotfix</strong>: nếu &lt; 5% impact, có workaround, fix &lt; 24h.
+   - <strong>Launch + known issue</strong>: nếu rare edge case, fix sau.
+3. <strong>Communication</strong>: 1 BLUF email cho stakeholder, không 5 messages panic.
+4. <strong>Single point of contact</strong>: anh + 1 dev fix, team khác continue plan launch.
+
+Anh quyết trong 20 phút với data, không quyết trong 5 phút với cảm xúc.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> EM = anchor calm trong issue. Có protocol từ trước → không chế ad-hoc khi panic.</div>
+    </article>
+
+    <div class="role-divider">💻 Developer — 5 scripts</div>
+    <article class="script" id="s-pm-P4-DEV-1" data-pmcat="P4" data-role="Dev">
+      <h3><span class="num">P4·DEV·1</span> Dev thấy tech risk nhưng không raise (sợ overreact) <a class="anchor-link" href="#s-pm-P4-DEV-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Tech risk forum</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev biết database schema có vấn đề scaling, nhưng "đợi lúc cần thiết hãy nói".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đợi đến khi production scale fail mới fix → 10× cost.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh quan sát em hold technical concerns. Cho anh biết em đang lo gì — không phải để act ngay, là để <strong>document</strong>.
+
+Anh tạo <strong>tech risk forum</strong> 30 phút mỗi 2 tuần, riêng dev:
+
+• Mỗi dev raise 1 risk technical họ thấy (db, performance, security, dependency).
+• Không phải họp "fix ngay". Output: ghi vào RAID, có owner + plan.
+• Risk có thể "monitor" mà không action — nhưng visible.
+
+Cụ thể schema concern em vừa nói:
+• Anh add vào RAID: <em>"DB schema scaling — P=3, I=4, score=12 → high"</em>
+• Owner: em. Action: 1 spike 2 ngày để model load &amp; ra recommendation.
+• PO biết: nếu hit, cần budget refactor 1 sprint trong 6 tháng tới.
+
+Raise risk = trách nhiệm chuyên môn. Im lặng = đẩy cost cho team sau.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Tạo channel an toàn cho dev raise tech risk — không bị "PO panic" ngay. Document &gt; act-now.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-DEV-2" data-pmcat="P4" data-role="Dev">
+      <h3><span class="num">P4·DEV·2</span> Dev fix bug production không document <a class="anchor-link" href="#s-pm-P4-DEV-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Blameless Postmortem</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 1h sau incident</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev fix P1 bug 2 giờ sáng, không doc gì. Tuần sau bug tương tự xảy ra ở module khác — không ai có context.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Vui vì "fix nhanh" → không học → bug repeat → dev đó về sau leave → kiến thức biến mất.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Cảm ơn em đã save day. Nhưng fix mà không document = mình mất 50% giá trị của incident đó.
+
+Trong 24h sau mọi P0/P1, mình làm <strong>blameless postmortem</strong> 1 trang:
+
+1. <strong>Timeline</strong>: phát hiện → diagnose → fix → recovery (timestamps cụ thể).
+2. <strong>Root cause</strong>: dùng <strong>5 Whys</strong>. Không dừng ở "code bug" — đào đến process/system level.
+3. <strong>What went well</strong>: alert trigger, recovery, communication.
+4. <strong>What went wrong</strong>: gì làm chậm hoặc khó.
+5. <strong>Action items</strong>: 3–5 thứ. Mỗi cái có owner + deadline. Vào sprint sau.
+
+Quy tắc <strong>blameless</strong>: không có "ai sai". Có "system cho phép sai". Mục tiêu: cùng bug không repeat lần 2.
+
+Em viết draft trong giờ làm, anh review. Mình share với team trong sprint review.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Postmortem trong 24h, không 2 tuần sau. Memory mất nhanh. Blameless = chìa khóa để dev viết thật.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-DEV-3" data-pmcat="P4" data-role="Dev">
+      <h3><span class="num">P4·DEV·3</span> Dev shortcut bypass test "vì gấp" <a class="anchor-link" href="#s-pm-P4-DEV-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Quality gate</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev: "Em skip unit test cho story này, gấp lắm. Sẽ add sau".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đồng ý "lần này thôi" → "lần này" thành 100% → tech debt + bug rate tăng.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu pressure. Nhưng "test sau" = 95% không bao giờ add. Anh nói thẳng:
+
+<strong>3 lựa chọn</strong>:
+
+1. <strong>Test ít hơn nhưng đúng critical path</strong>: 80% coverage giảm xuống 50%, focus happy path + 2 edge case quan trọng nhất. Vẫn pass DoD.
+
+2. <strong>Cắt scope story</strong>: bỏ 1 sub-feature, có time test đầy đủ.
+
+3. <strong>Trễ 1 ngày</strong>: anh đi nói PO trade-off "1 ngày trễ vs zero test coverage trên feature payment".
+
+Cái <strong>không</strong> được phép: ship code không test, hứa "add sau". Đó không phải shortcut — đó là tech debt invisible.
+
+Em chọn 1 trong 3?</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Bring 3 alternative thay vì say-no. Force trade-off conscious, không silent.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-DEV-4" data-pmcat="P4" data-role="Dev">
+      <h3><span class="num">P4·DEV·4</span> Tech debt pile up không đưa vào RAID <a class="anchor-link" href="#s-pm-P4-DEV-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Debt visibility</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Team biết 8 chỗ tech debt nguy hiểm, không tracked. PO không bao giờ allocate time fix.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Coi tech debt là "việc dev tự xử" → không trong scope → never happen → 1 ngày explode.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Tech debt invisible với PO = nó không tồn tại trong universe của họ. Mình phải <strong>visible hóa</strong>:
+
+Mỗi tech debt → 1 ticket trong RAID/backlog với:
+• <strong>Cái gì broken</strong>: 1 dòng, không jargon.
+• <strong>Risk nếu không fix</strong>: incident? Slow dev? Hard onboard? Security?
+• <strong>P × I score</strong>: same matrix với risk khác.
+• <strong>Cost fix</strong>: estimate (story points).
+• <strong>Cost không fix</strong>: 6 tháng tới = bao nhiêu giờ dev waste? Bao nhiêu bug khả năng?
+
+Workshop 30p với team: list 8 tech debt, score, sort.
+
+PO meeting hàng quý: mình propose <strong>20% capacity</strong> dành cho top tech debt. Show tradeoff bằng số:
+<em>"Skip refactor X = 6 tháng tới mất ~30 giờ dev/tháng debug = 1 sprint waste/quarter"</em>.
+
+Tech debt không có sales pitch = bị defer mãi.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Tech debt = sales game với PO. Phải có data + cost both sides.</div>
+    </article>
+
+    <article class="script" id="s-pm-P4-DEV-5" data-pmcat="P4" data-role="Dev">
+      <h3><span class="num">P4·DEV·5</span> Dev panic khi P0 production <a class="anchor-link" href="#s-pm-P4-DEV-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Incident Calm Protocol</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Service down 30 phút. Dev primary on-call panic, đẩy 5 commit fix nhanh không test, làm tệ hơn.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Để dev solo handle → fatigue + panic → bug nhân lên.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh đã ở đây. Slow down 30 giây.
+
+<strong>P0 protocol</strong> (anh dẫn dắt):
+
+1. <strong>Stop the bleed</strong>: revert/rollback trước, fix sau. Restore service, không fix root cause ngay.
+2. <strong>Roles</strong>:
+   - <em>Incident commander</em> (anh): coordinate, communicate.
+   - <em>Tech lead</em>: diagnose + fix.
+   - <em>Comms</em>: BA hoặc PM update stakeholder mỗi 15 phút.
+   - Em (primary on-call): execute, không phải decide alone.
+3. <strong>1 channel only</strong>: <code>#incident-{id}</code>. Mọi comm ở đó. Slack DM = lost context.
+4. <strong>Timeline log</strong>: Slack pinned message, update mỗi action.
+5. <strong>Sau khi recover</strong>: ngủ trước. Postmortem 24h sau, không ngay đêm.
+
+Em không cần solve alone. Anh đứng đây cho đến khi green.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> EM = incident commander mặc định. Dev focus fix, không multitask comm. Có protocol viết sẵn từ peacetime.</div>
+    </article>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- P5 — STAKEHOLDER COMMUNICATION                               -->
+  <!-- ============================================================ -->
+  <section class="category" id="cat-pm-P5">
+    <h2>📣 P5 — Stakeholder Communication (15)</h2>
+    <p class="cat-desc">Status update minh bạch, expectation alignment, RACI rõ ràng, biết nói "không" có lý. <strong>Bài học: stakeholder ghét bất ngờ hơn ghét tin xấu.</strong></p>
+
+    <h3 style="margin-top:18px;">🎯 Kỹ thuật chủ đạo</h3>
+    <div class="technique-grid">
+      <div class="technique-card">
+        <div class="tech-icon">🚦</div>
+        <h4>RAG Status (Red/Amber/Green)</h4>
+        <p>Mỗi tuần 1 màu cho project. Đỏ phải kèm <em>cause + ask</em>. Xanh không bao giờ tự nhiên thành đỏ — luôn qua amber.</p>
+        <span class="tech-when">Dùng khi: weekly update</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📊</div>
+        <h4>RACI Matrix</h4>
+        <p><strong>R</strong>esponsible · <strong>A</strong>ccountable · <strong>C</strong>onsulted · <strong>I</strong>nformed. 1 task chỉ có 1 A. Hỏi "ai là A?" là câu mạnh nhất.</p>
+        <span class="tech-when">Dùng khi: kickoff cross-team</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🎯</div>
+        <h4>BLUF (Bottom Line Up Front)</h4>
+        <p>Câu đầu = kết luận. Sau đó mới context. Email/slack/standup đều dùng. Tiết kiệm thời gian executive.</p>
+        <span class="tech-when">Dùng khi: report up</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">🛑</div>
+        <h4>Say-No có lý (Yes-No-Yes)</h4>
+        <p><em>Yes</em> với giá trị họ care · <em>No</em> với yêu cầu hiện tại · <em>Yes</em> với cách khác. Không bao giờ "no" trống.</p>
+        <span class="tech-when">Dùng khi: scope creep</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📐</div>
+        <h4>Stakeholder Map (P/I)</h4>
+        <p>Power × Interest. High-power high-interest = manage closely. Đừng đối xử mọi stakeholder như nhau.</p>
+        <span class="tech-when">Dùng khi: kickoff</span>
+      </div>
+      <div class="technique-card">
+        <div class="tech-icon">📝</div>
+        <h4>Email recap 24h</h4>
+        <p>Sau mọi cuộc họp/quyết định: gửi email recap trong 24h. <em>"Im lặng = đồng ý"</em>. Tránh he-said-she-said.</p>
+        <span class="tech-when">Dùng khi: sau decision</span>
+      </div>
+    </div>
+
+    <div class="visual-flow">
+      <span class="step">Stakeholder map</span><span class="arrow">→</span>
+      <span class="step">RACI</span><span class="arrow">→</span>
+      <span class="step">Weekly RAG</span><span class="arrow">→</span>
+      <span class="step">BLUF email</span><span class="arrow">→</span>
+      <span class="step">Say-no khi cần</span><span class="arrow">→</span>
+      <span class="step">Recap 24h</span>
+    </div>
+
+    <div class="role-divider">👤 Product Owner — 5 scripts</div>
+    <article class="script" id="s-pm-P5-PO-1" data-pmcat="P5" data-role="PO">
+      <h3><span class="num">P5·PO·1</span> PO ghost stakeholder, không weekly update <a class="anchor-link" href="#s-pm-P5-PO-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Weekly RAG cadence</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 30 phút setup</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>4 tuần PO không update stakeholder. Stakeholder tự nghi → email DM panic.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Đợi stakeholder hỏi mới reply → reactive → mất control narrative.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Stakeholder ghét silence hơn ghét bad news. Mình setup <strong>weekly RAG update</strong> — 5 phút viết, không 30:
+
+<strong>Template (Friday 4pm)</strong>:
+```
+Project: [name]                    Status: 🟢 Green / 🟡 Amber / 🔴 Red
+
+📍 Done this week (3 bullets max)
+🎯 Next week (3 bullets max)
+⚠️ Blockers / risks (1–3, có ask cụ thể)
+📊 Burn-up: [X% complete, Y sprint left]
+```
+
+Quy tắc:
+• Status thay đổi (Green→Amber, etc.) phải có <strong>cause + ask</strong>.
+• 🔴 Red không bao giờ xuất hiện đột ngột — luôn qua 🟡 trước.
+• Send chính xác Friday 4pm. Stakeholder build expectation.
+
+Anh sẽ draft cho anh tuần đầu, anh review trong 5 phút và send. Sau 4 tuần, anh tự làm.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Nhịp đều &gt; chất lượng cao 1 lần. Send đúng giờ để stakeholder không "tự sáng tạo" version trong đầu họ.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-PO-2" data-pmcat="P5" data-role="PO">
+      <h3><span class="num">P5·PO·2</span> PO over-promise CEO ngoài team capacity <a class="anchor-link" href="#s-pm-P5-PO-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Transparent push-back</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 20 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO họp với CEO → commit deliverable Q4 ngoài capacity team. Về team báo "phải làm".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Im lặng nhận → team OT/burnout/miss → CEO mất trust khi miss → PO blame team.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu áp lực CEO. Nhưng commit ngoài capacity = setup mình thua. Anh phải bring data:
+
+Anh đi làm <strong>capacity model</strong> 1 trang trong 1h:
+
+```
+Q4 capacity:           ~280 pts (7 sprint × 40 pts velocity)
+Đã commit:
+- Project A:           120 pts ✓
+- Bug + maintenance:    60 pts (15% buffer thường)
+- KTLO + on-call:       40 pts
+                        ────────
+Available cho mới:      60 pts
+CEO ask:               180 pts → gap 120 pts (200% over)
+```
+
+Anh và anh setup 1 follow-up với CEO trong 48h, present:
+• Option 1: cắt scope project mới xuống 60 pts.
+• Option 2: defer project A 1 sprint, làm song song.
+• Option 3: thêm headcount (12 tuần ramp).
+
+CEO không phản đối số đúng. Họ phản đối "không chắc". Mình có data → CEO sẽ cùng quyết — anh vẫn hero.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Help PO walk back commitment sai bằng data + alternative. Đừng để PO tự xử → đẩy team OT.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-PO-3" data-pmcat="P5" data-role="PO">
+      <h3><span class="num">P5·PO·3</span> PO không có RACI cho cross-team project <a class="anchor-link" href="#s-pm-P5-PO-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">RACI Matrix</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 1h workshop</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Project có 4 team. Decision lặp đi lặp lại, ai cũng giả định "team kia quyết". Block 2 tuần.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Không có RACI → mặc định ai to tiếng nhất quyết → quyết sai → đổ lỗi qua lại.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Mình mất 2 tuần vì không rõ ai có quyền decide. Đề xuất 1h <strong>RACI workshop</strong> với tất cả team lead:
+
+<strong>Format</strong>: bảng — mỗi cột là 1 quyết định loại; mỗi hàng là 1 role.
+
+Decision categories:
+• Scope &amp; priority
+• Tech architecture
+• API contract
+• Release timing
+• User-facing UX
+• Security/compliance
+
+Mỗi cell có duy nhất 1 chữ:
+• <strong>R</strong>esponsible (làm việc, có thể nhiều người)
+• <strong>A</strong>ccountable (decision owner, <em>chỉ 1 người</em>)
+• <strong>C</strong>onsulted (cần feedback trước decide)
+• <strong>I</strong>nformed (cần biết sau decide)
+
+<strong>Quy tắc</strong>: 1 cell = 1 A. Nếu 2 người claim A → escalate ngay.
+
+Sau workshop: 1 sheet treo ở Slack channel. Mọi disagreement, hỏi: "ai là A?" — câu hỏi mạnh nhất trong cross-team project.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> RACI ngầm = RACI sai. Bắt buộc viết ra. 1 A duy nhất / cell.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-PO-4" data-pmcat="P5" data-role="PO">
+      <h3><span class="num">P5·PO·4</span> PO say-yes mọi yêu cầu, không filter <a class="anchor-link" href="#s-pm-P5-PO-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Yes-No-Yes</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>PO nhận yêu cầu từ Sales, CS, Marketing — đều "yes" → backlog 200 ticket → team confused về priority.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">"Yes" trống → tạo expectation → khi không deliver → mất trust với 5 nhóm cùng lúc.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">"Yes" là PO tự bảo vệ trong moment, nhưng phá long-term. Anh dạy framework <strong>Yes-No-Yes</strong>:
+
+<strong>Yes</strong> với <em>giá trị họ care</em> (acknowledge):
+"Em hiểu Sales cần feature X để win deal Z — đó là quan trọng cho công ty."
+
+<strong>No</strong> với <em>yêu cầu hiện tại</em> (boundary có lý):
+"Hiện Q4 backlog đã commit 100% capacity cho project A. Nếu mình thêm X bây giờ, project A trễ 3 tuần — và nó cũng quan trọng cho retention."
+
+<strong>Yes</strong> với <em>cách khác</em> (path forward):
+"Anh có 2 options:
+1. Mình add X vào Q1 backlog — anh sẽ ưu tiên trong refinement đầu Q1.
+2. Nếu Sales urgent: mình bring vào prioritization meeting tuần sau với data deal Z, decide trade-off với project A.
+Anh chọn 1 nhé?"
+
+Không bao giờ "no" trống. Không bao giờ "yes" trống. Always: yes-no-yes.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Saying-yes không phải nice — saying-no có lý mới respectful. Stakeholder appreciate hơn.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-PO-5" data-pmcat="P5" data-role="PO">
+      <h3><span class="num">P5·PO·5</span> PO không recap meeting → he-said-she-said <a class="anchor-link" href="#s-pm-P5-PO-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">24h Email Recap</span><span class="badge role-PO">👤 PO</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>3 tuần sau decision meeting, 2 team nhớ ngược nhau "ai quyết gì". Project block.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Tin "mọi người đã đồng ý" trong head → 3 tuần sau drift → conflict.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Quy tắc <strong>24h email recap</strong> cho mọi decision meeting:
+
+<strong>Template</strong> (10 phút viết):
+```
+Subject: Recap — [Topic] decision (Date)
+
+Decisions made:
+• X decided. Owner: [name]. Deadline: [date].
+• Y option chosen over Z because [reason].
+
+Action items:
+• [Person] to do [task] by [date]
+• [Person] to do [task] by [date]
+
+Open questions (need follow-up):
+• [Question + who responsible]
+
+Next meeting: [date if applicable]
+
+Reply by [24h] if anything misrepresented. Silence = agreement.
+```
+
+<strong>Tại sao quan trọng</strong>:
+• Memory drift bắt đầu từ giờ thứ 24.
+• Stakeholder vacation/đổi role → recap là institutional memory.
+• Nếu disagreement sau, anh point vào email — fact, không cảm xúc.
+
+"Silence = agreement" là dòng quan trọng nhất. Force người không đồng ý phải reply trong 24h, không quietly nuôi disagreement.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Recap discipline = bảo hiểm rẻ nhất chống politics. Build habit từng meeting.</div>
+    </article>
+
+    <div class="role-divider">📐 Business Analyst — 5 scripts</div>
+    <article class="script" id="s-pm-P5-BA-1" data-pmcat="P5" data-role="BA">
+      <h3><span class="num">P5·BA·1</span> BA viết status update dài 5 trang, không actionable <a class="anchor-link" href="#s-pm-P5-BA-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">BLUF</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA viết weekly report 5 trang chi tiết → exec không đọc → action items miss.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Nghĩ "viết kỹ = professional" → exec skim 10 giây → mất signal.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Em viết kỹ là tốt cho doc internal. Nhưng cho exec/stakeholder, dùng <strong>BLUF — Bottom Line Up Front</strong>:
+
+<strong>Cấu trúc</strong> (top → bottom):
+
+1. <strong>1 dòng kết luận</strong> (BLUF):
+   <em>"Project on track. Demo Q1 ready. 1 risk cần exec input."</em>
+
+2. <strong>3 bullets quan trọng nhất</strong>:
+   • Done this week
+   • Risk needing attention
+   • Ask (cụ thể)
+
+3. <strong>Detail (optional)</strong>: link Notion/Confluence cho ai cần.
+
+<strong>Quy tắc viết</strong>:
+• Câu đầu = trả lời "tôi cần biết gì?" — không setup, không context.
+• Cut 80% — exec đọc 30 giây, không 5 phút.
+• Detail có sẵn cho ai dig in.
+
+Exec career thrive nhờ skim — không phải họ lười, là vol cao. BLUF tôn trọng thời gian họ.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Viết ngắn khó hơn viết dài. Practice: viết detail trước, cut 80% xuống.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-BA-2" data-pmcat="P5" data-role="BA">
+      <h3><span class="num">P5·BA·2</span> BA không stakeholder map, treat tất cả như nhau <a class="anchor-link" href="#s-pm-P5-BA-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Power × Interest map</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 30 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA invite 18 người mọi meeting, gửi update 25 người. Stakeholder khó chịu, exec thì không có signal.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Spam tất cả → exec mute → khi cần ý kiến không ai engaged.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Mình map stakeholder theo <strong>Power × Interest matrix</strong>:
+
+```
+              Low Interest    High Interest
+High Power    Keep Satisfied  Manage Closely  ⭐ priority
+Low Power     Monitor         Keep Informed
+```
+
+4 quadrants → 4 chiến lược khác nhau:
+
+• <strong>Manage Closely</strong> (HP/HI): VP, sponsor. Weekly 1:1 + dedicated update. Decision-makers.
+• <strong>Keep Satisfied</strong> (HP/LI): senior leaders ngoài project. Monthly summary, không spam weekly.
+• <strong>Keep Informed</strong> (LP/HI): users, BA peers. Group update + Slack channel.
+• <strong>Monitor</strong> (LP/LI): adjacent teams. Ad-hoc khi relevant.
+
+Workshop 30 phút: list 18 stakeholder, map vào quadrant. Sau đó:
+• Communication plan: ai nhận gì, tần suất nào, channel nào.
+• Cut spam: KP/LI không cần weekly RAG. KS không cần daily Slack.
+
+Tailor message → stakeholder appreciate → engagement tăng.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Mass communication = no communication. Segment + tailor là kỹ năng PM senior.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-BA-3" data-pmcat="P5" data-role="BA">
+      <h3><span class="num">P5·BA·3</span> BA giải thích status mơ hồ ("đang ổn") <a class="anchor-link" href="#s-pm-P5-BA-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">RAG color discipline</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA: "Project đang ổn" 4 tuần liền. Tuần 5 đột ngột "🔴 Red". Stakeholder shock.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Default green vì "không muốn lo lắng người ta" → Red đột ngột = mất trust.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">"Đang ổn" không phải status — là từ chối give status. Anh đặt rule rõ <strong>RAG color</strong>:
+
+🟢 <strong>Green</strong>: on track, no major risk in 4 tuần tới. Velocity ổn định, blocker được xử &lt; 24h.
+
+🟡 <strong>Amber</strong>: 1+ risk có thể impact, mitigation đang in progress. Hoặc velocity dip 1 sprint. <em>Cần monitoring, chưa cần escalation.</em>
+
+🔴 <strong>Red</strong>: critical blocker, milestone slip risk &gt; 50%. <em>Cần exec action ngay.</em>
+
+<strong>Rule quan trọng</strong>:
+• Green → Red <strong>không bao giờ trực tiếp</strong>. Phải qua Amber trước.
+• Status downgrade (G→A, A→R) phải kèm <strong>cause + ask</strong>.
+• Status upgrade (R→A, A→G) phải kèm <strong>evidence + measure</strong>.
+
+Khi có doubt → chọn màu xấu hơn. Stakeholder respect transparency hơn surprise.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Conservative coloring = trust. Optimistic coloring + sudden red = destroy 6 tháng credibility.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-BA-4" data-pmcat="P5" data-role="BA">
+      <h3><span class="num">P5·BA·4</span> BA tránh stakeholder difficult <a class="anchor-link" href="#s-pm-P5-BA-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Difficult conversation prep</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 30 phút prep</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>BA né stakeholder X (hay critique gay gắt) → X không có context → blow up 1 tháng sau.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">"Để sau hỏi" → vấn đề nuôi lớn → khi gặp lại stakeholder, attack mạnh hơn.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Né stakeholder difficult là feeding the problem. Anh giúp em prep meeting đó:
+
+<strong>30 phút trước</strong>:
+1. <strong>What họ care nhất?</strong> Risk to job? Reputation? KPI? — đó là lens họ nghe.
+2. <strong>Anticipate 3 câu hỏi khó</strong>:
+   - "Why is this delayed?"
+   - "How do I know this won't happen again?"
+   - "What's your plan?"
+   Em chuẩn bị answer ngắn cho mỗi câu.
+3. <strong>BLUF của em</strong>: 1 câu mở đầu = good news + bad news + ask.
+
+<strong>Trong meeting</strong>:
+• Dẫn dắt: <em>"Anh có 3 thứ muốn share trong 15 phút: status, 1 risk, và 1 ask cần help anh."</em>
+• Khi bị critique: <strong>không defensive</strong>. Acknowledge: <em>"That's fair. Here's what I'm doing about it..."</em>
+• Em đi ra với 1 ask cụ thể.
+
+<strong>Sau meeting</strong>: email recap trong 24h. Stakeholder difficult thường chỉ test xem em có serious không. 3 lần meeting có chuẩn bị → họ trở thành ally.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Stakeholder difficult thường ngại stakeholder unprepared. Prep tốt = chuyển dynamic.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-BA-5" data-pmcat="P5" data-role="BA">
+      <h3><span class="num">P5·BA·5</span> BA không escalate concern stakeholder lên cấp <a class="anchor-link" href="#s-pm-P5-BA-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Escalate-up</span><span class="badge role-BA">📐 BA</span><span class="badge">⏱ 15 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Stakeholder phàn nàn 3 lần với BA về timeline. BA không lên EM → BA tự cố giải thích → tăng tension.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">BA "ôm" hết → BA stress → quality giảm → stakeholder càng lo.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh nhận thấy em đang ôm concern của stakeholder X một mình. Đây là escalation pattern em phải dùng:
+
+<strong>Escalate up khi nào</strong>:
+• Stakeholder raise issue 2 lần (không phải 1, không phải 3) → ping EM.
+• Issue ngoài quyền của em (priority, scope, resource) → ping EM ngay lần đầu.
+• Stakeholder dùng tone hostile/threatening → ping EM ngay.
+
+<strong>Cách escalate (BLUF format)</strong>:
+<em>"@EM — Stakeholder X raised concern lần 2 về timeline epic Y. Họ care vì [reason]. Anh đã reply [recap]. Cần anh: (a) join next meeting với họ, hoặc (b) help me reframe message. Anh chọn?"</em>
+
+<strong>Anh sẽ làm gì</strong>:
+• Anh không take over your job.
+• Anh add weight + authority để conversation balance.
+• Anh có quyền decide trade-off em không có.
+
+Em escalate sớm = anh giúp em sớm. Im lặng = anh không biết gì → em chịu trận một mình.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Escalate ≠ yếu. Đó là dùng đúng resource. EM exists for this.</div>
+    </article>
+
+    <div class="role-divider">💻 Developer — 5 scripts</div>
+    <article class="script" id="s-pm-P5-DEV-1" data-pmcat="P5" data-role="Dev">
+      <h3><span class="num">P5·DEV·1</span> Dev không communicate progress, ai cũng phải đi hỏi <a class="anchor-link" href="#s-pm-P5-DEV-1">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Standup commit</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 5 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev senior chỉ "đang làm" trong standup. Stakeholder, BA, EM phải đi hỏi riêng để biết progress.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Coi standup là "ritual phiền" → mất chance ngừa misalignment.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Standup không phải để show output cho EM — là <strong>tự broadcast tín hiệu</strong> để team không phải hỏi em từng người.
+
+Format anh muốn em dùng:
+
+<em>"Hôm qua: [outcome cụ thể, không phải hoạt động]. <br>
+Hôm nay: [next concrete step]. <br>
+Blocker: [có/không + ai own]."</em>
+
+<strong>Khác biệt</strong>:
+• "Đang làm story X" ❌ — vô nghĩa.
+• "Hôm qua close PR cho story X, hôm nay merge sau review" ✓ — actionable.
+
+5 dev × 30 giây = 2.5 phút sync. Tiết kiệm: BA 15 phút đi hỏi, EM 15 phút report, stakeholder không panic. ROI 10×.
+
+Nếu em cảm thấy "không có gì để báo" 2 ngày liền = signal task em đang làm quá to / blocker ẩn → mình tách story.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Standup format = team contract. EM enforce nhẹ nhàng nhưng nhất quán.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-DEV-2" data-pmcat="P5" data-role="Dev">
+      <h3><span class="num">P5·DEV·2</span> Dev defensive khi stakeholder challenge <a class="anchor-link" href="#s-pm-P5-DEV-2">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Stakeholder empathy</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 15 phút coach</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Trong demo, stakeholder hỏi "Why feature X chậm thế?" — Dev defensive: "Vì PO thay scope".</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Defensive + blame PO trước stakeholder → stakeholder mất confidence + PO mất face.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh thấy lúc đó căng. Cho em framework cho lần tới — không phải để giả vờ vui:
+
+<strong>3 reflexes thay defensive</strong>:
+
+1. <strong>Acknowledge concern trước</strong>:
+   <em>"Cảm ơn anh đã raise — câu hỏi đúng."</em>
+   (5 giây. Cho phép em reset bộ não.)
+
+2. <strong>Trả lời bằng "what" và "next", không "why"</strong>:
+   - <em>"Hiện tại: feature X 70%, expected delivery sprint sau."</em>
+   - <em>"Plan: anh demo lại Friday tuần sau với trạng thái update."</em>
+   Tránh đi ngược tìm "ai có lỗi". Stakeholder không care, họ care path forward.
+
+3. <strong>Nếu thật sự có ngoại lực (PO scope change)</strong>:
+   - <em>"Có scope change tuần 3 — mình đang work với PO để ngừa lặp lại."</em>
+   - Không name-blame trước stakeholder.
+
+<strong>Sau meeting</strong>: nếu PO thật sự gây delay, anh + em + PO bàn 1-1 — không public.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Public blame phá team. Chỉ EM xử politics offline. Dev focus solution-forward language.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-DEV-3" data-pmcat="P5" data-role="Dev">
+      <h3><span class="num">P5·DEV·3</span> Dev jargon-heavy với stakeholder không tech <a class="anchor-link" href="#s-pm-P5-DEV-3">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Translate technical</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev demo: "Mình refactor service layer, swap ORM, optimize N+1 query, cache với Redis". Stakeholder: 😶.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Stakeholder gật gù không hiểu → không tin team → ngại approve roadmap technical.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Em làm tech tốt. Nhưng nếu stakeholder không hiểu, work của em invisible với họ. Trick translate:
+
+<strong>Quy tắc 3 layers</strong>:
+
+1. <strong>Outcome cho user</strong> (1 câu, ngôn ngữ của họ):
+   <em>"Trang load nhanh gấp 3 — từ 2.5s xuống 0.8s."</em>
+
+2. <strong>Business impact</strong> (nếu relevant):
+   <em>"Theo benchmark: cho mỗi 1s nhanh = +5% conversion → est ~$30k/tháng."</em>
+
+3. <strong>Technical detail</strong> (chỉ khi họ hỏi):
+   <em>"Mình cache database query phổ biến với Redis — chi tiết sẵn cho team kỹ thuật xem."</em>
+
+<strong>Tip nhỏ</strong>:
+• Trước demo, hỏi anh: "audience là ai?" → anh nói tech-level cần dùng.
+• Tránh acronym (ORM, N+1, IaC...) — replace bằng plain English.
+• Dùng metaphor: "ORM giống như translator giữa code và database."
+
+Communication skill này cũng là career skill — senior engineer giỏi translate được.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> "Jargon = chứng tỏ" là anti-pattern. Plain language với business impact = senior signal.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-DEV-4" data-pmcat="P5" data-role="Dev">
+      <h3><span class="num">P5·DEV·4</span> Dev không attend stakeholder demo <a class="anchor-link" href="#s-pm-P5-DEV-4">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Demo as career investment</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev: "Demo dài, em không cần đi, em là người code, BA demo cũng được". Sau release stakeholder không biết ai trong team build cái gì.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">EM đồng ý → dev invisible → không có visibility → khó promote.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh hiểu logic em — nhưng demo là <strong>career investment</strong>, không waste:
+
+3 lý do em nên đi:
+
+1. <strong>Visibility</strong>: stakeholder thấy em là người build → khi promo committee bàn, có name recognition. Em không show up = ai cũng giả định BA hoặc EM build hết.
+
+2. <strong>Direct feedback loop</strong>: em nghe stakeholder phản ứng <em>real-time</em> với cái em build. Sau filter qua BA/EM, signal mất 60%.
+
+3. <strong>Skill</strong>: present technical work cho non-tech audience là skill — luyện càng sớm càng tốt cho senior path.
+
+<strong>Đề xuất compromise</strong>:
+• Em demo phần em build (10 phút) — không cần đứng cả buổi.
+• Anh prep với em trước (15 phút coach về translate-technical).
+• Sau demo, em có thể leave nếu không relevant.
+
+Mỗi sprint em demo 1 lần = 6 lần/quarter visibility. Đó là career capital.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Frame demo là invest cho career dev, không phải overhead. Senior dev luôn nói được việc mình làm.</div>
+    </article>
+
+    <article class="script" id="s-pm-P5-DEV-5" data-pmcat="P5" data-role="Dev">
+      <h3><span class="num">P5·DEV·5</span> Dev escalate qua Slack DM thay vì proper channel <a class="anchor-link" href="#s-pm-P5-DEV-5">#</a></h3>
+      <div class="meta-row"><span class="badge framework">Escalation routing</span><span class="badge role-Dev">💻 Dev</span><span class="badge">⏱ 10 phút</span></div>
+      <div class="block"><div class="block-label">📍 Bối cảnh</div><div>Dev DM EM lúc 9pm về tech disagreement với team khác. Nhanh nhưng không có context cho team, không tracked.</div></div>
+      <div class="block"><div class="block-label">❌ Sai lầm</div><div class="quote wrong">Reply DM → chỉ 2 người biết → repeat issue lần sau với người khác.</div></div>
+      <div class="block"><div class="block-label">✅ Script VN <button class="copy-btn">Copy</button></div><div class="quote">Anh thấy em DM về vụ với team API — anh sẵn sàng giúp, nhưng dạy em routing đúng:
+
+<strong>Escalation channel ladder</strong>:
+
+1. <strong>Tech disagreement</strong> → public channel <code>#tech-discussion</code> với context. Có người ngoài team có insight.
+
+2. <strong>Cross-team blocker (technical)</strong> → ping tech lead + EM trong <code>#project-{name}</code>, public. Có audit trail.
+
+3. <strong>Cross-team blocker (priority/scope)</strong> → ping EM + PO. EM có quyền escalate director nếu cần.
+
+4. <strong>Personal/sensitive</strong> (1-1 issue, conflict cá nhân) → DM EM. Đây mới là DM legitimate.
+
+<strong>Lý do tránh DM cho technical</strong>:
+• Knowledge mất — không ai tham gia learning.
+• Decision không tracked → repeat.
+• EM trở thành single point of failure cho mọi answer.
+
+Thread công khai có vẻ "ồn ào" nhưng healthier cho team long-term.
+
+Vụ API team — em paste lại trong <code>#project</code>, anh reply trên đó cho cả team thấy.</div></div>
+      <div class="note"><strong>💡 Lưu ý:</strong> Default-public communication. DM chỉ cho thực sự sensitive. Build culture từ đầu.</div>
+    </article>
+  </section>
+</main>
+</div>
+</div>
+
 <button id="back-to-top" title="Lên đầu">↑</button>
 
 <script>
@@ -4350,6 +6388,67 @@ Trong 12 tháng tới, team sẽ [transformation chính].</code></pre>
     });
   });
 
+  // ===== PM page: TOC =====
+  const tocPm = document.getElementById('tocPm');
+  if (tocPm) {
+    document.querySelectorAll('#page-pm section.category').forEach(sec => {
+      const h2 = sec.querySelector('h2'); if (!h2) return;
+      const div = document.createElement('div');
+      div.className = 'toc-cat';
+      const a = document.createElement('a'); a.href = '#' + sec.id; a.textContent = h2.textContent;
+      div.appendChild(a); tocPm.appendChild(div);
+      const ul = document.createElement('ul');
+      sec.querySelectorAll('article.script').forEach(art => {
+        const h3 = art.querySelector('h3'); if (!h3 || !art.id) return;
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = '#' + art.id;
+        const num = h3.querySelector('.num');
+        const numText = num ? num.textContent : '';
+        const titleText = h3.textContent.replace(numText, '').replace('#', '').trim();
+        link.textContent = (numText ? numText + ' ' : '') + titleText;
+        li.appendChild(link); ul.appendChild(li);
+      });
+      if (ul.children.length) tocPm.appendChild(ul);
+    });
+  }
+
+  // ===== PM page: filters & search =====
+  const pmState = { search: '', pmcat: 'all', role: 'all' };
+  function applyPmFilters() {
+    const q = pmState.search.toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('#page-pm article.script').forEach(art => {
+      const cat = art.dataset.pmcat || '';
+      const role = art.dataset.role || '';
+      const text = art.textContent.toLowerCase();
+      const matchCat = pmState.pmcat === 'all' || cat === pmState.pmcat;
+      const matchRole = pmState.role === 'all' || role === pmState.role;
+      const matchSearch = !q || text.includes(q);
+      const show = matchCat && matchRole && matchSearch;
+      art.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    document.querySelectorAll('#page-pm section.category').forEach(sec => {
+      const anyVisible = sec.querySelectorAll('article.script:not(.hidden)').length > 0;
+      sec.classList.toggle('hidden', !anyVisible);
+    });
+    const nr = document.getElementById('noResultsPm');
+    if (nr) nr.classList.toggle('hidden', visible > 0);
+  }
+  const sbPm = document.getElementById('searchBoxPm');
+  if (sbPm) sbPm.addEventListener('input', e => { pmState.search = e.target.value; applyPmFilters(); });
+  document.querySelectorAll('.chip[data-pmfilter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const filter = chip.dataset.pmfilter;
+      const value = chip.dataset.value;
+      document.querySelectorAll(`.chip[data-pmfilter="${filter}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      pmState[filter] = value;
+      applyPmFilters();
+    });
+  });
+
   // ===== Copy buttons =====
   document.addEventListener('click', e => {
     if (!e.target.classList.contains('copy-btn')) return;
@@ -4372,17 +6471,22 @@ Trong 12 tháng tới, team sẽ [transformation chính].</code></pre>
   });
   backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  // ===== In-page anchor jump should still work for scripts even when sub-page is active =====
+  // ===== In-page anchor jump: route to the page that owns the target =====
   document.addEventListener('click', e => {
-    const a = e.target.closest('a[href^="#s-"]');
+    const a = e.target.closest('a[href^="#"]');
     if (!a) return;
-    if (!document.getElementById('page-scripts').classList.contains('active')) {
+    const href = a.getAttribute('href');
+    if (href.length < 2 || href === '#') return;
+    const targetId = href.substring(1);
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    const ownerPage = target.closest('.page');
+    if (!ownerPage) return;
+    if (!ownerPage.classList.contains('active')) {
       e.preventDefault();
-      activatePage('page-scripts', false);
-      const targetId = a.getAttribute('href').substring(1);
+      activatePage(ownerPage.id, false);
       setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 50);
     }
   });
